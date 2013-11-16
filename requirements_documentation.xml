@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="requirements_documentation">
+  <title>Documentation</title>
+
+  <para>Documentation of software libraries and APIs has a well deserved
+  reputation for being obtuse, opaque, incomplete, hard to use and not very
+  helpful. Boost documentation is better, but still not good enough. One of
+  the main motivations of this website is to improve documentation of
+  libraries submitted to Boost.</para>
+
+  <section>
+    <title>Structure</title>
+
+    <para><emphasis>A library MUST contain a doc/html directory with an
+    included file index.html. The documenation should be browsable with or
+    without being connected to the net.</emphasis></para>
+
+    <para>Optionally, it may include Information to build the HTML directory
+    from other tools such DocBook, BoostBook or QuickBook or some other
+    system. These systems provide the benefit of being able to generate output
+    formats other than HTML such as PDF, ebook and others.</para>
+  </section>
+
+  <section>
+    <title>Contents</title>
+
+    <para>What should documentation for a software library contain? The answer
+    turns out to be surprisingly unobvious.</para>
+
+    <para>The obvious thing seems to just write expanded information about
+    each class and function. However, it's very difficult to keep this from
+    ending up just paraphrasing the code. Documentation which is prepared
+    separatly is much more likely to manifest "conceptual integrity". That is,
+    it is likely to look like a set of minimally coupled, composible
+    orthogonal ideas whose purpose and usage is easy to understand. Generating
+    or writing documentation from the completed code is more likely to result
+    in a library that looks like a collection of dependent components which
+    are harder to understand and use. For this reason, I advocate building the
+    documentation concurrently with the code rather than waiting for the code
+    to be written and tested.</para>
+
+    <para>Documentation of types and functions is essential. But it doesn't
+    address the documentation of template classes and functions. A template is
+    a group of classes or functions rather than just one of these. So all the
+    information which is fixed for a class or function such as arguments can't
+    be specified.. This problem has been addressed by the adoption of concepts
+    and concept checking classes. Just as function type signatures specify the
+    types a <emphasis>function</emphasis> takes as arguments, concepts specify
+    which types can be used as <emphasis>template</emphasis> arguments. The
+    word <emphasis>concept </emphasis>is very confusing. A better term would
+    be <emphasis>type requirements</emphasis> but <emphasis>concept</emphasis>
+    is the historically accepted term so we'll continue to use it here. Here
+    is more information helpful for writing documentation using
+    concepts:<itemizedlist>
+        <listitem>
+          <para><ulink
+          url="http://www.sgi.com/tech/stl/doc_introduction.html">How to use
+          the STL documentation</ulink> This the key document which describes
+          how to write documentation for C++ library which might contain
+          templates. The <ulink url="http://www.sgi.com/tech/stl/">STL
+          website</ulink> is the original source for the STL library and hence
+          contains of how the above description is used.</para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://www.boost.org/doc/libs/1_51_0/libs/fusion/doc/html/">Fusion</ulink>
+          I found this Boost library to be the single most helpful example of
+          how to write good documentation.</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>It's a real example - not an explanation of how to do
+              it</para>
+            </listitem>
+
+            <listitem>
+              <para>It's a very large library with many facets. But the
+              documentation is very regular in that the same patterns
+              described above are used throughout. Once you get how it works
+              for one part of the library the rest of it very familiar. If you
+              use <ulink
+              url="http://www.boost.org/doc/libs/1_49_0/libs/fusion/doc/html/">Fusion</ulink>
+              you'll spend hours (or days) pouring over this documentation.
+              But you'll never feel that you're lost - just awed
+              inspired.</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para><ulink url="kempf.html">Writing Documentation for
+          Boost</ulink></para>
+
+          <para>This is what the boost website says about documentation. It
+          seems well written, and it's not really inconsistent with the above,
+          but by itself, it wasn't enough for me to get me on the right
+          track.</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para>I've attempted to synthesize information from the above sources into
+    the following "templates" which a library author can "fill in". One can
+    include these templates in his library documentation, eliminate those
+    section which are not applicable, and fill in the information particular
+    to his component.</para>
+
+    <para>Here is an <link linkend="library">outline</link> of what what
+    library documentation should look like. Not all libraries need all the
+    sections, but most should be there. Links point to "mockups" for the
+    corresponding section which can be used as a basis of creating your own
+    documentation.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Introduction</para>
+
+        <para>A concise description of what the library does. The object is to
+        give the reader enough information to know whether this library
+        addresses the need which lead him to check this documenation in the
+        first place. Often times, a short motivating example can show what
+        "problem" the library solves and how it is used to do it.</para>
+      </listitem>
+
+      <listitem>
+        <para>Tutorial</para>
+
+        <para>Detailed examples of library usage. These examples should
+        include code that the user can build and try on his own.</para>
+      </listitem>
+
+      <listitem>
+        <para>Notes</para>
+
+        <para>Include useful formation which doesn't fit anywhere else.
+        Examples would be:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Pointers to other libraries which do a similar thing.</para>
+          </listitem>
+
+          <listitem>
+            <para>Information on testing.</para>
+          </listitem>
+
+          <listitem>
+            <para>compiler/platform quirks and dependencies.</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para><link linkend="concept">Concepts</link></para>
+
+        <para>List of concepts defined by the library.</para>
+
+        <para>Each concept is a description of a set of operations that a type
+        must support in order to be considered as meeting the requirements of
+        the concept. The concept name is a succint way of specifying the
+        constraints on type parameters passed to C++ templates. Note that you
+        need document only the new concepts you create. Those that are
+        included from the Boost Concept Check headers are already
+        documented.</para>
+      </listitem>
+
+      <listitem>
+        <para><link linkend="type">Types</link></para>
+
+        <para>List of C++ types defined by the library.</para>
+
+        <para>A type used by the library. A type may be a C++ template, class
+        or structure. If it is a template, there are no type parameters so
+        that section can be dropped. If its a class, member functions will be
+        documented in the section "New Valid Expressions". This is somewhat
+        different than the traditional way of documenting class member
+        functions and types. The advantage is that is more compatible with the
+        documentation of template types. In any case, the actual class header
+        is available for reference.</para>
+      </listitem>
+
+      <listitem>
+        <para><link linkend="function">Functions</link></para>
+
+        <para>List of non-member functions and function templates.</para>
+
+        <para>C++ functions and function templates can be documented the same
+        way. The only difference is that for functions, the type requirement
+        section can be deleted.</para>
+      </listitem>
+
+      <listitem>
+        <para>Rationale</para>
+
+        <para>While working on your library, keep a list of reasons for the
+        design decisions you made. Include that list here.</para>
+      </listitem>
+
+      <listitem>
+        <para>Change Log</para>
+      </listitem>
+
+      <listitem>
+        <para>Acknowledgements</para>
+      </listitem>
+
+      <listitem>
+        <para>References</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Note the strong similarity in the documentation for <ulink
+    url="concept.html">Concept</ulink> and <ulink
+    url="type.html">Type</ulink>.</para>
+
+    <para>The above Outline for a simple library with a smaller number of
+    concepts, types and functions. For a example where the number is much
+    larger you can check <ulink
+    url="http://www.boost.org/doc/libs/1_49_0/libs/fusion/doc/html/">Fusion</ulink>.
+    This library ls really a group of smaller libraries each with it's own set
+    of concepts, types and functions.</para>
+  </section>
+</section>

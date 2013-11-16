@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="requirements_directory_structure">
+  <title>Directory Structure</title>
+
+  <para>Libraries should have the following directory structure.</para>
+
+  <para><programlisting>&lt;libraryname&gt;
+  <link linkend="Jamroot.jam">Jamroot.jam</link> // if using bjam build
+  include/
+    ...
+  src/ // not required for header only libraries
+    cpp files ...
+    <link linkend="???">Jamfile.jam</link>
+    // other build systems - optional
+    vcide
+    ...
+  example/
+    cpp and hpp files
+    Jamfile.jam
+    // other build systems - optional
+    vcide
+    ...
+  test/
+    cpp and hpp files
+    <link linkend="???">Jamfile.jam</link>
+    // other build systems - optional
+      vcide
+      ...
+  doc/
+    html/
+      boostbook.css
+      html files ....
+      images/
+        png files ...
+    // document source files - maybe one of those below
+    docbook/  // optional
+      xml files ...
+      // scripts which create html
+      makehtml.bat
+      makehtml.sh 
+    boostbook/ // optional
+      xml files ...
+      // scripts which create html
+      makehtml.bat
+      makehtml.sh 
+    quickbook/ // optional
+      qbk files ...
+      // scripts which create html
+      makehtml.bat
+      makehtml.sh 
+</programlisting></para>
+
+  <para>This is a little different than the current Boost directory structure
+  requirements. But it should look familiar to those with some experience with
+  Boost Libraries. It's designed so that the library is contained in one
+  directory structure and need not occupy a specific place within any higher
+  level structure.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>The library directory and files can be placed anywhere in the
+      users file hierarchy.</para>
+    </listitem>
+
+    <listitem>
+      <para>There is no requirement to alter the users Boost directory. The
+      library can be used just by making sure the include directory is
+      available during the compilations of source files which use it.</para>
+    </listitem>
+
+    <listitem>
+      <para>If the library user prefers to have all his "boost like" libraries
+      in the boost header space, he can make a link or forwarding header in
+      his boost directory tree to accomplish this.</para>
+    </listitem>
+
+    <listitem>
+      <para>The library must supply a file named <link
+      linkend="Jamroot.jam">Jamroot.jam</link> to support the Bjam build
+      system.</para>
+    </listitem>
+
+    <listitem>
+      <para>The library must supply <link linkend="???">Jamfile.jam</link>
+      files for each of the src, example and test directories.</para>
+    </listitem>
+
+    <listitem>
+      <para>Other build system support is optional. If supplied it should be
+      either as one file (example: bjam) or as a subdirectory with multiple
+      files.</para>
+    </listitem>
+  </itemizedlist>
+</section>

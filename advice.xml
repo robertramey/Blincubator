@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="advice">
+  <title>Advice</title>
+
+  <para>Here is my personal advice on how to create a successful library for
+  Boost or otherwise. I don't lay claim be the originator of any of these.
+  They are derived from many different source of software development ideas
+  and methodologies. Many of these sources contain overlapping ideas with
+  different terminology. <itemizedlist>
+      <listitem>
+        <para><ulink
+        url="http://en.wikipedia.org/wiki/Agile_software_development">Agile
+        Development</ulink></para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Incremental development</para>
+          </listitem>
+
+          <listitem>
+            <para>continual testing</para>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+
+      <listitem>
+        <para><ulink
+        url="http://en.wikipedia.org/wiki/Literate_programming">Literate
+        Programming</ulink> - consideration of progam and documentation as
+        "one thing".</para>
+      </listitem>
+
+      <listitem>
+        <para>Program development though <ulink
+        url="http://en.wikipedia.org/wiki/Program_derivation">Progam
+        Derivation</ulink> - correct program construction through composition
+        of demonstrably correct components.</para>
+      </listitem>
+    </itemizedlist></para>
+
+  <xi:include href="advice_components.xml" xpointer="element(/1)"
+              xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+  <xi:include href="advice_concepts.xml" xpointer="element(/1)"
+              xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+  <xi:include href="advice_concurrent.xml" xpointer="element(/1)"
+              xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+  <xi:include href="advice_notes.xml" xpointer="element(/1)"
+              xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+  <xi:include href="advice_testing.xml" xpointer="element(/1)"
+              xmlns:xi="http://www.w3.org/2001/XInclude"/>
+</section>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section>
+  <title>About This Website</title>
+
+  <para>This web site is an effort to:<itemizedlist>
+      <listitem>
+        <para>Specify the minimal requirements that a C++ library must
+        fullfill to be useful to the C++ community.</para>
+      </listitem>
+
+      <listitem>
+        <para>Provide the tools to meet those requirements with minimal
+        effort.</para>
+      </listitem>
+
+      <listitem>
+        <para>Impose no more requirements than the minimum required.</para>
+      </listitem>
+    </itemizedlist></para>
+
+  <para>That is, while specifiying the library requirements and suggesting
+  tools to be used, we wanted to permit libraries to use their own tools if
+  the author desired. This means that we can add per-existing conforming
+  libraries to the site without disruption. Also, in practice, there is a wide
+  variety of size of libraries. Some are very small maybe one header file,
+  while others might be very large. So its very likely that different
+  solutions for things like issue tracking, documentation preparation etc.
+  might vary. Finally, tools evolve. In the last ten years, preference in
+  source control systems has evolved from CVS to SVN to GIT. We want to permit
+  library tools to evolve as well. It is for this reason we don't implement
+  facilities such as issue tracking in this website but rather expect the a
+  library submission provide links to where these facilities are actually
+  implemented.</para>
+
+  <para>Finally, I wanted a website that had all the features that modern
+  websites should have:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Aesthetically pleasing with good typography, flowing text,
+      etc.</para>
+    </listitem>
+
+    <listitem>
+      <para>Ease of maintenance, update, etc.</para>
+    </listitem>
+
+    <listitem>
+      <para>Accept commentary and library submissions.</para>
+    </listitem>
+
+    <listitem>
+      <para>Appropriate user control and spam suppression.</para>
+    </listitem>
+  </itemizedlist>
+
+  <section>
+    <title>Alternatives Considered</title>
+
+    <para>Achieving the above turns out to be much more effort than one would
+    think. The whole web development universe turns out to be a very
+    unpleasant place for a C++ programmer. I won't spend time with the
+    details, but here are the options I considered.</para>
+
+    <section>
+      <title>PERL</title>
+
+      <para>Previously, many years ago, I made some websites. To implement
+      forms I used PERL. It was easy to use, but ended up very much a hack.
+      Good enough for the simple things I wanted to do then, but I knew
+      immediately that I needed more help than PERL could offer.</para>
+    </section>
+
+    <section>
+      <title>RVSiteBuilder</title>
+
+      <para>This is a websie bulder which generates all the site pages by
+      answering questions. Actually not bad as far as it goes - it can only go
+      so far. Fortunately I didn't have to invest a huge amount of time to
+      understand that it wasn't going to do the job.</para>
+    </section>
+
+    <section>
+      <title>PHP</title>
+
+      <para>I looked at PHP and was quite impressed. <itemizedlist>
+          <listitem>
+            <para>Excellent documentation of the language and libraries. This
+            really impressed me. Also all the documentation pages permit
+            additional explanation, examples, etc. To be added by the
+            community. This turns out to be very, very helpful. I resolved to
+            include such a facility on this web site as well. I also
+            considered the possibility of permitting users to annotate
+            documentation of submitted library documentation. I set that idea
+            aside as it would take me further off course, but I remain
+            intrigued with it.</para>
+          </listitem>
+
+          <listitem>
+            <para>The PHP language is sort of "irregular" in comparison with
+            C++. It's sort of a poor man's C++ interpreter. But in reality
+            this isn't a huge problem as the task for which PHP is used -
+            creating dynamic web pages - isn't all that demanding.</para>
+          </listitem>
+
+          <listitem>
+            <para>Web pages generated with PHP tend to be HTML interspersed
+            with PHP (or vice versa). Since a lot of it isn't carefully
+            written, it turns out to be indecipherable to the human
+            brain.</para>
+          </listitem>
+
+          <listitem>
+            <para>I'm not sure if there is a way to debug it interactively. At
+            the vary least it would require a server on one's local system. I
+            didn't think I should have to go to all that trouble just for a
+            relatively simple application.</para>
+          </listitem>
+
+          <listitem>
+            <para>I'm not sure how much overhead dynamically interpreting PHP
+            adds to the serving of web pages. I just assumed that it would be
+            an issue on this low traffic web site.</para>
+          </listitem>
+        </itemizedlist></para>
+
+      <para>I actually made a prototype web site using just PHP. It was not
+      unsatisfactory, but by this time I became enamored with the ability to
+      comment on submissions and pages and added this facility as a
+      requirement. Also, maintenance would be an issue. So I resolved to find
+      a more complete solution.</para>
+    </section>
+
+    <section>
+      <title>TikiWiki</title>
+
+      <para>Having seen the PHP documentation and being a being a huge fan of
+      <ulink url="http://www.wikipedia.org/">WikiPedia</ulink>, I investigated
+      <ulink url="http://www.mediawiki.org">MediaWiki </ulink>and other Wiki
+      systems. There are many of these. Most are written in PHP. After
+      spending too much time, I concluded that making this do what I want
+      would entail too much work and resolved to look elsewhere.</para>
+    </section>
+
+    <section>
+      <title>Wordpress</title>
+
+      <para>Next I tried <ulink
+      url="https://wordpress.org/">Wordpress</ulink>. This is a very
+      impressive setup.<itemizedlist>
+          <listitem>
+            <para>A complete system for administering the site including
+            users, pages, PHP code etc.</para>
+          </listitem>
+
+          <listitem>
+            <para>An architecture which supports "plugins" and "themes". These
+            permit one to decouple - to some extent, the look and feel of the
+            sight from the content. There are thousands of plugins and themes
+            available. They are easy to try out. Turns out that most of these
+            are deficient in some way so one has to try quite a few of them to
+            get things just right. It's no perfect, but it's great when it
+            works.</para>
+          </listitem>
+
+          <listitem>
+            <para>Documentation is not too bad. In addition, there are books
+            available.</para>
+          </listitem>
+
+          <listitem>
+            <para>Support for commenting on library submissions and web pages.
+            This includes spam filtering, user logins, email notification,
+            etc.</para>
+          </listitem>
+        </itemizedlist></para>
+
+      <para>So it was a good start. However, getting things "just right"
+      finally meant learning quite about the whole system which consumed a lot
+      of time. Like most things, it has to be "made to work". Still, all in
+      all I got it to make most of the things in this site work the way I
+      wanted.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Acknowledgements</title>
+
+    <para>The logo for this website was designed by Matias Capeletto. It's
+    cleverly designed to evoke the idea of "boost library under
+    construction".</para>
+  </section>
+</section>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section>
+  <title id="requirements_licensing">Licensing</title>
+
+  <para>All code and documentation submitted to this website should include a
+  copyright notice with the author's name.</para>
+
+  <para>At this time, this website doesn't have any specific requirements as
+  to software licensing. However, be advised that any libray submitted to
+  Boost must include the <ulink
+  url="http://www.boost.org/users/license.html">Boost Software
+  Licence.</ulink></para>
+</section>

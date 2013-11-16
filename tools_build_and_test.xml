@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//Boost//DTD BoostBook XML V1.1//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<section id="tools_build_and_test">
+  <title>Build and Test</title>
+
+  <para>There is a bewildering array of <ulink
+  url="http://en.wikipedia.org/wiki/List_of_build_automation_software">build
+  systems</ulink>. None of them are really satisfactory. I had hoped to avoid
+  imposing any requirement as to the build/test system and leave the option to
+  each library author to choose what he felt was most convenient. Some
+  experimentation with my prototype library safe_numerics convinced me that
+  this wasn't realistic and that I would have to require a specific build/test
+  system. I wanted a system which:</para>
+
+  <para><itemizedlist>
+      <listitem>
+        <para>would work on the wide variety of environments on which C++ is
+        run.</para>
+      </listitem>
+
+      <listitem>
+        <para>would gracefully handle variants debug/release, dll/static
+        libraries, etc.</para>
+      </listitem>
+
+      <listitem>
+        <para>didn't require any customization for each environment.</para>
+      </listitem>
+
+      <listitem>
+        <para>would include the ability to support both building AND testing
+        of libraries</para>
+      </listitem>
+
+      <listitem>
+        <para>didn't require elaborate installation and/or scripting.</para>
+      </listitem>
+
+      <listitem>
+        <para>didn't much, if any, learning curve.</para>
+      </listitem>
+    </itemizedlist>I looked at a few specific alternatives.</para>
+
+  <section>
+    <title>Alternatives Considered</title>
+
+    <section>
+      <title>Make</title>
+
+      <para>In the spirit of keeping things as simple as possible, this was my
+      first choice. But starting with a basic make file, one would need to add
+      a lot of extras functionality to address the requirements in the above
+      list. Basic make doesn't have enough functionality to support all we
+      need so we're forced to specify a build/test system.</para>
+    </section>
+
+    <section>
+      <title>Boost Bjam</title>
+
+      <para>This is a natural choice for a boost library. And any library
+      currently accepted into Boost must include Bjam script files. It's got
+      some good features:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>It's very powerful - basically can be scripted to do just
+          about anything related to build and test.</para>
+        </listitem>
+
+        <listitem>
+          <para>Once it's properly set up, it works well.</para>
+        </listitem>
+
+        <listitem>
+          <para>It includes support for most all C++ environments.</para>
+        </listitem>
+
+        <listitem>
+          <para>Bjam developers are always available to help users set this
+          up.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>And some not so good features:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>Building and Testing of libraries is driven by a special file
+          - <filename>Jamfile.jam</filename> - which includes information of
+          the source code modules, composition of modules and tests.
+          Specification of this file requires understand a whole new language
+          as well as understanding a large range of macro commands. It's quite
+          a lot to learn just to be able to build/test a small library.</para>
+        </listitem>
+
+        <listitem>
+          <para>It's not obvious how to use it when building a project which
+          is not a member of the boost tree. I eventually discovered how to do
+          this, but it frustrated me when I was experimenting with
+          this.</para>
+        </listitem>
+
+        <listitem>
+          <para>The standard testing of boost libraries is supported via a
+          Python script which tests ALL the boost libraries and uploads test
+          results to a central web page. Reworking this to accommodate our
+          "decoupled" library model would seem to be a non-trivial and fragile
+          exercise.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>These disadvantages dissuaded me from requiring Bjam build. Any
+      library which is accepted by Boost will have to include support for Bjam
+      or whatever boost requires at the time. But having to sort this out up
+      front was considered too large a burden on library authors.</para>
+
+      <para>Here are some websites with information regarding Boost
+      Bjam</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><ulink
+          url="http://www.boost.org/doc/libs/1_49_0/tools/build/v2/index.html">http://www.boost.org/doc/libs/1_49_0/tools/build/v2/index.html</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://www.boost.org/boost-build2/doc/html/index.html">http://www.boost.org/boost-build2/doc/html/index.html</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://www.highscore.de/cpp/boostbuild/">http://www.highscore.de/cpp/boostbuild/</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://syrcose.ispras.ru/2009/files/04_paper.pdf">http://syrcose.ispras.ru/2009/files/04_paper.pdf</ulink></para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>CMake/CTest/CPack/CDash</title>
+
+      <para>A number of prominent boosters have been advocating moving from
+      BJam to CMake. It has some very attractive features.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>it has strong support from <ulink
+          url="www.kitware.com">Kitware</ulink> who have been active in it's
+          development and maintenance for the last 10 years. They are very
+          responsive on the mailing list they maintain for users.</para>
+        </listitem>
+
+        <listitem>
+          <para>It seems to be well documented. There are lot's web pages
+          dedicated to it's various aspects. There is a published book <ulink
+          url="http://www.kitware.com/products/books/CMakeBook.html">Mastering
+          CMake</ulink> which is thick enough to be a complete
+          reference.</para>
+        </listitem>
+
+        <listitem>
+          <para>It includes a system for invoking test suites and posting
+          results to a common website. (Ctest and CDash) This is a really
+          attractive feature that we absolutely have to have. Having it "out
+          of the box" would be a huge plus.</para>
+        </listitem>
+
+        <listitem>
+          <para>It includes some extra features which we don't really need but
+          would be useful.<itemizedlist>
+              <listitem>
+                <para>CPack - for creation of installation packages including
+                zip files, tar balls etc.</para>
+              </listitem>
+
+              <listitem>
+                <para>It's works with a wide variety of platforms including
+                the ability to create IDE projects in Microsoft Visual Studio
+                and Eclipse.</para>
+              </listitem>
+            </itemizedlist></para>
+        </listitem>
+
+        <listitem>
+          <para>There are also online videos about these tools. Usually I
+          don't like videos as they don't let me skip through stuff. But in
+          this case I found them well done and helpful.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>So I was optimistic about experimenting with the CMake "family" of
+      tools. I took a careful look at it using the safe_numerics project as a
+      guinea pig.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>I made the minimal scripts/configuration files which could
+          possible work and it managed to build a Visual Studio project. This
+          actually built and ran a test program.</para>
+        </listitem>
+
+        <listitem>
+          <para>I Added the commands to invoke the CTest functionality. I
+          found the documentation, extensive though confusing. I had to go to
+          the CMake mailing list for help twice to get things to start to
+          work. It became clear to get it really working would require a lot
+          more digging through help from the CMake mailing list.</para>
+        </listitem>
+
+        <listitem>
+          <para>CTest and CMake are separated so that invoking CTest doesn't
+          automatically rebuild the project if necessary. Other tools let you
+          "fire and forget it" once you have things setup. I could live with
+          this on this project but I didn't like it.</para>
+        </listitem>
+
+        <listitem>
+          <para>I tried using the NMake generator with CMake. This is
+          Microsoft's version of make. This was attractive to me as it would
+          mean that the same interface - a simple command line - could be used
+          across all the platforms we're interested in. Alas, that hung up
+          looking for a resource compiler. Again, I felt I could have
+          eventually gotten to the bottom of it. This added to my perception
+          that CMake wasn't easy enough to use and robust enough for our
+          purposes here.</para>
+        </listitem>
+
+        <listitem>
+          <para>According to the documentation I read, Running CTest with all
+          the defaults should have posted my test results to an website
+          maintained <ulink url="www.kitware.com">Kitware</ulink> by that I
+          could review. This failed to work. In this mode, the application
+          segfaulted. Worse, it failed to find the website to report the
+          results. A little sleuthing revealed that a table containing these
+          parameters was filled with blanks rather than some reasonable
+          defaults. Again, I had the feeling that this could be made to work
+          with some help from the mailing list. But i concluded this process
+          wasn't easy enough to be useful here.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>Note that I didn't buy the <ulink
+      url="http://www.kitware.com/products/books/CMakeBook.html">CMake</ulink>
+      book for $59.00 . I felt the system should be easy enough for users of
+      this web site to use without having to make this investment.</para>
+
+      <para>I also didn't try on the unix-like Cygnus system I use for GCC
+      builds and versions. So I don't know if results would have been better
+      on that platform. A key requirement was that it be able to build/test
+      with both Windows and GCC - so having so much trouble with Windows was
+      enough for me.</para>
+
+      <para>Given the length and activity of the project, I had very high
+      hopes and expectations for CMake. This only made me that much more
+      disappointed when it failed to meet expectations. Here are websites
+      which have useful information on CMake.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><ulink
+          url="http://www.cs.swarthmore.edu/~adanner/tips/cmake.php#page=16">http://www.cs.swarthmore.edu/~adanner/tips/cmake.php</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://www.vtk.org/Wiki/CMake">http://www.vtk.org/Wiki/CMake</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://www.cmake.org/cmake/help/cmake_tutorial.html">http://www.cmake.org/cmake/help/cmake_tutorial.html</ulink></para>
+        </listitem>
+      </itemizedlist>
+    </section>
+
+    <section>
+      <title>Autotools</title>
+
+      <para>Autotools is the traditional Unix solution to the problem of
+      build/test/deployment. It has a long history and is widely used. There
+      is lot's of literature on it as well. It garners a number of complaints
+      about how hard it is to use - but then it seems all of these build
+      systems share that trait. And it doesn't do windows which is sort of
+      deal killer for us. None the less, I wanted to take a look at it. First
+      I looked at my books. It was explained but it did seem pretty
+      complicated. I trolled the net and found a couple of references:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><ulink
+          url="http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16">http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://mij.oltrelinux.com/devel/autoconf-automake/">http://mij.oltrelinux.com/devel/autoconf-automake/</ulink></para>
+        </listitem>
+      </itemizedlist>
+
+      <para>The first one has a graphic on page 16 which helped make it clear
+      how all the pieces of this system fit together. On the other hand, this
+      graphic didn't make it look very easy. I went through the process with
+      my unix-like CYGWIN installation and things seemed to run well until the
+      last step. Again, I had the feeling I could make this work if I was
+      willing to put in more time, but I didn't feel like doing it. An
+      interesting experience but not a good solution for us.</para>
+    </section>
+
+    <section>
+      <title>Summary</title>
+
+      <para>Basically I didn't find what I was looking for. I believe that
+      all/any of these build tools could have been made to work, but at a
+      significant overhead cost and learning curve. Turns out I'm not alone.
+      Searching for a good build system hits dozens of <ulink
+      url="http://en.wikipedia.org/wiki/List_of_build_automation_software">tools</ulink>
+      with a huge variety of features and capabilities. These tools have been
+      contributed over more than a decade with arriving all the time.
+      Commentary, critique and comparison of all these options strongly
+      suggest that this problem isn't close to being solved yet. So it's fair
+      to assume it's much harder than it would first seem to solve this
+      problem.</para>
+
+      <para>Here is a list of miscellaneous links to sites that I found useful
+      in my investigation of Build systems.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><ulink
+          url="http://en.wikipedia.org/wiki/List_of_build_automation_software">http://en.wikipedia.org/wiki/List_of_build_automation_software</ulink></para>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
+
+  <section>
+    <title>BJAM Reconsidered</title>
+
+    <para>After going through all the above alternatives, I've concluded that
+    the best alternative is to invest some more effort to make
+    <filename>bjam</filename> easier to use in this context. To do this, we'll
+    rely on the following:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para><ulink
+        url="http://www.highscore.de/cpp/boostbuild/">http://www.highscore.de/cpp/boostbuild/</ulink>
+        for explanation of how <filename>bjam</filename> works.</para>
+      </listitem>
+
+      <listitem>
+        <para><ulink
+        url="http://www.boost.org/boost-build2/doc/html/bbv2/builtins/testing.html">http://www.boost.org/boost-build2/doc/html/bbv2/builtins/testing.html</ulink>
+        for an explanation of the Jamfile commands used for testing.</para>
+      </listitem>
+
+      <listitem>
+        <para>The section of <link
+        linkend="requirements_directory_structure">Directory Structure</link>
+        shows location of the files <filename>Jamroot.jam</filename> and
+        <filename><code>Jamfile.jam</code> </filename>which the
+        <filename>bjam</filename> build/test procedure uses to drive the
+        process. Create these files in the designated places in the directory
+        hierarchy of your project. You may also use <filename>safe
+        numerics</filename> library as an example. Here is the file
+        <filename>Jamfile.jam</filename> in the directory
+        <filename>safe_numerics/test</filename></para>
+
+        <programlisting>import testing ;
+
+run test_add.cpp test_add1.cpp test_add2.cpp test_add3.cpp
+    : # args    
+    : # input files
+    : # requirements
+    : # target-name
+    : # default-build ...
+;
+
+# other tests follow ...</programlisting>
+
+        <para>And here is the <filename>Jamroot.jam</filename> file in the
+        directory <filename>safe_numerics</filename></para>
+
+        <programlisting>import os ;
+
+# Note: we require tha BOOST_ROOT be defined with a valid path
+BOOST_ROOT = [ os.environ BOOST_ROOT ] ;
+ECHO Boost include path is: $(BOOST_ROOT) ;
+
+project safe_numerics
+    # : source-location ... # not needed for header only libraries
+    : requirements
+        &lt;include&gt;$(BOOST_ROOT)
+        &lt;toolset&gt;gcc:&lt;cxxflags&gt;-pedantic
+        &lt;toolset&gt;gcc:&lt;cxxflags&gt;-std=c++0x
+    # : default-build   - default none
+    # : build-dir - default = ./bin
+;</programlisting>
+      </listitem>
+
+      <listitem>
+        <para>We will use an abbreviated version of the procedure document for
+        <ulink
+        url="http://www.boost.org/doc/libs/1_51_0/tools/regression/doc/library_status.html">Library
+        Status</ulink> on the <ulink url="http://www.boost.org">Boost
+        website</ulink>. This entails the following steps.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>set the current directory to
+            <code>&lt;library&gt;/test</code> .</para>
+          </listitem>
+
+          <listitem>
+            <para>set the environmental variable <code>BOOST_ROOT=&lt;boost
+            root directory&gt;</code></para>
+          </listitem>
+
+          <listitem>
+            <para>invoke <code>bjam --dump-tests &lt;bjam arguments&gt;
+            &gt;bjam.log</code></para>
+
+            <para>where bjam arguments are some combination of the
+            following:</para>
+
+            <itemizedlist>
+              <listitem>
+                <para><code>toolset=msvc-9.0</code></para>
+              </listitem>
+
+              <listitem>
+                <para><code>variant=debug,release, profile</code></para>
+              </listitem>
+
+              <listitem>
+                <para><code>link=static, shared</code></para>
+              </listitem>
+
+              <listitem>
+                <para><code>threading=single,multi</code></para>
+              </listitem>
+            </itemizedlist>
+
+            <para>Note that if you specify more than one value for an
+            argument, (e.g. debug,release separated by commas), bjam will
+            build both versions of the tests. Since the same applies to all
+            the possible arguments, so it's possible to generate a large
+            number of combinations of tests with only one command line.</para>
+          </listitem>
+
+          <listitem>
+            <para>invoke <code>library_status
+            library_status.html</code></para>
+
+            <para>This will build an HTML file in the
+            <code>&lt;library&gt;/test directory</code> named
+            <code>library_status.html</code>. Opening this with any web
+            browser will display all your test results.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>This whole procedure can be encapsulated in the following shell
+        script or similar windows BAT file.</para>
+
+        <programlisting>if test $# -eq 0 
+then
+    echo "Usage: bjam &lt;bjam arguments&gt;"
+    echo "Where typical &lt;bjam arguements&gt; are:"
+    echo "  toolset=msvc-7.1,gcc"
+    echo "  variant=debug,release,profile"
+    echo "  link=static,shared"
+    echo "  threading=single,multi"
+else
+    bjam --dump-tests $@ &gt;bjam.log 2&gt;&amp;1
+    library_status library_status.html links.html
+fi
+</programlisting>
+      </listitem>
+    </itemizedlist>
+
+    <para>Your boost installation might or might not have <code>bjam</code>
+    installed and working. If not, you'll have to get them built. There are
+    any number of ways to do this depending on your platform. See <ulink
+    url="http://www.boost.org/doc/libs/1_52_0/more/getting_started/index.html">Getting
+    Started</ulink> and<ulink
+    url="http://www.boost.org/boost-build2/doc/html/index.html"> <code>Bjam
+    Installation</code></ulink> at the boost website for information on how to
+    do this. Unfortunately, the program <code>library_status</code> is not
+    built by the default installation. But now that you have bjam installed,
+    the following procedure will build the <code>library_status</code>
+    executable.<itemizedlist>
+        <listitem>
+          <para>set the current directory to <code>&lt;boost
+          root&gt;/tools/regression/build</code> .</para>
+        </listitem>
+
+        <listitem>
+          <para>invoke <code>bjam toolset=&lt;....&gt; variant=release
+          library_status</code></para>
+        </listitem>
+
+        <listitem>
+          <para>copy the resulting <code>library_status</code> executable to a
+          place in your path. Most likely this will be the same place where
+          the bjam executable is to be found.</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para>Now you should have everything in place to executate the above
+    described procedure for testing your library and reviewing the results.
+    The focus here has been to describe a simple boost friendly procedure for
+    building and testing one's library. This procedure should permit anyone
+    who has boost installed to run the tests on any download from this site.
+    Users should be encouraged to run the test suite on their local
+    platform/compiler before using the library. In the future we hope to
+    enhance the library status page displayed with a button to upload the test
+    results to a common site so that library authors and potential users can
+    review the test results when ever it might be convenient. However, for now
+    this is the best we have.</para>
+  </section>
+</section>

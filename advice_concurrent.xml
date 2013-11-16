@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+  <section>
+    <title>Write Code, Concepts, Tests and Documentation Concurrently</title>
+
+    <para>This is what we usually do to make a library or other body of
+    code:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>write all the code</para>
+      </listitem>
+
+      <listitem>
+        <para>write some tests</para>
+      </listitem>
+
+      <listitem>
+        <para>change all the code and tests until the tests to pass on our
+        platform</para>
+      </listitem>
+
+      <listitem>
+        <para>start writing documentation and examples</para>
+      </listitem>
+
+      <listitem>
+        <para>upload it and ask people to try it out</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>This approach has a couple of problems.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Coding is fun, while the ancillary tasks can be very boring,
+        tedious and frustrating. So leaving these other tasks as an
+        afterthought results in poor and/or incomplete documentation, testing,
+        and concept definition.</para>
+      </listitem>
+
+      <listitem>
+        <para>Conceptual errors are often discovered when writing
+        documentation, tests and concepts. Discovery of these errors usually
+        results in changed to the code which ripple through the whole library
+        and create a lot of work.</para>
+      </listitem>
+
+      <listitem>
+        <para>Poor/Incomplete documentation/testing/concepts mean that fewer
+        conceptual errors are discovered before code is made available to
+        users.</para>
+      </listitem>
+
+      <listitem>
+        <para>Users will be shipped code which is weak on documentation,
+        tests, and examples and has conceptual errors. Often the library
+        writer doesn't do this intentionally, it's just an effect of the way
+        the code has been developed. Users will discover these problems,
+        reject the library and move on. If the library writer get's any
+        feedback it is likely to be of limited usefulness.</para>
+      </listitem>
+
+      <listitem>
+        <para>So reworking code and documentation after everything is "done"
+        results in a huge amount of extra work - if the work every get's
+        done.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>The basic problem is that the ancillary tasks create a lot of useful
+    information and this needs to be cycled back into the library code before
+    anything is shipped. Cycling this information back sooner saves wasted
+    time.</para>
+
+    <para>Here is what I recommend instead:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>write a small group of classes. functions, or templates.</para>
+      </listitem>
+
+      <listitem>
+        <para>use concepts - what are concepts?</para>
+      </listitem>
+
+      <listitem>
+        <para>write documentation for this group</para>
+      </listitem>
+
+      <listitem>
+        <para>write and newly required concept checking classes</para>
+      </listitem>
+
+      <listitem>
+        <para>write a program to test this code</para>
+      </listitem>
+
+      <listitem>
+        <para>Repeat above for the next group.</para>
+      </listitem>
+
+      <listitem>
+        <para>When there is enough to be truely useful to someone, upload the
+        package as ask people to test it. The package may not have all the
+        features planned for it, but it should have enough functionality to be
+        useful.</para>
+      </listitem>
+
+      <listitem>
+        <para>Monitor feedback.</para>
+      </listitem>
+
+      <listitem>
+        <para>add features and make adjustments and repeat cycle above.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>In contrast to the first approach.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Coding, testing, documentation, are divided into shorter tasks.
+        So the tedium and frustration are much easier to deal with.</para>
+      </listitem>
+
+      <listitem>
+        <para>Information gleaned from documentation, testing, concepts, and
+        user feedback is received sooner and saves much rework and back
+        tracking.</para>
+      </listitem>
+
+      <listitem>
+        <para>The result is a higher quality library which:<itemizedlist>
+            <listitem>
+              <para>Exhibits "conceptual integrity". That is, code with a
+              clearly defined purpose which is explained in an way which makes
+              it obvious what the code is meant to do and how to use
+              it.</para>
+            </listitem>
+
+            <listitem>
+              <para>Motviates the user to take the code for a "test drive" by
+              including the code in his own application. This should that
+              convince the user that the library is bug free, useful, and easy
+              to use.</para>
+            </listitem>
+
+            <listitem>
+              <para>Results in the user returning positive feedback and
+              request for more features.</para>
+            </listitem>
+
+            <listitem>
+              <para>Motivates the library writer and perhaps other users to
+              add features to the library.</para>
+            </listitem>
+          </itemizedlist></para>
+      </listitem>
+    </itemizedlist>
+  </section>

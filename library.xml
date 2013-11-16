@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE section PUBLIC "-//XMLmind//DTD BoostBook//EN"
+"http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
+<section>
+  <title>
+    <libraryname>Boost.[Library Name]</libraryname>
+  </title>
+
+  <libraryinfo>
+    <author />
+
+    <copyright>
+      <year />
+
+      <holder />
+
+      <holder />
+    </copyright>
+
+    <legalnotice>
+      <para />
+    </legalnotice>
+
+    <librarypurpose />
+
+    <librarycategory name="???" />
+  </libraryinfo>
+
+  <section>
+    <title>Introduction</title>
+
+    <para />
+  </section>
+
+  <section>
+    <title>Tutorial</title>
+
+    <para />
+  </section>
+
+  <section>
+    <title>Notes</title>
+
+    <para />
+  </section>
+
+  <section>
+    <title>Concepts</title>
+
+    <para />
+  </section>
+
+  <section>
+    <title>Types</title>
+
+    <para />
+  </section>
+
+  <section>
+    <title>Functions</title>
+
+    <para />
+  </section>
+
+  <section>
+    <title>Change Log</title>
+
+    <para />
+  </section>
+
+  <section>
+    <title>Acknowledments</title>
+
+    <para />
+  </section>
+
+  <section>
+    <title>References</title>
+
+    <para />
+  </section>
+</section>

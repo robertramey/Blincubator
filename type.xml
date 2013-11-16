@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//Boost//DTD BoostBook XML V1.1//EN"
+"http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
+<section>
+  <title>[Type Name&lt;T&gt;]</title>
+
+  <section>
+    <title>Description</title>
+
+    <para>[A summary of a types properties example for the STL
+    vector::]</para>
+
+    <para>A <code>vector&lt;T&gt;</code> is a <ulink
+    url="http://www.sgi.com/tech/stl/Container.html">Container</ulink>
+    supports random access to elements, constant time insertion and removal of
+    elements at the end, and linear time insertion and removal of elements at
+    the beginning or in the middle. The number of elements in a vector may
+    vary dynamically; memory management is automatic. Vector is the simplest
+    of the STL container classes, and in many cases the most efficient.</para>
+  </section>
+
+  <section>
+    <title>Template Parameters</title>
+
+    <para>[The template parameters of a class template usually must satisfy a
+    set of requirements. Many of these can simply be expressed by listing
+    which concept a template parameter must conform to, but some type
+    requirements are slightly more complicated, and involve a relationship
+    between two different template parameters. If the type is not a template
+    and hence has no template parameters, this section can be skipped.]</para>
+
+    <informaltable>
+      <tgroup cols="4">
+        <colspec align="left"/>
+
+        <colspec align="left"/>
+
+        <colspec align="left" colwidth="4*"/>
+
+        <colspec align="left" colwidth="4*"/>
+
+        <thead>
+          <row>
+            <entry align="left">Parameter</entry>
+
+            <entry>Default</entry>
+
+            <entry align="left">Type Requirements</entry>
+
+            <entry>Description</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry><code>T</code></entry>
+
+            <entry><code/></entry>
+
+            <entry>None, except for those imposed by the requirements of
+            <ulink
+            url="http://www.sgi.com/tech/stl/RandomAccessContainer.html">Random
+            Access Container</ulink> and <ulink
+            url="http://www.sgi.com/tech/stl/BackInsertionSequence.html">Back
+            Insertion Sequence</ulink>.</entry>
+
+            <entry><para>The value type. This is also defined as
+            <code>vector:::value_type</code></para></entry>
+          </row>
+
+          <row>
+            <entry><code>Alloc</code></entry>
+
+            <entry><code>alloc</code></entry>
+
+            <entry>Alloc is an <ulink url="???">Allocator</ulink>.</entry>
+
+            <entry>The set's allocator, used for all internal memory
+            management.</entry>
+          </row>
+
+          <row>
+            <entry><code>...</code></entry>
+
+            <entry/>
+
+            <entry/>
+
+            <entry/>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+  </section>
+
+  <section>
+    <title>Model of</title>
+
+    <para>[A list of the concepts that this type is a model of, and links to
+    those concepts. Note that a type may be a model of more than one concept.
+    If a type is a model of two different concepts, that simply means that it
+    satisfies the requirements of both. if the type fails to model any
+    pre-existing concept, this section may be skipped.]</para>
+
+    <para><ulink
+    url="http://www.sgi.com/tech/stl/RandomAccessContainer.html">Random Access
+    Container</ulink>, <ulink
+    url="http://www.sgi.com/tech/stl/BackInsertionSequence.html">Back
+    Insertion Sequence</ulink>.</para>
+  </section>
+
+  <section>
+    <title>Derived From</title>
+
+    <para>[If this class inherits from any other classes, they are listed in
+    this section.]</para>
+  </section>
+
+  <section>
+    <title>Notation</title>
+
+    <para>[The next two sections, associated types and valid expressions,
+    present expressions involving types that model the concept being defined.
+    This section defines the meaning of the variables and identifiers used in
+    those expressions.]</para>
+
+    <informaltable>
+      <tgroup cols="2">
+        <colspec align="left"/>
+
+        <colspec align="left" colwidth="4*"/>
+
+        <thead>
+          <row>
+            <entry align="left">Symbol</entry>
+
+            <entry align="left">Description</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry><code>X</code></entry>
+
+            <entry>A type that is a model of the [Concept Name]</entry>
+          </row>
+
+          <row>
+            <entry><code>x, a, b</code></entry>
+
+            <entry>An object of type X</entry>
+          </row>
+
+          <row>
+            <entry><code>T</code></entry>
+
+            <entry>a type that is a model of the parameter type</entry>
+          </row>
+
+          <row>
+            <entry><code>...</code></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+  </section>
+
+  <section>
+    <title>Associated Types</title>
+
+    <para>[A concept is a set of requirements on some type. Frequently,
+    however, some of those requirements involve some other type. For example,
+    one of the Unary Function requirements is that a Unary Function must have
+    an argument type; if F is a type that models Unary Function and f is an
+    object of type F, then, in the expression f(x), x must be of F's argument
+    type. If a concept does not have any such associated types this section
+    can be eliminated.]</para>
+
+    <informaltable>
+      <tgroup cols="2">
+        <colspec align="left"/>
+
+        <colspec align="left" colwidth="4*"/>
+
+        <thead>
+          <row>
+            <entry align="left">Type</entry>
+
+            <entry align="left">Description</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry><code>X::value_type</code></entry>
+
+            <entry>A type of an object stored in [Concept Name]. Same as
+            T</entry>
+          </row>
+
+          <row>
+            <entry><code>X::iterator</code></entry>
+
+            <entry>An object of type X</entry>
+          </row>
+
+          <row>
+            <entry><code>...</code></entry>
+
+            <entry/>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+
+    <table/>
+  </section>
+
+  <section>
+    <title>Inherited Valid Expressions (Optional)</title>
+
+    <para>[A type will support all the operations of the concept which the
+    type models. In addition, it will support all the functions which are
+    declared in any public base classes. All these valid expressions may be
+    listed here. The reason that this section is optional is that listing all
+    the valid expressions implemented by base clases and other concepts can be
+    long, tedious and redundant. On the other hand, following links back to
+    the concepts and/or base class can also sometimes be tedious so it's hard
+    to make a hard and fast rule]</para>
+  </section>
+
+  <section>
+    <title>New Valid Expressions</title>
+
+    <para>In addition to the expressions defined in <ulink
+    url="http://www.sgi.com/tech/stl/RandomAccessContainer.html">Random Access
+    Container</ulink> and <ulink
+    url="http://www.sgi.com/tech/stl/BackInsertionSequence.html">Back
+    Insertion Sequence</ulink> the following expressions must be valid for any
+    object <code>v</code> of type <code>vector&lt;T&gt;</code> .</para>
+
+    <para><informaltable>
+        <tgroup cols="4">
+          <colspec align="left" colwidth="2*"/>
+
+          <colspec align="left" colwidth="1*"/>
+
+          <colspec align="left" colwidth="1*"/>
+
+          <colspec align="left" colwidth="4*"/>
+
+          <thead>
+            <row>
+              <entry align="left">Expression</entry>
+
+              <entry align="left">Type Requirements</entry>
+
+              <entry>Return Type</entry>
+
+              <entry>Semantics</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><code>v.capacity()</code></entry>
+
+              <entry/>
+
+              <entry><code>size_type</code></entry>
+
+              <entry>Number of elements for which memory has been allocated.
+              capacity() is always greater than or equal to size(). [2]
+              [3]</entry>
+            </row>
+
+            <row>
+              <entry><code>v.reserve(size_type n)</code></entry>
+
+              <entry/>
+
+              <entry><code>void</code></entry>
+
+              <entry>If n is less than or equal to capacity(), this call has
+              no effect. Otherwise, it is a request for allocation of
+              additional memory. If the request is successful, then capacity()
+              is greater than or equal to n; otherwise, capacity() is
+              unchanged. In either case, size() is unchanged. [2] [4]</entry>
+            </row>
+
+            <row>
+              <entry><code>...</code></entry>
+
+              <entry>(only for templates)</entry>
+
+              <entry/>
+
+              <entry/>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
+  </section>
+
+  <section>
+    <title>Header</title>
+
+    <para>[A link to the source code where the type is defined.]</para>
+
+    <para><code>#include &lt;vector&gt;</code></para>
+  </section>
+
+  <section>
+    <title>Example of use</title>
+
+    <para>[A code fragment involving the type.]</para>
+
+    <programlisting>#include &lt;vector&gt;
+
+vector&lt;int&gt; V;
+V.insert(V.begin(), 3);
+assert(V.size() == 1 &amp;&amp; V.capacity() &gt;= 1 &amp;&amp; V[0] == 3);
+</programlisting>
+  </section>
+
+  <section>
+    <title>Notes</title>
+
+    <para>[Footnotes (if any) that are referred to by other parts of the
+    page.]</para>
+  </section>
+
+  <section>
+    <title>See Also</title>
+
+    <para>[links to any other related concepts or types]</para>
+
+    <para/>
+  </section>
+</section>
