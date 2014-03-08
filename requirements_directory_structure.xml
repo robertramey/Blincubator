@@ -97,6 +97,8 @@
       <para>Other build system support is optional. If supplied it should be
       either as one file (example: bjam) or as a subdirectory with multiple
       files.</para>
+
+      <para/>
     </listitem>
   </itemizedlist>
 </section>
