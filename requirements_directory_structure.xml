@@ -7,9 +7,12 @@
   <para>Libraries should have the following directory structure.</para>
 
   <para><programlisting>&lt;libraryname&gt;
-  <link linkend="Jamroot.jam">Jamroot.jam</link> // if using bjam build
+  build/ // if your using bjam
+  <link linkend="Jamroot.jam">  Jamroot.jam</link> // if using bjam build
+  CMake // if you're using CMake
+    CMakeList.txt
   include/
-    boost/
+    boost/  // you could use your own name here
       &lt;library_name&gt;
         ...
   src/ // not required for header only libraries
