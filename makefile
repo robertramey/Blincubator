@@ -19,6 +19,8 @@ all: \
 	../website/requirements_test.html \
 	../website/simple_tools.html \
 	../website/tools_build_and_test.html \
+	../website/tools_bjam.html \
+	../website/tools_cmake.html \
 	../website/tools_documentation.html \
 	../website/tools_deployment.html \
 	../website/about.html \
@@ -54,4 +56,6 @@ all: \
 ../website/libraries_safe_numerics.html : website.xsl libraries_safe_numerics.xml
 ../website/tools_documentation.html : website.xsl tools_documentation.xml
 ../website/tools_build_and_test.html : website.xsl tools_build_and_test.xml
+../website/tools_bjam.html : website.xsl tools_bjam.xml
+../website/tools_cmake.html : website.xsl tools_cmake.xml
 ../website/about.html : website.xsl about.xml

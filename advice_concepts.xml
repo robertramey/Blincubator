@@ -58,9 +58,10 @@
     <title>Concept Checking for Function Templates</title>
 
     <para>Our discussion below is largely based on and example from the
-    documentation of <ulink url="???">Boost Concept Checking Library.</ulink>
-    As an illustration consider the standard C library function qsort. The
-    prototype for this function is</para>
+    documentation of <ulink
+    url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+    Concept Checking Library</ulink> As an illustration consider the standard
+    C library function qsort. The prototype for this function is</para>
 
     <para><programlisting>void qsort(
     void *base, 
@@ -209,12 +210,13 @@ bubble_sort(T begin, T end);
         <listitem>
           <para>Our example includes type requirements (ForwardAccessIterator,
           LessThanComparable and Swappable) which are already defined in the
-          C++ Standard Library. Since the <ulink url="???">Boost Concept
-          Checking Library</ulink> already includes the code for checking
-          these requirements, we didn't have to write any code ourselves. All
-          we had to do was to indicate which of the standard defined
-          requirements should be checked. As it turns out this is quite common
-          and many times we don't need to create any new type
+          C++ Standard Library. Since the <ulink
+          url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+          Concept Checking Library</ulink> already includes the code for
+          checking these requirements, we didn't have to write any code
+          ourselves. All we had to do was to indicate which of the standard
+          defined requirements should be checked. As it turns out this is
+          quite common and many times we don't need to create any new type
           requirements</para>
         </listitem>
       </itemizedlist></para>
@@ -256,8 +258,9 @@ void main(){
     Checking Library. The following is based on <ulink
     url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/creating_concepts.htm">Creating
     Concept Checking Classes</ulink> From the documentation for <ulink
-    url="???">Boost Concept Checking Library</ulink> . The following code
-    defines Swappable.</para>
+    url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+    Concept Checking Library</ulink> . The following code defines
+    Swappable.</para>
 
     <programlisting>#include "boost/concept/usage.hpp"
 #include "boost/concept/assert.hpp"
@@ -297,9 +300,12 @@ public:
     url="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg">Concepts
     Lite</ulink>, seems to be well received and perhaps destined for approval.
     Still, inclusion in the language and support by compilers is still years
-    way. <ulink url="???">Boost Concept Checking Library</ulink> on the other
-    hand, can be used today. The following table contrasts <ulink
-    url="???">Boost Concept Checking Library</ulink> with <ulink
+    way. <ulink
+    url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+    Concept Checking Library</ulink> on the other hand, can be used today. The
+    following table contrasts <ulink url="???">Boost Concept <ulink
+    url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+    Concept Checking Library</ulink>Checking Library</ulink> with <ulink
     url="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg">Concepts
     Lite</ulink>:</para>
 
@@ -368,7 +374,41 @@ void bubble_sort(T begin, T end);
     one uses <ulink url="???">Boost Concept Checking Library</ulink>. So
     transition to any future standard system when and if that occurs should be
     almost trivial. Also note that users code will not be effected in any way
-    since any required changes are confined to the library code
-    modules.</para>
+    since any required changes are confined to the library code modules</para>
+
+    <para>.</para>
+  </section>
+
+  <section>
+    <title>References</title>
+
+    <para>More good information regarding practical aspects of C++ concepts
+    and be found by checking the following links<itemizedlist>
+        <listitem>
+          <para><ulink
+          url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+          Concept Checking Library</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://cpp-next.com/archive/2011/12/a-breakthrough-for-concepts/">A
+          Breakthrough for Concepts</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://www.drdobbs.com/windows/checking-concept-without-concepts-in-c/227500449">Checking
+          Concept Without Concepts in C++</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg">Concepts
+          Lite</ulink></para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para/>
   </section>
 </section>

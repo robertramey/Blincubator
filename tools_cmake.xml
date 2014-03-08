@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//Boost//DTD BoostBook XML V1.1//EN"
+"http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
+<section>
+  <title>CMake/CTest</title>
+
+  <para>A number of prominent boosters have been advocating moving from BJam
+  to CMake. It has some very attractive features.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>it has strong support from <ulink
+      url="www.kitware.com">Kitware</ulink> who have been active in it's
+      development and maintenance for the last 10 years. They are very
+      responsive on the mailing list they maintain for users.</para>
+    </listitem>
+
+    <listitem>
+      <para>It seems to be well documented. There are lot's web pages
+      dedicated to it's various aspects. There is a published book <ulink
+      url="http://www.kitware.com/products/books/CMakeBook.html">Mastering
+      CMake</ulink> which is thick enough to be a complete reference.</para>
+    </listitem>
+
+    <listitem>
+      <para>It includes a system for invoking test suites and posting results
+      to a common website. (Ctest and CDash) This is a really attractive
+      feature that we absolutely have to have. Having it "out of the box"
+      would be a huge plus.</para>
+    </listitem>
+
+    <listitem>
+      <para>It includes some extra features which we don't really need but
+      would be useful.<itemizedlist>
+          <listitem>
+            <para>CPack - for creation of installation packages including zip
+            files, tar balls etc.</para>
+          </listitem>
+
+          <listitem>
+            <para>It's works with a wide variety of platforms including the
+            ability to create IDE projects in Microsoft Visual Studio and
+            Eclipse.</para>
+          </listitem>
+        </itemizedlist></para>
+    </listitem>
+
+    <listitem>
+      <para>There are also online videos about these tools. Usually I don't
+      like videos as they don't let me skip through stuff. But in this case I
+      found them well done and helpful.</para>
+    </listitem>
+
+    <listitem>
+      <para>It has the ability to create files for different kind of build
+      systems including Makefiles, Visual Studio Project files for windows,
+      XCode project files for Mac OXS, and Eclipse project files among others.
+      I found this feature extremely compelling as I am a heavy user of
+      different IDEs.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>So I was optimistic about experimenting with the CMake "family" of
+  tools. I took a careful look at it using the safe_numerics project as a
+  guinea pig. This turned out to be a lot more difficult than one would expect
+  and I gave up several times. Eventually, I had to dig into CMake in detail
+  for a work project and make it work. After some more work, I was able to
+  Implement CMake for the save_numerics project with satisfactory results. So
+  I'm ready to recommend CMake for "boost-like" libraries submitted on this
+  website. But the information required to do this is distributed all over the
+  web and CMake documentation. Below, I've tried to distill what I've learned
+  (in spite of my lack of desire to understand another "tool" so something
+  understandable. You'll still have to troll the net and CMake reference
+  materials, but hopefully this information - along with the example provided
+  by safe_numerics - will facilitate the process.</para>
+
+  <para>Here are websites which have useful information on CMake.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><ulink url="http://www.cmake.org">http://www.cmake.org</ulink> -
+      CMake home page</para>
+    </listitem>
+
+    <listitem>
+      <para><ulink
+      url="http://www.cmake.org/cmake/help/cmake_tutorial.html">http://www.cmake.org/cmake/help/cmake_tutorial.html</ulink>
+      - CMake Tutorial</para>
+    </listitem>
+
+    <listitem>
+      <para><ulink
+      url="http://johnlamp.net/cmake-tutorial.html">http://johnlamp.net/cmake-tutorial.html</ulink>
+      - a better CMake Tutorial</para>
+    </listitem>
+
+    <listitem>
+      <para><ulink
+      url="http://www.vtk.org/Wiki/CMake">http://www.vtk.org/Wiki/CMake</ulink>
+      - More information about CMake</para>
+    </listitem>
+
+    <listitem>
+      <para><ulink
+      url="http://www.cmake.org/cmake/help/v2.8.12/cmake.html">http://www.cmake.org/cmake/help/v2.8.12/cmake.html</ulink>
+      - CMake Reference Manual</para>
+    </listitem>
+  </itemizedlist>
+
+  <section>
+    <title>CMakeList.txt Cheatsheet</title>
+
+    <para>The typical way of using CMake consists of sprinking the the
+    directory which contains your code with a files named CMakeList.txt. These
+    permit as sort of "inheritance" from the top down so that commonality
+    doesn't have to be repeated. These files contain CMake commands as
+    described in the <ulink
+    url="http://www.cmake.org/cmake/help/v2.8.12/cmake.html">CMake Reference
+    Manual</ulink>. The reference manual is a little hard to figure out so
+    I've take the liberty of making my own "cheat sheet" distilling my
+    experience with this tool.</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>For top level directories<programlisting>cmake_minimum_required(VERSION 2.8.4)
+
+project( LoggerLibrary ) # unique project name
+
+# optional boilerplat code to be inherited by all lower level CMakeList.txt files
+
+message(STATUS "compiler is ${CMAKE_CXX_COMPILER_ID}" )
+
+# specify common directory for all products of the build
+set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "bin")
+
+# in this example we use Boost everywhere so include it here
+# to save typing
+find_package(Boost)
+
+# display some information on our environment for when things
+# don't work.  Modify to taste
+
+if(Boost_FOUND)
+    set(Boost_USE_MULTITHREADED true)
+    set(Boost_USE_STATIC_LIBS true)
+    message(STATUS "Boost is ${BOOST_ROOT}")
+    message(STATUS "Boost directories found at ${Boost_INCLUDE_DIR}")
+    message(STATUS "Boost libraries found at ${Boost_LIBRARY_DIR}")
+    set(Boost_LIBRARY_DIR "${BOOST_ROOT}/stage64/lib")
+    include_directories(${Boost_INCLUDE_DIR})
+elseif()
+    message("Boost NOT Found!")
+endif()
+
+#if tests are to be generated, this has to appear at the top of the "tree"
+enable_testing()</programlisting></para>
+        </listitem>
+
+        <listitem>
+          <para>For directories which contain no code<programlisting>add_subdirectory( src )
+add_subdirectory( test )</programlisting></para>
+        </listitem>
+
+        <listitem>
+          <para>For directories containing source code to build
+          <emphasis>shared</emphasis> libraries<programlisting># This defines a pre-processor macro which is used inside the source code.
+add_definitions( -DLIBRARY_EXPORTS )
+
+# build a SHARED library named "logger" from the indicated source files
+add_library( logger SHARED
+   CustomLogLevels.cpp
+   EventAppender.cpp
+   Logger.cpp
+   OutputDebugStringAppend.cpp
+)</programlisting></para>
+        </listitem>
+
+        <listitem>
+          <para>For directories containing source code to build
+          <emphasis>static</emphasis> libraries<programlisting># build a STATIC library named "logger" from the indicated source files
+add_library( logger STATIC
+   CustomLogLevels.cpp
+   EventAppender.cpp
+   Logger.cpp
+   OutputDebugStringAppende
+)</programlisting></para>
+        </listitem>
+
+        <listitem>
+          <para>For directories containing code which import
+          <emphasis>shared</emphasis> libraries<programlisting>link_directories (
+   ${WORKSPACE_ROOT}/lib
+   ${WORKSPACE_ROOT}/3rdparty/boost/lib
+   ${WORKSPACE_ROOT}/3rdparty/log4cplus/lib
+   ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
+)
+
+# for some inexplicable reason CMake throws an error if a library with a given name is 
+# both imported and exported in different nodes on the tree.  I'm not sure why this is, 
+# but this following if seems to work around it.  So use this for those libraries
+# that we're building AND using
+if (NOT TARGET logger)
+   add_library( logger SHARED IMPORTED )
+   set_property(
+      TARGET logger 
+      PROPERTY IMPORTED_IMPLIB ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/logger.lib
+   )
+endif()</programlisting></para>
+        </listitem>
+
+        <listitem>
+          <para>For directories containing code which import
+          <emphasis>static</emphasis> libraries<programlisting>link_directories (
+   ${WORKSPACE_ROOT}/lib
+   ${WORKSPACE_ROOT}/3rdparty/boost/lib
+   ${WORKSPACE_ROOT}/3rdparty/log4cplus/lib
+   ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}
+)
+
+# indicate what the target must link to.
+# must be after the definition of TestLogger
+target_link_libraries (TestLogger logger verror log4cplus )</programlisting></para>
+        </listitem>
+
+        <listitem>
+          <para>For directories containing code to build executables
+          <programlisting>add_executable ( TestLogger TestLogger.cpp )</programlisting></para>
+        </listitem>
+
+        <listitem>
+          <para>For directories containing tests <programlisting>add_test ( TestLogger "${CMAKE_RUNTIME_OUTPUT_DIRECTORYY}/TestLogger" )</programlisting></para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para>Notes</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>A given <code>CMakeList.txt</code> file may well fit in more
+          than one of the above classifications. In this case it would likely
+          contain code from more than one of the above sections</para>
+        </listitem>
+
+        <listitem>
+          <para>CMakeList.txt files inherit all the code from CMakeList.txt
+          files in parent directories. Hence, common code such as include and
+          link directories can be moved higher in the hierarchy to diminish
+          repetition.</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para>Once one has prepared the CMakeList.txt files and placed them into
+    the directory hierachy of the project, he can invoke CMake "Configure"
+    from the CMake executable. This parses all the CMakeList.txt files from
+    the top down and highlight which variables such as build type, library
+    locations, etc. etc. need to be defined. Next step is to define the
+    required missing variables and try again. Usually this will require a
+    couple of iterations. Finally one can "Generate" a project file for the
+    target IDE.</para>
+
+    <para>The above illustrates the strength and weakness of CMake.
+    Distributing a number of files around the directory allows one to factor
+    out commonality. But it also means that the information required to
+    understand what's going one isn't found is one place. Also part of that
+    information is implicite in the relative position of different
+    CMakeList.txt files in the directory hierarchy. It's a two edged sword.
+    </para>
+  </section>
+
+  <section>
+    <title>CMake for "Boost Like" Libraries</title>
+
+    <section>
+      <title>CMake Library Template</title>
+
+      <para>I've found a <ulink
+      url="https://code.google.com/p/cpp-library-project-template/">helpful
+      template for developing "boost like libraries</ulink>. This template is
+      a whole directory structure for creating a library. As such it's quite
+      similar the directory structure recommended here. It's more complete
+      though. It follows the typical practice of distributing the
+      CMakeList.txt files throughout the project directory. This isn't as bad
+      as it sounds as there are only 3-5 such required. As a convenience I've
+      excerpted part of the project so you don't have to go the trouble to
+      uzip it.</para>
+
+      <para><informaltable>
+          <tgroup align="left" cols="3" rowsep="0">
+            <colspec align="left" colsep="0" colwidth="1*" rowsep="0"/>
+
+            <colspec align="left" colsep="0" colwidth="1*" rowsep="0"/>
+
+            <colspec align="left" colsep="0" colwidth="12*" rowsep="0"/>
+
+            <tbody>
+              <row>
+                <entry>File name</entry>
+
+                <entry/>
+
+                <entry>File contents</entry>
+              </row>
+
+              <row>
+                <entry valign="top"><code>AUTHORS</code></entry>
+
+                <entry/>
+
+                <entry><programlisting>== AUTHORS ==
+
+ * FirstName LastName
+   ** Email: username@host.com
+   ** Phone: 888-888-8888
+
+ * FirstName MiddleName LastName
+   ** Email (Home): username@host1.com
+   ** Email (Work): username@host2.com
+   ** Phone (Mobile): 888-888-8888
+
+== ACKNOWLEDGEMENTS ==
+
+  See "thirdparty/LICENSES.txt" for a list of thirdparty software
+  used by this project and for their respective licenses.</programlisting></entry>
+              </row>
+
+              <row>
+                <entry valign="top"><code>CMakeList.txt</code></entry>
+
+                <entry/>
+
+                <entry><programlisting># &lt;Copyright Holder&gt;. Copyright (C) &lt;Copyright Year(s)&gt;. &lt;License&gt;.
+
+#
+# Project Properties
+#
+CMAKE_MINIMUM_REQUIRED (VERSION 2.6.2)
+PROJECT (projectname)
+SET (APPLICATION_NAME "Project Name")
+SET (APPLICATION_CODENAME "${PROJECT_NAME}")
+SET (APPLICATION_COPYRIGHT_YEARS "2009")
+SET (APPLICATION_VERSION_MAJOR 1)
+SET (APPLICATION_VERSION_MINOR 0)
+SET (APPLICATION_VERSION_PATCH 0)
+SET (APPLICATION_VERSION_TYPE SNAPSHOT)
+SET (APPLICATION_VERSION_STRING "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}.${APPLICATION_VERSION_PATCH}-${APPLICATION_VERSION_TYPE}")
+SET (APPLICATION_VENDOR_ID "com.yourcompany")
+SET (APPLICATION_VENDOR_NAME "Your Company")
+SET (APPLICATION_VENDOR_URL "yourcompany.com")
+SET (APPLICATION_ID "${APPLICATION_VENDOR_ID}.${PROJECT_NAME}")
+
+#
+# Debugging Options
+#
+SET (CMAKE_VERBOSE_MAKEFILE 0) # Use 1 for debugging, 0 for release
+
+#
+# Project Output Paths
+#
+SET (MAINFOLDER ${PROJECT_SOURCE_DIR})
+SET (EXECUTABLE_OUTPUT_PATH "${MAINFOLDER}/bin")
+SET (LIBRARY_OUTPUT_PATH "${MAINFOLDER}/lib")
+
+#
+# Project Search Paths
+#
+LIST (APPEND CMAKE_PREFIX_PATH "${MAINFOLDER}")
+LIST (APPEND CMAKE_PREFIX_PATH "${MAINFOLDER}/tools")
+LIST (APPEND CMAKE_PREFIX_PATH "${MAINFOLDER}/thirdparty")
+SET (CMAKE_MODULE_PATH "${MAINFOLDER}/tools/share/cmake")
+INCLUDE_DIRECTORIES("${MAINFOLDER}/include")
+
+#
+# Locate Project Prerequisites 
+#
+SET (Boost_ADDITIONAL_VERSIONS "1.39" "1.39.0" "1.40" "1.40.0" "1.41" "1.41.0" "1.42" "1.42.0" "1.43" "1.43.0" "1.44" "1.44.0" "1.45" "1.45.0" "1.46" "1.46.0" "1.47" "1.47.0" "1.48" "1.48.0" "1.49" "1.49.0" "1.50" "1.50.0")
+FIND_PACKAGE (Boost 1.37 COMPONENTS "date_time" "filesystem" "graph" "iostreams" "program_options" "regex" "serialization" "signals" "system" "thread" "wserialization" REQUIRED)
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
+LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
+FIND_PACKAGE (Log4Cxx REQUIRED)
+INCLUDE_DIRECTORIES(${Log4Cxx_INCLUDE_DIRS})
+LINK_DIRECTORIES(${Log4Cxx_LIBRARY_DIRS})
+FIND_PACKAGE (UnitTestPlusPlus REQUIRED)
+INCLUDE_DIRECTORIES(${UnitTestPlusPlus_INCLUDE_DIRS})
+LINK_DIRECTORIES(${UnitTestPlusPlus_LIBRARY_DIRS})
+
+#
+# Configure Files
+#
+FILE (GLOB_RECURSE CONFIGINPUTS1 include/*.in.h.cmake)
+FILE (GLOB_RECURSE CONFIGINPUTS2 include/*.h.in.cmake)
+FILE (GLOB_RECURSE CONFIGINPUTS3 src/*.in.h.cmake)
+FILE (GLOB_RECURSE CONFIGINPUTS4 src/*.h.in.cmake)
+FILE (GLOB_RECURSE CONFIGINPUTS5 test/*.in.h.cmake)
+FILE (GLOB_RECURSE CONFIGINPUTS6 test/*.h.in.cmake)
+LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS1}")
+LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS2}")
+LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS3}")
+LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS4}")
+LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS5}")
+LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS6}")
+FOREACH (CONFIGINPUT ${CONFIGINPUTS})
+    STRING (REPLACE ".in.h.cmake" ".h" CONFIGOUTPUT1 "${CONFIGINPUT}")
+    STRING (REPLACE ".h.in.cmake" ".h" CONFIGOUTPUT2 "${CONFIGOUTPUT1}")
+    CONFIGURE_FILE ("${CONFIGINPUT}" "${CONFIGOUTPUT2}")
+ENDFOREACH (CONFIGINPUT ${CONFIGINPUTS})
+
+#
+# Add Build Targets
+#
+ADD_SUBDIRECTORY(src)
+ADD_SUBDIRECTORY(test)
+
+#
+# Add Install Targets
+#
+IF (EXISTS "${MAINFOLDER}/include/${PROJECT_NAME}" AND IS_DIRECTORY "${MAINFOLDER}/include/${PROJECT_NAME}")
+    INSTALL(DIRECTORY "${MAINFOLDER}/include/${PROJECT_NAME}" DESTINATION "include")
+ENDIF (EXISTS "${MAINFOLDER}/include/${PROJECT_NAME}" AND IS_DIRECTORY "${MAINFOLDER}/include/${PROJECT_NAME}")
+
+#
+# Add Documentation Targets
+#
+INCLUDE (DocumentationTargets)
+d</programlisting></entry>
+              </row>
+
+              <row>
+                <entry><code>doc</code></entry>
+
+                <entry/>
+
+                <entry/>
+              </row>
+
+              <row>
+                <entry><code>include</code></entry>
+
+                <entry/>
+
+                <entry/>
+              </row>
+
+              <row>
+                <entry><code>src</code></entry>
+
+                <entry/>
+
+                <entry/>
+              </row>
+
+              <row>
+                <entry/>
+
+                <entry valign="top"><code>CMakeList.txt</code></entry>
+
+                <entry><programlisting>FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
+SET (project_LIBS ${Boost_LIBRARIES} ${Log4Cxx_LIBRARIES})
+SET (project_BIN ${PROJECT_NAME})
+
+IF (NOT DEFINED project_build_shared)
+   IF (CMAKE_CROSSCOMPILING)
+       SET(project_build_shared 0)
+   ELSE (CMAKE_CROSSCOMPILING)
+       SET(project_build_shared 1)
+   ENDIF (CMAKE_CROSSCOMPILING)
+ENDIF (NOT DEFINED project_build_shared)
+
+IF (NOT DEFINED project_build_static)
+   SET(project_build_static 1)
+ENDIF (NOT DEFINED project_build_static)
+
+IF (project_build_static)
+	ADD_LIBRARY(staticlib STATIC ${project_SRCS})
+	TARGET_LINK_LIBRARIES(staticlib ${project_LIBS})
+	SET_TARGET_PROPERTIES(staticlib PROPERTIES VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}" OUTPUT_NAME ${project_BIN} CLEAN_DIRECT_OUTPUT 1)
+	INSTALL(TARGETS staticlib DESTINATION lib)
+ENDIF(project_build_static)
+
+IF (project_build_shared)
+	ADD_LIBRARY(sharedlib SHARED ${project_SRCS})
+	TARGET_LINK_LIBRARIES(sharedlib ${project_LIBS})
+	SET_TARGET_PROPERTIES(sharedlib PROPERTIES VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}" OUTPUT_NAME ${project_BIN} CLEAN_DIRECT_OUTPUT 1)
+	INSTALL(TARGETS sharedlib DESTINATION lib)
+ENDIF(project_build_shared)
+</programlisting></entry>
+              </row>
+
+              <row>
+                <entry><code>test</code></entry>
+
+                <entry/>
+
+                <entry/>
+              </row>
+
+              <row>
+                <entry/>
+
+                <entry valign="top"><code>CMakeList.txt</code></entry>
+
+                <entry><programlisting>FILE (GLOB_RECURSE test_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
+SET (test_LIBS ${Boost_LIBRARIES} ${Log4Cxx_LIBRARIES} ${UnitTestPlusPlus_LIBRARIES} ${PROJECT_NAME})
+SET (test_BIN ${PROJECT_NAME}-unittests)
+
+IF (NOT CMAKE_CROSSCOMPILING)
+    LINK_DIRECTORIES(${MAINFOLDER}/lib)
+    ADD_EXECUTABLE(${test_BIN} ${test_SRCS})
+    TARGET_LINK_LIBRARIES(${test_BIN} ${test_LIBS})
+    ADD_CUSTOM_TARGET(check ALL "${MAINFOLDER}/bin/${test_BIN}" DEPENDS ${test_BIN} COMMENT "Executing unit tests..." VERBATIM SOURCES ${test_SRCS})
+    ADD_CUSTOM_TARGET(test "${MAINFOLDER}/bin/${test_BIN}" DEPENDS ${test_BIN} COMMENT "Executing unit tests..." VERBATIM SOURCES ${test_SRCS})
+ENDIF (NOT CMAKE_CROSSCOMPILING)
+</programlisting></entry>
+              </row>
+            </tbody>
+          </tgroup>
+        </informaltable>In my opinion, this looks like a good starting point
+      for adding CMakeList.txt files to your own project. BUT - I haven't used
+      it myself so feel free to post back your experience along with any
+      tips/tricks you would like to share.</para>
+    </section>
+
+    <section>
+      <title>CMake Library - abbreviated version</title>
+
+      <para>The above looks useful - but still a little too "heavyweight" for
+      my taste. It also distributes the CMake files around the project which
+      conficts with common practice for Boost libraries. The following
+      CMakeList.txt file creates a project for the XCode IDE to test and edit
+      the safe_numerics library. I haven't tested it on other platforms such
+      as the Visual Studio or Eclipse IDE but hopefully it should require only
+      minimal changes to do so.</para>
+
+      <informaltable>
+        <tgroup align="left" cols="3" rowsep="0">
+          <colspec align="left" colsep="0" colwidth="1*" rowsep="0"/>
+
+          <colspec align="left" colsep="0" colwidth="1*" rowsep="0"/>
+
+          <colspec align="left" colsep="0" colwidth="12*" rowsep="0"/>
+
+          <tbody>
+            <row>
+              <entry>File name</entry>
+
+              <entry/>
+
+              <entry>File contents</entry>
+            </row>
+
+            <row>
+              <entry>CMake</entry>
+
+              <entry valign="top"><code>CMakeList.txt</code></entry>
+
+              <entry><programlisting># CMake build control file for Serialization Library tests
+
+cmake_minimum_required(VERSION 2.8)
+
+project("SafeIntegers")
+
+#
+# Compiler settings - special settings for known compilers
+#
+
+message(STATUS "compiler is ${CMAKE_CXX_COMPILER_ID}" )
+
+if( CMAKE_CXX_COMPILER_ID STREQUAL "GNU" )
+  add_definitions( -ftemplate-depth=300 )
+elseif( CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" )
+  add_definitions( /wd4996 )
+elseif( CMAKE_CXX_COMPILER_ID STREQUAL "Clang" )
+  add_definitions( -ftemplate-depth=300 )
+  # include the following if and only if you want to use c++11 features
+  set (CMAKE_CXX_FLAGS "-std=c++11" )
+  set (CMAKE_CXX_FLAGS_DEBUG "-g -O0" )
+  set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g -O3" )
+  set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -dead_strip")
+endif()
+
+#
+# Locate Project Prerequisites 
+#
+
+# Boost
+
+# note: we're assuming that boost has been built with:
+# ./b2 —-layout=versioned toolset=clang-darwin link=static,shared variant=debug,release stage
+
+###########################
+# special notes for Xcode.
+
+# these three should result in CMake setting the variables
+# Boost_SERIALIZATION_LIBRARY_DEBUG … to the correct values.  
+
+# But my current version of CMake doesn't automatically set the library names
+# to point to the the libraries to be used.  The variables are created
+# but they are not initialized.  So be prepared to set these variables by hand.
+# If you want to use the static libraries - point to the boost libraries ending
+# in ".a".  If you want to use the shared boost libraries - point to the libraries
+# ending in ".dylib".
+
+# But wait - there's more.
+# if both lib.a and lib.dylib both exist in the library directory, Xcode will
+# automatically chose the *.dylib one - and there's nothing you can do to fix this.
+# So my recommendation is 
+# a) to place the compiled libraries in two different directories
+#    - e.g. stage/lib-static/*.a and stage/lib-shared/*.dylib
+#    and set the CMake variable Boost_LIBRARY_DIR to point to one or the other
+# b) create two different CMake build directories - build-static and build-shared
+#    and switch between the generated projects as desired.  I like to test both since
+#    there are things like dead code elimination and visibility which vary
+#    between the two environments.
+#
+#    caveat - as I write this, I've been unable to get the tests on the shared
+#    library to function. Problem is that one needs to either put the shared
+#    libraries in a special known place or set an environmental
+#    variable which points to the shared library directory.  I prefer the latter
+#    but I've been unable to figure out how to get Xcode to do on a global basis
+#    and it's not practical to do this for 247 test targets one at a time.
+
+# c) The targets in the project will by default be built as universal 32/64 binaries
+#    in debug mode.  When working with the  
+
+# end special note for Xcode
+############################
+
+#
+# Project settings
+#
+
+find_package(Boost REQUIRED COMPONENTS )
+
+if(Boost_FOUND)
+  set(Boost_USE_MULTITHREADED ON)
+  set(Boost_USE_STATIC_LIBS ON CACHE BOOL "Link to Boost static libraries")
+  # note: it seems that boost builds builds both address models in any case
+  # so we can defer this decision to the IDE just as we do for debug/release
+  # so we'll not use this now
+  # set(Boost_ADDRESS_MODEL 64 CACHE INTEGER "32/64 bits")
+  if( CMAKE_HOST_APPLE )
+    set(Boost_ADDRESS_MODEL 64 CACHE INTEGER "32/64 bits")
+  endif()
+  message(STATUS "Boost is ${BOOST_ROOT}")
+  message(STATUS "Boost directories found at ${Boost_INCLUDE_DIRS}")
+  message(STATUS "Boost libraries found at ${Boost_LIBRARY_DIRS}")
+  message(STATUS "Boost component libraries to be linked are ${Boost_LIBRARIES}")
+  message(STATUS "Boost version found is ${Boost_VERSION}")
+  if(Boost_USE_STATIC_LIBS)
+    set(BUILD_SHARED_LIBRARIES OFF)
+  else()
+    set(BUILD_SHARED_LIBRARIES ON)
+  endif()
+  message(STATUS "Boost Libraries used are: ${Boost_LIBRARIES}" )
+elseif()
+    message("Boost NOT Found!")
+endif()
+
+include_directories("../include" "${Boost_INCLUDE_DIRS}")
+link_directories("${Boost_LIBRARY_DIRS}")
+
+###########################
+# library builds
+
+# header library only - nothing to be built
+#
+# add_library(library_name ../src/sources1.cpp  …)
+
+# end library build
+###########################
+
+###########################
+# testing
+
+enable_testing()
+
+message(STATUS "test_add")
+  add_executable( test_add 
+  ../test/test_add.cpp 
+  ../test/test_add1.cpp 
+  ../test/test_add2.cpp 
+  ../test/test_add3.cpp
+)
+target_link_libraries( test_add  ${Boost_LIBRARIES} )
+add_test(NAME test_add COMMAND test_add)
+add_custom_target(test_add_header SOURCES ../test/test_add.hpp)
+
+message(STATUS "test_subtract")
+add_executable( test_subtract 
+  ../test/test_subtract.cpp 
+  ../test/test_subtract1.cpp 
+  ../test/test_subtract2.cpp 
+  ../test/test_subtract3.cpp
+)
+target_link_libraries( test_subtract  ${Boost_LIBRARIES} )
+add_test(NAME test_subtract COMMAND test_subtract)
+add_custom_target(test_subtract_header SOURCES ../test/test_subtract.hpp)
+
+message(STATUS "test_multiply")
+add_executable( test_multiply 
+  ../test/test_multiply.cpp 
+  ../test/test_multiply1.cpp 
+  ../test/test_multiply2.cpp 
+  ../test/test_multiply3.cpp
+)
+target_link_libraries( test_multiply  ${Boost_LIBRARIES} )
+add_test(NAME test_multiply COMMAND test_multiply)
+add_custom_target(test_multiply_header SOURCES ../test/test_multiply.hpp)
+
+message(STATUS "test_divide")
+add_executable( test_divide 
+  ../test/test_divide.cpp 
+  ../test/test_divide1.cpp 
+  ../test/test_divide2.cpp 
+  ../test/test_divide3.cpp
+)
+target_link_libraries( test_divide  ${Boost_LIBRARIES} )
+add_test(NAME test_divide COMMAND test_divide)
+add_custom_target(test_divide_header SOURCES ../test/test_divide.hpp)
+
+message(STATUS "test_modulus")
+add_executable( test_modulus 
+  ../test/test_modulus.cpp 
+  ../test/test_modulus1.cpp 
+  ../test/test_modulus2.cpp 
+  ../test/test_modulus3.cpp
+)
+target_link_libraries( test_modulus ${Boost_LIBRARIES} )
+add_test(NAME test_modulus COMMAND test_modulus)
+add_custom_target(test_modulus_header SOURCES ../test/test_modulus.hpp)
+
+message(STATUS "test_compare")
+add_executable( test_compare ../test/test_compare.cpp)
+target_link_libraries( test_compare  ${Boost_LIBRARIES} )
+add_test(NAME test_compare COMMAND test_compare)
+
+message(STATUS "test_conversion")
+add_executable( test_conversion ../test/test_conversion.cpp)
+target_link_libraries( test_conversion  ${Boost_LIBRARIES} )
+add_test(NAME test_conversion COMMAND test_conversion)
+
+# end test targets
+####################
+
+####################
+# add include headers to IDE
+
+file(GLOB include_files 
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" 
+  "${CMAKE_CURRENT_SOURCE_DIR}/../include/*.hpp"
+)
+add_custom_target(include SOURCES ${include_files})
+
+# end headers in IDE
+####################
+
+</programlisting></entry>
+            </row>
+
+            <row>
+              <entry><code>include</code></entry>
+
+              <entry/>
+
+              <entry/>
+            </row>
+
+            <row>
+              <entry><code>src</code></entry>
+
+              <entry/>
+
+              <entry/>
+            </row>
+
+            <row>
+              <entry><code>test</code></entry>
+
+              <entry/>
+
+              <entry/>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </section>
+  </section>
+</section>

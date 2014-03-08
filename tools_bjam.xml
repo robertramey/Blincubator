@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//Boost//DTD BoostBook XML V1.1//EN"
+"http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
+<section>
+  <title>Boost Build</title>
+
+  <para>This is a natural choice for a boost library. And any library
+  currently accepted into Boost must include Bjam script files. It's got some
+  good features:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>It's very powerful - basically can be scripted to do just about
+      anything related to build and test.</para>
+    </listitem>
+
+    <listitem>
+      <para>Once it's properly set up, it works well.</para>
+    </listitem>
+
+    <listitem>
+      <para>It includes support for most all C++ environments.</para>
+    </listitem>
+
+    <listitem>
+      <para>Bjam developers are always available to help users set this
+      up.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>And some not so good features:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Building and Testing of libraries is driven by a special file -
+      <filename>Jamfile.</filename>v2 - which includes information of the
+      source code modules, composition of modules and tests. Specification of
+      this file requires understand a whole new language as well as
+      understanding a large range of macro commands. It's quite a lot to learn
+      just to be able to build/test a small library.</para>
+    </listitem>
+
+    <listitem>
+      <para>It's not obvious how to use it when building a project which is
+      not a member of the boost tree. I eventually discovered how to do this,
+      but it frustrated me when I was experimenting with this.</para>
+    </listitem>
+
+    <listitem>
+      <para>The standard testing of boost libraries is supported via a Python
+      script which tests ALL the boost libraries and uploads test results to a
+      central web page. Reworking this to accommodate our "decoupled" library
+      model would seem to be a non-trivial and fragile exercise.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>These disadvantages discouraged me from requiring Boost Build. Any
+  library which is accepted by Boost will have to include support for Bjam or
+  whatever boost requires at the time. But having to sort this out up front
+  was considered too large a burden on library authors. Never the less, it IS
+  and option.</para>
+
+  <para>Here are some websites with information regarding Boost Build</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><ulink
+      url="http://www.boost.org/doc/libs/1_49_0/tools/build/v2/index.html">http://www.boost.org/doc/libs/1_49_0/tools/build/v2/index.html</ulink></para>
+    </listitem>
+
+    <listitem>
+      <para><ulink
+      url="http://www.boost.org/boost-build2/doc/html/index.html">http://www.boost.org/boost-build2/doc/html/index.html</ulink></para>
+    </listitem>
+
+    <listitem>
+      <para><ulink
+      url="http://syrcose.ispras.ru/2009/files/04_paper.pdf">http://syrcose.ispras.ru/2009/files/04_paper.pdf</ulink></para>
+    </listitem>
+  </itemizedlist>
+
+  <para>To use Boost Build for testing, we'll rely on the following:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para><ulink
+      url="http://www.highscore.de/cpp/boostbuild/">http://www.highscore.de/cpp/boostbuild/</ulink>
+      for explanation of how <filename>bjam</filename> works.</para>
+    </listitem>
+
+    <listitem>
+      <para><ulink
+      url="http://www.boost.org/boost-build2/doc/html/bbv2/builtins/testing.html">http://www.boost.org/boost-build2/doc/html/bbv2/builtins/testing.html</ulink>
+      for an explanation of the Jamfile commands used for testing.</para>
+    </listitem>
+
+    <listitem>
+      <para>The section of <link
+      linkend="requirements_directory_structure">Directory Structure</link>
+      shows location of the files <filename>Jamroot.jam</filename> and
+      <filename><code>Jamfile.jam</code> </filename>which the
+      <filename>bjam</filename> build/test procedure uses to drive the
+      process. Create these files in the designated places in the directory
+      hierarchy of your project. You may also use <filename>safe
+      numerics</filename> library as an example. Here is the file
+      <filename>Jamfile.jam</filename> in the directory
+      <filename>safe_numerics/test</filename></para>
+
+      <programlisting>import testing ;
+
+run test_add.cpp test_add1.cpp test_add2.cpp test_add3.cpp
+    : # args    
+    : # input files
+    : # requirements
+    : # target-name
+    : # default-build ...
+;
+
+# other tests follow ...</programlisting>
+
+      <para>And here is the <filename>Jamroot.jam</filename> file in the
+      directory <filename>safe_numerics</filename></para>
+
+      <programlisting>import os ;
+
+# Note: we require tha BOOST_ROOT be defined with a valid path
+BOOST_ROOT = [ os.environ BOOST_ROOT ] ;
+ECHO Boost include path is: $(BOOST_ROOT) ;
+
+project safe_numerics
+    # : source-location ... # not needed for header only libraries
+    : requirements
+        &lt;include&gt;$(BOOST_ROOT)
+        &lt;toolset&gt;gcc:&lt;cxxflags&gt;-pedantic
+        &lt;toolset&gt;gcc:&lt;cxxflags&gt;-std=c++0x
+    # : default-build   - default none
+    # : build-dir - default = ./bin
+;</programlisting>
+    </listitem>
+
+    <listitem>
+      <para>We will use an abbreviated version of the procedure document for
+      <ulink
+      url="http://www.boost.org/doc/libs/1_51_0/tools/regression/doc/library_status.html">Library
+      Status</ulink> on the <ulink url="http://www.boost.org">Boost
+      website</ulink>. This entails the following steps.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para>set the current directory to <code>&lt;library&gt;/test</code>
+          .</para>
+        </listitem>
+
+        <listitem>
+          <para>set the environmental variable <code>BOOST_ROOT=&lt;boost root
+          directory&gt;</code></para>
+        </listitem>
+
+        <listitem>
+          <para>invoke <code>bjam --dump-tests &lt;bjam arguments&gt;
+          &gt;bjam.log</code></para>
+
+          <para>where bjam arguments are some combination of the
+          following:</para>
+
+          <itemizedlist>
+            <listitem>
+              <para><code>toolset=msvc-9.0</code></para>
+            </listitem>
+
+            <listitem>
+              <para><code>variant=debug,release, profile</code></para>
+            </listitem>
+
+            <listitem>
+              <para><code>link=static, shared</code></para>
+            </listitem>
+
+            <listitem>
+              <para><code>threading=single,multi</code></para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Note that if you specify more than one value for an argument,
+          (e.g. debug,release separated by commas), bjam will build both
+          versions of the tests. Since the same applies to all the possible
+          arguments, so it's possible to generate a large number of
+          combinations of tests with only one command line.</para>
+        </listitem>
+
+        <listitem>
+          <para>invoke <code>library_status library_status.html</code></para>
+
+          <para>This will build an HTML file in the <code>&lt;library&gt;/test
+          directory</code> named <code>library_status.html</code>. Opening
+          this with any web browser will display all your test results.</para>
+        </listitem>
+      </itemizedlist>
+
+      <para>This whole procedure can be encapsulated in the following shell
+      script or similar windows BAT file. This script is found in
+      BOOST_ROOT/tools/regression/src.</para>
+
+      <programlisting>if test $# -eq 0 
+then
+    echo "Usage: b2 &lt;b2 arguments&gt;"
+    echo "Where typical &lt;b2 arguements&gt; are:"
+    echo "  toolset=msvc-7.1,gcc"
+    echo "  variant=debug,release,profile"
+    echo "  link=static,shared"
+    echo "  threading=single,multi"
+else
+    bjam --dump-tests $@ &gt;b2.log 2&gt;&amp;1
+    library_status library_status.html links.html
+fi</programlisting>
+    </listitem>
+  </itemizedlist>
+
+  <para>Your boost installation might or might not have <code>b2</code>
+  installed and working. If not, you'll have to get them built. There are any
+  number of ways to do this depending on your platform. See <ulink
+  url="http://www.boost.org/doc/libs/1_52_0/more/getting_started/index.html">Getting
+  Started</ulink> and<ulink
+  url="http://www.boost.org/boost-build2/doc/html/index.html"> <code>B2
+  Installation</code></ulink> at the boost website for information on how to
+  do this. Unfortunately, the program <code>library_status</code> is not built
+  by the default installation. But now that you have b2 installed, the
+  following procedure will build the <code>library_status</code>
+  executable.<itemizedlist>
+      <listitem>
+        <para>set the current directory to <code>&lt;boost
+        root&gt;/tools/regression/build</code> .</para>
+      </listitem>
+
+      <listitem>
+        <para>invoke <code>b2 toolset=&lt;....&gt; variant=release
+        library_status</code></para>
+      </listitem>
+
+      <listitem>
+        <para>copy the resulting <code>library_status</code> executable to a
+        place in your path. Most likely this will be the same place where the
+        b2 executable is to be found.</para>
+      </listitem>
+    </itemizedlist></para>
+
+  <para>Now you should have everything in place to executate the above
+  described procedure for testing your library and reviewing the results. The
+  focus here has been to describe a simple boost friendly procedure for
+  building and testing one's library. This procedure should permit anyone who
+  has boost installed to run the tests on any download from this site. Users
+  should be encouraged to run the test suite on their local platform/compiler
+  before using the library. In the future we hope to enhance the library
+  status page displayed with a button to upload the test results to a common
+  site so that library authors and potential users can review the test results
+  when ever it might be convenient. However, for now this is the best we
+  have.</para>
+</section>

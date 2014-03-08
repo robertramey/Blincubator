@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE section PUBLIC "-//XMLmind//DTD BoostBook//EN"
+<!DOCTYPE section PUBLIC "-//Boost//DTD BoostBook XML V1.1//EN"
 "http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
 <section>
   <title>[Concept Name]</title>
@@ -43,39 +43,33 @@
     This section defines the meaning of the variables and identifiers used in
     those expressions.]</para>
 
-    <table colsep="0" frame="0" rowsep="0">
-      <tgroup cols="2" colsep="0" rowsep="0">
-        <colspec align="left" />
+    <informaltable>
+      <tgroup cols="2">
+        <colspec align="left"/>
 
-        <colspec align="left" colwidth="3*" />
+        <colspec align="left" colwidth="3*"/>
 
         <tbody>
           <row>
-            <entry>
-              <code>X</code>
-            </entry>
+            <entry><code>X</code></entry>
 
             <entry>A type that is a model of the [Concept Name]</entry>
           </row>
 
           <row>
-            <entry>
-              <code>x, a, b</code>
-            </entry>
+            <entry><code>x, a, b</code></entry>
 
             <entry>An object of type X</entry>
           </row>
 
           <row>
-            <entry>
-              <code>...</code>
-            </entry>
+            <entry><code>...</code></entry>
 
-            <entry />
+            <entry/>
           </row>
         </tbody>
       </tgroup>
-    </table>
+    </informaltable>
   </section>
 
   <section>
@@ -89,39 +83,33 @@
     type. If a concept does not have any such associated types this section
     can be eliminated.]</para>
 
-    <table>
+    <informaltable>
       <tgroup cols="2">
-        <colspec align="left" />
+        <colspec align="left"/>
 
-        <colspec align="left" colwidth="3*" />
+        <colspec align="left" colwidth="3*"/>
 
         <tbody>
           <row>
-            <entry>
-              <code>X::value_type</code>
-            </entry>
+            <entry><code>X::value_type</code></entry>
 
             <entry>A type of an object stored in [Concept Name]</entry>
           </row>
 
           <row>
-            <entry>
-              <code>X::iterator</code>
-            </entry>
+            <entry><code>X::iterator</code></entry>
 
             <entry>An object of type X</entry>
           </row>
 
           <row>
-            <entry>
-              <code>...</code>
-            </entry>
+            <entry><code>...</code></entry>
 
-            <entry />
+            <entry/>
           </row>
         </tbody>
       </tgroup>
-    </table>
+    </informaltable>
   </section>
 
   <section>
@@ -139,12 +127,12 @@
     <para>In addition to the expressions defined in <ulink
     url="http://www.sgi.com/tech/stl/Assignable.html">Assignable</ulink> the
     following expressions must be valid.<informaltable>
-        <tgroup cols="4">
-          <colspec align="left" />
+        <tgroup cols="3">
+          <colspec align="left"/>
 
-          <colspec align="left" colwidth="3*" />
+          <colspec align="left" colwidth="3*"/>
 
-          <colspec align="left" colwidth="3*" />
+          <colspec align="left" colwidth="3*"/>
 
           <thead>
             <row>
@@ -185,7 +173,7 @@
 
               <entry>(only needed for templates)</entry>
 
-              <entry></entry>
+              <entry/>
             </row>
           </tbody>
         </tgroup>
