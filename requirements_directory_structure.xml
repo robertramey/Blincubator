@@ -9,7 +9,9 @@
   <para><programlisting>&lt;libraryname&gt;
   <link linkend="Jamroot.jam">Jamroot.jam</link> // if using bjam build
   include/
-    ...
+    boost/
+      &lt;library_name&gt;
+        ...
   src/ // not required for header only libraries
     cpp files ...
     <link linkend="Jamroot.jam">Jamfile.jam</link>
