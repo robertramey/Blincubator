@@ -1,7 +1,12 @@
 <div class="section" title="Directory Structure"><div class="titlepage"><div><div><h2 class="title"><a name="requirements_directory_structure"></a>Directory Structure</h2></div></div><hr></div><p>Libraries should have the following directory structure.</p><pre><code>&lt;libraryname&gt;
-  Jamroot.jam // if using bjam build
+  build/ // if your using bjam
+    Jamroot.jam // if using bjam build
+  CMake // if you're using CMake
+    CMakeList.txt
   include/
-    ...
+    boost/  // you could use your own name here
+      &lt;library_name&gt;
+        ...
   src/ // not required for header only libraries
     cpp files ...
     Jamfile.jam
@@ -55,4 +60,4 @@
       system.</p></li><li class="listitem"><p>The library must supply <a href="Jamroot.jam">Jamfile.jam</a> files for each of the src,
       example and test directories.</p></li><li class="listitem"><p>Other build system support is optional. If supplied it should be
       either as one file (example: bjam) or as a subdirectory with multiple
-      files.</p></li></ul></div></div>
+      files.</p><p></p></li></ul></div></div>

@@ -1,0 +1,49 @@
+import testing ;
+
+run test_conversion.cpp
+    : # args    
+    : # input files
+    : # requirements
+    : # target-name
+    : # default-build ...
+;
+
+run test_add.cpp test_add1.cpp test_add2.cpp test_add3.cpp
+    : # args    
+    : # input files
+    : # requirements
+    : # target-name
+    : # default-build ...
+;
+
+run test_subtract.cpp test_subtract1.cpp test_subtract2.cpp test_subtract3.cpp
+    : # args    
+    : # input files
+    : # requirements
+    : # target-name
+    : # default-build ...
+;
+
+run test_multiply.cpp test_multiply1.cpp test_multiply2.cpp test_multiply3.cpp
+    : # args    
+    : # input files
+    : # requirements
+    : # target-name
+    : # default-build ...
+;
+
+run test_divide.cpp test_divide1.cpp test_divide2.cpp test_divide3.cpp
+    : # args    
+    : # input files
+    : # requirements
+    : # target-name
+    : # default-build ...
+;
+
+run test_modulus.cpp test_modulus1.cpp test_modulus2.cpp test_modulus3.cpp
+    : # args    
+    : # input files
+    : # requirements
+    : # target-name
+    : # default-build ...
+;
