@@ -1,0 +1,35 @@
+<div class="section" title="Write Code, Concepts, Tests and Documentation Concurrently"><div class="titlepage"><div><div><h2 class="title"><a name="idm431888967408"></a>Write Code, Concepts, Tests and Documentation Concurrently</h2></div></div><hr></div><p>This is what we usually do to make a library or other body of
+    code:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>write all the code</p></li><li class="listitem"><p>write some tests</p></li><li class="listitem"><p>change all the code and tests until the tests to pass on our
+        platform</p></li><li class="listitem"><p>start writing documentation and examples</p></li><li class="listitem"><p>upload it and ask people to try it out</p></li></ul></div><p>This approach has a couple of problems.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Coding is fun, while the ancillary tasks can be very boring,
+        tedious and frustrating. So leaving these other tasks as an
+        afterthought results in poor and/or incomplete documentation, testing,
+        and concept definition.</p></li><li class="listitem"><p>Conceptual errors are often discovered when writing
+        documentation, tests and concepts. Discovery of these errors usually
+        results in changed to the code which ripple through the whole library
+        and create a lot of work.</p></li><li class="listitem"><p>Poor/Incomplete documentation/testing/concepts mean that fewer
+        conceptual errors are discovered before code is made available to
+        users.</p></li><li class="listitem"><p>Users will be shipped code which is weak on documentation,
+        tests, and examples and has conceptual errors. Often the library
+        writer doesn't do this intentionally, it's just an effect of the way
+        the code has been developed. Users will discover these problems,
+        reject the library and move on. If the library writer get's any
+        feedback it is likely to be of limited usefulness.</p></li><li class="listitem"><p>So reworking code and documentation after everything is "done"
+        results in a huge amount of extra work - if the work every get's
+        done.</p></li></ul></div><p>The basic problem is that the ancillary tasks create a lot of useful
+    information and this needs to be cycled back into the library code before
+    anything is shipped. Cycling this information back sooner saves wasted
+    time.</p><p>Here is what I recommend instead:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>write a small group of classes. functions, or templates.</p></li><li class="listitem"><p>use concepts - what are concepts?</p></li><li class="listitem"><p>write documentation for this group</p></li><li class="listitem"><p>write and newly required concept checking classes</p></li><li class="listitem"><p>write a program to test this code</p></li><li class="listitem"><p>Repeat above for the next group.</p></li><li class="listitem"><p>When there is enough to be truely useful to someone, upload the
+        package as ask people to test it. The package may not have all the
+        features planned for it, but it should have enough functionality to be
+        useful.</p></li><li class="listitem"><p>Monitor feedback.</p></li><li class="listitem"><p>add features and make adjustments and repeat cycle above.</p></li></ul></div><p>In contrast to the first approach.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Coding, testing, documentation, are divided into shorter tasks.
+        So the tedium and frustration are much easier to deal with.</p></li><li class="listitem"><p>Information gleaned from documentation, testing, concepts, and
+        user feedback is received sooner and saves much rework and back
+        tracking.</p></li><li class="listitem"><p>The result is a higher quality library which:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Exhibits "conceptual integrity". That is, code with a
+              clearly defined purpose which is explained in an way which makes
+              it obvious what the code is meant to do and how to use
+              it.</p></li><li class="listitem"><p>Motviates the user to take the code for a "test drive" by
+              including the code in his own application. This should that
+              convince the user that the library is bug free, useful, and easy
+              to use.</p></li><li class="listitem"><p>Results in the user returning positive feedback and
+              request for more features.</p></li><li class="listitem"><p>Motivates the library writer and perhaps other users to
+              add features to the library.</p></li></ul></div></li></ul></div></div>

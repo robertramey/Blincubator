@@ -1,0 +1,37 @@
+<div class="section" title="Build and Test"><div class="titlepage"><div><div><h2 class="title"><a name="tools_build_and_test"></a>Build and Test</h2></div></div><hr></div><p>There is a bewildering array of <a class="ulink" href="http://en.wikipedia.org/wiki/List_of_build_automation_software" target="_top">build
+  systems</a>. None of them are really satisfactory. I had hoped to avoid
+  imposing any requirement as to the build/test system and leave the option to
+  each library author to choose what he felt was most convenient. Some
+  experimentation with my prototype library safe_numerics convinced me that
+  this wasn't realistic and that I would have to require a specific build/test
+  system. I wanted a system which:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>would work on the wide variety of environments on which C++ is
+        run.</p></li><li class="listitem"><p>would gracefully handle variants debug/release, dll/static
+        libraries, etc.</p></li><li class="listitem"><p>didn't require any customization for each environment.</p></li><li class="listitem"><p>would include the ability to support both building AND testing
+        of libraries</p></li><li class="listitem"><p>didn't require elaborate installation and/or scripting.</p></li><li class="listitem"><p>didn't much, if any, learning curve.</p></li></ul></div><p>I looked at a few specific alternatives.</p><div class="section" title="Alternatives Considered"><div class="titlepage"><div><div><h3 class="title"><a name="idm351694710688"></a>Alternatives Considered</h3></div></div></div><div class="section" title="Make"><div class="titlepage"><div><div><h4 class="title"><a name="idm351694710048"></a>Make</h4></div></div></div><p>In the spirit of keeping things as simple as possible, this was my
+      first choice. But starting with a basic make file, one would need to add
+      a lot of extras functionality to address the requirements in the above
+      list. Basic make doesn't have enough functionality to support all we
+      need so we're forced to specify a build/test system.</p></div><div class="section" title="Autotools"><div class="titlepage"><div><div><h4 class="title"><a name="idm351694708528"></a>Autotools</h4></div></div></div><p>Autotools is the traditional Unix solution to the problem of
+      build/test/deployment. It has a long history and is widely used. There
+      is lot's of literature on it as well. It garners a number of complaints
+      about how hard it is to use - but then it seems all of these build
+      systems share that trait. And it doesn't do windows which is sort of
+      deal killer for us. None the less, I wanted to take a look at it. First
+      I looked at my books. It was explained but it did seem pretty
+      complicated. I trolled the net and found a couple of references:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16" target="_top">http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16</a></p></li><li class="listitem"><p><a class="ulink" href="http://mij.oltrelinux.com/devel/autoconf-automake/" target="_top">http://mij.oltrelinux.com/devel/autoconf-automake/</a></p></li></ul></div><p>The first one has a graphic on page 16 which helped make it clear
+      how all the pieces of this system fit together. On the other hand, this
+      graphic didn't make it look very easy. I went through the process with
+      my unix-like CYGWIN installation and things seemed to run well until the
+      last step. Again, I had the feeling I could make this work if I was
+      willing to put in more time, but I didn't feel like doing it. An
+      interesting experience but not a good solution for us.</p></div><div class="section" title="Boost Build"><div class="titlepage"><div><div><h4 class="title"><a name="idm351694702976"></a><a href="tools_bjam">Boost Build</a></h4></div></div></div></div><div class="section" title="CMake/CTest"><div class="titlepage"><div><div><h4 class="title"><a name="idm351694701072"></a><a href="tools_cmake">CMake/CTest</a></h4></div></div></div></div><div class="section" title="Summary"><div class="titlepage"><div><div><h4 class="title"><a name="idm351694699248"></a>Summary</h4></div></div></div><p>Basically I didn't find what I was looking for. I believe that
+      all/any of these build tools could have been made to work, but at a
+      significant overhead cost and learning curve. Turns out I'm not alone.
+      Searching for a good build system hits dozens of <a class="ulink" href="http://en.wikipedia.org/wiki/List_of_build_automation_software" target="_top">tools</a>
+      with a huge variety of features and capabilities. These tools have been
+      contributed over more than a decade with arriving all the time.
+      Commentary, critique and comparison of all these options strongly
+      suggest that this problem isn't close to being solved yet. So it's fair
+      to assume it's much harder than it would first seem to solve this
+      problem.</p><p>Here is a list of miscellaneous links to sites that I found useful
+      in my investigation of Build systems.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://en.wikipedia.org/wiki/List_of_build_automation_software" target="_top">http://en.wikipedia.org/wiki/List_of_build_automation_software</a></p></li></ul></div></div></div></div>

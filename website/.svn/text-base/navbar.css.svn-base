@@ -1,0 +1,9 @@
+body
+{
+	font-family: Helvetica, Geneva, Arial, SunSans-Regular, sans-serif;
+	font-size:small;
+	background: white;
+	padding:0em;
+	height: 17px;
+	color: blue;
+}

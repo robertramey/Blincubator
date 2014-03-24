@@ -1,0 +1,18 @@
+<div class="section" title="Use the Release Branch for Testing"><div class="titlepage"><div><div><h2 class="title"><a name="idm518894038944"></a>Use the Release Branch for Testing</h2></div></div><hr></div><p>If you're making a library which you hope to get accepted into
+    Boost, it will very likely depend upon other boost library components. Do
+    not test your code against the Boost Trunk. Consider the
+    following:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>You're using Boot Test Library to test your library.</p></li><li class="listitem"><p>The Boost Test author makes a change and tests it on his own
+          system.</p></li><li class="listitem"><p>He uploads it to the trunk for testing on all other
+          compilers/OS combination which Boost Supports.</p></li><li class="listitem"><p>Over the next few days it turns out that the code is broken on
+          some platforms he couldn't test on. So he endeavors to make the code
+          fixes required.</p></li><li class="listitem"><p>Meanwhile, you've updated your local copy and you test your
+          new library. But now you get a number of subtle problems of unknown
+          origin. You have to spend a lot of time tracking down errors which
+          are not in your own code at all! This is a huge waste of
+          time.</p></li><li class="listitem"><p>Eventually, the Boost Test Library author get's all the tests
+          passing and the problem goes away - IF you happen to update your
+          local copy from the trunk in the meantime.</p></li><li class="listitem"><p>This scenario supposes that you've only got one Boot Library
+          dependency in your code. In reality, due to the nested library
+          structure of all software libraries, you'll actually be dependent on
+          dozens of other libraries which your are not even aware of.</p></li></ul></div><p>Using the Boost Trunk copy of libraries is a huge waste
+    of your time - don't do it!</p></div>

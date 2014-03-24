@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE catalog 
+  PUBLIC "-//OASIS/DTD Entity Resolution XML Catalog V1.0//EN"
+  "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd"
+>
+   <!--
+   Pointers to local copies of xml resources used by XSLT processor.
+   Note: xsltproc fails to adequately handle spaces in files names so
+   don't use them.  Also, it's not clear that the windows version 
+   can handle the C:/... syntax for a path name.
+   -->
+   <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+       <!--
+       Point to boost book files on the local system
+       Note: the pathname to ../tools is not strictly correct - that is no such
+       pathname actually exists.  Rather than use the "real" pathname:
+		https://svn.boost.org/svn/boost/branches/release/tools/boostbook/...
+            But all we really need is that it be unique. So we choose one which
+            isn't tied to the SVN system.
+       NOTE: Replace "c:/BoostRelease" with the contents of your $BOOST_ROOT variable
+       -->
+       <rewriteURI uriStartString="http://www.boost.org/tools/boostbook/"
+        rewritePrefix="c:/BoostRelease/tools/boostbook/"
+       />
+       Point to doc book dtd directory on the local system
+       -->
+       <rewriteURI uriStartString="http://www.oasis-open.org/docbook/xml/4.5/"
+        rewritePrefix="c:/DocBook/dtd/"
+       />
+       <rewriteURI uriStartString="http://www.oasis-open.org/docbook/xml/4.2/"
+        rewritePrefix="c:/DocBook/dtd/"
+       />
+       <!--
+       Point to doc book xsl directory on the local system
+       NOTE: Replace "c:/DocBook" with your own "DOCBOOK" directory
+       -->
+       <rewriteURI uriStartString="http://docbook.sourceforge.net/release/xsl/current/"
+        rewritePrefix="c:/DocBook/docbook-xsl-1.76.1/"
+       />
+</catalog>

@@ -1,0 +1,18 @@
+import os ;
+
+BOOST_ROOT = [ os.environ BOOST_ROOT ] ;
+
+# Note we require tha BOOST_ROOT be defined with a valid path
+
+ECHO Boost include path is: $(BOOST_ROOT) ;
+
+project safe_numerics
+    # : source-location ... # not needed for header only libraries
+    : requirements
+        <include>$(BOOST_ROOT)
+        <toolset>gcc:<cxxflags>-pedantic
+        <toolset>gcc:<cxxflags>-std=c++0x
+    # : default-build   - default none
+    # : build-dir - default = ./bin
+;
+

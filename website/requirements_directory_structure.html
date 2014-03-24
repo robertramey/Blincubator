@@ -1,0 +1,58 @@
+<div class="section" title="Directory Structure"><div class="titlepage"><div><div><h2 class="title"><a name="requirements_directory_structure"></a>Directory Structure</h2></div></div><hr></div><p>Libraries should have the following directory structure.</p><pre><code>&lt;libraryname&gt;
+  Jamroot.jam // if using bjam build
+  include/
+    ...
+  src/ // not required for header only libraries
+    cpp files ...
+    Jamfile.jam
+    // other build systems - optional
+    vcide
+    ...
+  example/
+    cpp and hpp files
+    Jamfile.jam
+    // other build systems - optional
+    vcide
+    ...
+  test/
+    cpp and hpp files
+    Jamfile.jam
+    // other build systems - optional
+      vcide
+      ...
+  doc/
+    html/
+      boostbook.css
+      html files ....
+      images/
+        png files ...
+    // document source files - maybe one of those below
+    docbook/  // optional
+      xml files ...
+      // scripts which create html
+      makehtml.bat
+      makehtml.sh 
+    boostbook/ // optional
+      xml files ...
+      // scripts which create html
+      makehtml.bat
+      makehtml.sh 
+    quickbook/ // optional
+      qbk files ...
+      // scripts which create html
+      makehtml.bat
+      makehtml.sh 
+</code></pre><p>This is a little different than the current Boost directory structure
+  requirements. But it should look familiar to those with some experience with
+  Boost Libraries. It's designed so that the library is contained in one
+  directory structure and need not occupy a specific place within any higher
+  level structure.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>The library directory and files can be placed anywhere in the
+      users file hierarchy.</p></li><li class="listitem"><p>There is no requirement to alter the users Boost directory. The
+      library can be used just by making sure the include directory is
+      available during the compilations of source files which use it.</p></li><li class="listitem"><p>If the library user prefers to have all his "boost like" libraries
+      in the boost header space, he can make a link or forwarding header in
+      his boost directory tree to accomplish this.</p></li><li class="listitem"><p>The library must supply a file named <a href="Jamroot.jam">Jamroot.jam</a> to support the Bjam build
+      system.</p></li><li class="listitem"><p>The library must supply <a href="Jamroot.jam">Jamfile.jam</a> files for each of the src,
+      example and test directories.</p></li><li class="listitem"><p>Other build system support is optional. If supplied it should be
+      either as one file (example: bjam) or as a subdirectory with multiple
+      files.</p></li></ul></div></div>

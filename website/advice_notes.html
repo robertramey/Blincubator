@@ -1,0 +1,27 @@
+<div class="section" title="Keep Notes as You Make Changes"><div class="titlepage"><div><div><h2 class="title"><a name="idm37740387952"></a>Keep Notes as You Make Changes</h2></div></div><hr></div><p>Many libraries have a section entitled "Rationale". This section is
+    very helpful for anyone who want's to use the library. The problem is that
+    if you wait until you're done to write this section, you can't remember
+    what the key decisions were and why you made them. That is, you don't
+    remember all the dead ends you discarded to get your final finished
+    product. If your library gets to review, someone will suggest that it you
+    should of done it using method X instead of method Y</p><p>"Easy" way - don't keep notes. Here's what happens.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>At some point in the development, you discover that you want to
+        change a design decision. This means you have to use method X instead
+        of method Y. Generally this will occur more than once during the
+        development.</p></li><li class="listitem"><p>Finally you get everything done, and submit your library for
+        review.</p></li><li class="listitem"><p>Now some smart guy will make a good case for using method Y
+        instead of method X which you used. Of course you know that since
+        you've been down that road. But now you don't remember exactly why
+        method Y couldn't be made to work.</p></li><li class="listitem"><p>So you sort of fake it with a glib response which only provokes
+        your critic to make an even stronger case. Now everything has
+        escalated to the point where you have to go back and make a really
+        exahaustive explanation (maybe even involving sample code!). This
+        sucks up a huge amount of time.</p></li></ul></div><p>"Hard" way - keep notes on your decisions as you go:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>When you discover you want to change a design decision, add an
+        explanation to your log.</p></li><li class="listitem"><p>Keeping such notes diminishes the possibility that you
+        accidently change a design decision back to one that has previously
+        been determined to be a dead end. Don't laugh - this is not hard to
+        do!</p></li><li class="listitem"><p>When writing documentation, take these notes, clean them up and
+        include them in a section called "Rationale". This makes writing this
+        very useful documentation trivial.</p></li><li class="listitem"><p>Users and library reviewers will be able to see your case before
+        they make their "suggestions". This short circuits lot's of pointless
+        discussions. There will likely still be differences of opinion, but
+        all the issues will be visible to all parties at the same time.</p></li></ul></div></div>
