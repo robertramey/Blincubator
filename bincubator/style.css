@@ -1,0 +1,197 @@
+/*
+Theme Name:     Boost Incubator
+Theme URI:      http://www.rrsd.com/wordpresstest/
+Description:    Boost Incubator theme
+Author:         Robert Ramey
+Author URI:     http://www.rrsd.com/about/
+Template:       twentyten
+Version:        0.1.0
+*/
+
+@import url("../twentyten/style.css");
+
+body {
+	width: auto;
+	height: auto;
+}
+
+#content code {
+ 	font-size: 16px;
+}
+
+#wrapper {
+	overflow: hidden;
+	width: inherit;
+	height: inherit;
+	margin: 0;
+	padding: 0px 10px 0px 10px;
+}
+
+#container {
+        margin: 0 -150px 0 0;
+        width: inherit;
+	float: none;
+}
+
+#content {
+	margin: 0px 150px 0px 0;
+	padding: 0;
+	width: inherit;
+}
+
+#content li p {
+	margin-bottom: 0px;
+}
+
+#content table {
+	width: auto;
+}
+
+#primary, #secondary {
+    	overflow: visible;
+}
+
+#primary {
+    	float: right;
+    	width: 150px;
+    	width: 150px;
+	border: 2px solid black;
+	margin: 8px 0px 0px 8px;
+}
+
+#secondary {
+    	float: right;
+    	width: 150px;
+    	width: 150px;
+	border: 2px solid black;
+	margin: 8px 0px 0px 8px;
+}
+
+#header, #footer, #main {
+	display: block;
+	width:inherit;
+	padding: 0 ;
+	margin: 12px 0 12px 0;
+}
+
+#loginout {
+	float: right;
+}
+
+hr {
+	clear: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	clear: none;
+	font-weight: normal;
+}
+/* =Header
+-------------------------------------------------------------- */
+
+#branding {
+	width: inherit;
+}
+
+#branding img {
+	border: none;
+}
+
+#access {
+	width: 100%;
+}
+#access .menu-header, div.menu {
+	float: none;
+}
+
+#site-title {
+	display: block;
+	float: left;
+        margin: 0;
+	width: auto;
+}
+#site-description {
+	display: block;
+	float: right;
+        margin: 0;
+	width: auto;
+}
+
+#site-generator {
+	width: auto;
+}
+
+#site-info {
+    	float: left;
+    	width: auto;
+}
+
+#left_logo {
+	clear: both;
+	float: left;
+	margin: 0px -300px 0px 0px;
+}
+#right_logo {
+	float: right;
+}
+
+#colophon {
+	margin: 0;
+	width: 100%;
+	padding: 0;
+	line-height: 12px;
+}
+
+#colophon #copyright_notice {
+    	display: inline-block;
+    	line-height: 16px;
+    	text-decoration: none;
+	font-style: italic;
+	clear: both;
+	float: right;
+}
+
+.gform_wrapper ul li.library_link input {
+	color: rgb(0,102,204) !important;
+}
+.gform_wrapper ul li.gfield {
+	clear: none !important;
+}
+
+.gform_wrapper ul.gfield_radio li input[type="radio"]:checked + label {
+	color: red;
+}
+
+.blincubator_button, .gform_button, #commentform input {
+    background: url("../images/button-grad.png") repeat-x scroll left top #21759B;
+    border-color: #298CBA;
+    color: #FFFFFF !important;
+    font-family: "Helvetica Neue",Arial,Helvetica,"Nimbus Sans L",sans-serif;
+    font-weight: bold;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+    text-color: #FFFFFF;
+    -moz-box-sizing: content-box;
+    border-radius: 11px 11px 11px 11px;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    font-size: 12px !important;
+    line-height: 13px;
+    padding: 3px 8px;
+    margin: 1px;
+    text-decoration: none;
+}
+
+div.star-holder {
+    background: url("images/stars.png?ver=20121108") repeat-x scroll left bottom transparent;
+    display: inline-block;
+    position: relative;
+    height: 17px;
+    width: 100px;
+}
+
+div.star-holder .star-rating {
+    background: url("images/stars.png?ver=20121108") repeat-x scroll left top transparent;
+    float: left;
+    height: 17px;
+}
