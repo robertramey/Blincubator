@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="requirements_deployment">
+  <title>Deployment</title>
+
+  <section>
+    <title>Code Delivery</title>
+
+    <para>Library submissions will consist of a group of files of source code,
+    documentation, examples, tests and perhaps others. This code can be
+    delivered one or more ways:</para>
+
+    <section>
+      <title>Zip and/or TAR balls</title>
+
+      <para>These file formats have been the traditional manner to deliver a
+      group of files. One or both of these methods must be supported by the
+      system. At a minimum, libraries should be available in at least one of
+      these formats.</para>
+    </section>
+
+    <section>
+      <title>Code Repositories</title>
+
+      <para>Code repositories such as GIT and SVN have now become almost
+      universal. They now are convenient to use and provide an alternative way
+      to permit users to get source code on to their system and keep it
+      updated. Though not required to be included on this website, we
+      recommend it.</para>
+    </section>
+  </section>
+
+  <section>
+    <title>Reviews</title>
+
+    <para>Reviews are essential to library deployment. </para>
+
+    <para>When searching the web for code libraries, dozens or in some cases
+    hundreds of candidate libraries will be found. Even after eliminating
+    those that don't meet basic requirements of license, documentation, tests,
+    etc, there will likely remain a large number of candidates to evaluate.
+    This evaluation can take considerable time. User will typically read
+    reviews for the different candidate libraries and pick the one with the
+    least negative feedback for a more thorough personal evaluation. </para>
+
+    <para>Boost libraries are subjected to a more formal and rigorous review
+    process. Participants in this process submit their reviews to a review
+    manager in a short time frame - one or two weeks. This works well. But
+    while the short time frame focuses the disicussion, not everyone can
+    allocate the time required in the particular review period. So we require
+    a system whereby reviewers can submit their reviews in advance of the
+    official review period. If the library gets submitted and reviewed by
+    Boost, the review manager will have a head start on reviews. It also helps
+    library authors to get feedback before the formal review process.</para>
+  </section>
+
+  <section>
+    <title>Issue Tracking</title>
+
+    <para>All libraries will have issues. These may be bugs, confusion in the
+    documentation, portability problems, missing features or something else. A
+    system is required to report, comment on, and somehow resolve these
+    issues. </para>
+  </section>
+</section>

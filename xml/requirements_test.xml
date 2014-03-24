@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section>
+  <title>Test and Build</title>
+
+  <para>One of the key features of Boost librariies is that they are
+  extensively tested. This is done by volunteers who test all the libraries on
+  particular platforms. From our perspecitve here, this has a number of
+  drawbacks:</para>
+
+  <para><itemizedlist>
+      <listitem>
+        <para>It is very demanding on the voluteers. Usually takes all night
+        to run tests on all of boost.</para>
+      </listitem>
+
+      <listitem>
+        <para>The environments being tested might or might not be the same as
+        those platforms that users actually use.</para>
+      </listitem>
+
+      <listitem>
+        <para>It's not obvious how to test just one library.</para>
+      </listitem>
+
+      <listitem>
+        <para>It only includes libraries already accepted into boost. So it is
+        of no help to target audience of this web site.</para>
+      </listitem>
+    </itemizedlist>To address these considerations we will require that every
+  library submission include the following:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>A reasonably complete set of tests which can be run by anyone who
+      downloads the library.</para>
+    </listitem>
+
+    <listitem>
+      <para>A test script for running these tests.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>This will permit any users of a submitted library to run his own
+  tests. </para>
+
+  <para>Elsewhere on this website, we'll describe the test system we
+  recommend.</para>
+</section>

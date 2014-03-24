@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section>
+  <title>Build</title>
+
+  <para>Library building is not necessary for header only libraries. The
+  majority of Boost libraries are header only. This section will be filled in
+  later.</para>
+</section>

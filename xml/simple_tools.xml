@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="tools">
+  <title>Simple Tools</title>
+
+  <para>Ideally, one would prefer to have no requirement as to the specific
+  tools to be used as long as the <link linkend="requirements">Library
+  Requirements</link> are satisfied. To this end, I experimented with various
+  tools to see how they fit theset requirements. The results of these
+  experiments are described below. Unfortunately, it turns out that we can't
+  achieve all we want with this website without specifying some specific
+  tools.</para>
+
+  <para>On the other hand, we've tried to minimise the requirements as to any
+  specific tools used.</para>
+
+  <para>With the exception of Boost Build for testing, authors are free to use
+  the tools of his choosing. Here we describe a number of different tools
+  which might be considered.</para>
+
+  <xi:include href="tools_documentation.xml" xpointer="element(/1)"
+              xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+  <xi:include href="tools_build_and_test.xml" xpointer="element(/1)"
+              xmlns:xi="http://www.w3.org/2001/XInclude"/>
+
+  <xi:include href="tools_deployment.xml" xpointer="element(/1)"
+              xmlns:xi="http://www.w3.org/2001/XInclude"/>
+</section>

@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section>
+  <title>Use Concepts and Concept Checking Classes</title>
+
+  <para>Use "Concepts" to constain template parameters. This will make your
+  library <itemizedlist>
+      <listitem>
+        <para>easier to use.</para>
+      </listitem>
+
+      <listitem>
+        <para>easier to learn to use.</para>
+      </listitem>
+
+      <listitem>
+        <para>harder to misuse.</para>
+      </listitem>
+
+      <listitem>
+        <para>more logically coherent.</para>
+      </listitem>
+
+      <listitem>
+        <para>faster to develop.</para>
+      </listitem>
+
+      <listitem>
+        <para>easier and faster to write correct documentation.</para>
+      </listitem>
+    </itemizedlist></para>
+
+  <section>
+    <title>What is a Concept?</title>
+
+    <para>For our purposes, we will define "C++ concept" as:</para>
+
+    <para>A C++ Template will have one or more type arguments. The template
+    may require that each argument fullfill more or more requirements in order
+    for the template to compile without error. These requirements are called
+    <emphasis>Concepts</emphasis>. In this context, the word concept is
+    equivalent to <emphasis>type requirements</emphasis> or <emphasis>type
+    contraints</emphasis>.</para>
+
+    <para>So, for our purposes, the word <emphasis>concepts</emphasis> can be
+    substituted with <emphasis>type requirements</emphasis> or <emphasis>type
+    constraints</emphasis> without losing meaning. In fact, the meaning word
+    <emphasis>concept</emphasis> in this context is one of the reasons that
+    the subject has been so confusing. Another reason is that it is really
+    only necessary to understand <emphasis>concepts</emphasis> when writting a
+    templated library. Since very few programmers actually write such code,
+    very few people actually use this idea and hence are unfamilar with
+    it.</para>
+  </section>
+
+  <section>
+    <title>Concept Checking for Function Templates</title>
+
+    <para>Our discussion below is largely based on and example from the
+    documentation of <ulink
+    url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+    Concept Checking Library</ulink> As an illustration consider the standard
+    C library function qsort. The prototype for this function is</para>
+
+    <para><programlisting>void qsort(
+    void *base, 
+    size_t nitems, 
+    size_t size, 
+    int (*compar)(const void *, const void*)
+);</programlisting></para>
+
+    <para>The prototype lists the specific types of the function arguments. In
+    other words, the function arguments are <emphasis>constrained</emphasis>
+    to specific types. Any attempt to compile a call of this function with
+    arguments which don't fit this <emphasis>type signature</emphasis> will
+    result in a compile time error message. This generally works very well and
+    is helpful to the user.</para>
+
+    <para>But for a general use library function this declaration has some
+    problems. It's defined in terms of void * which require passing data
+    without the type information. Then we need to add a "size" parameter. Then
+    we need to start type casting the arguments. All this introduces it's own
+    set off possibilities for errors which are a pain to track down. This is
+    one of the main motivations for the invention of templates.</para>
+
+    <para>This function is defined in terms of any type T to permit it to be
+    instantiated for any type.</para>
+
+    <para><programlisting>template&lt;typename T&gt;
+void bubble_sort(T begin, T end);</programlisting>That is, we're saying that
+    bubble_sort can be invoked with ANY type of arguments. The compiler won't
+    detect any error where the function is invoked regardless of which
+    arguments we pass to the function! So the following will compile without
+    errors:</para>
+
+    <para><programlisting>#include &lt;vector&gt;
+#include &lt;complex&gt;
+
+template&lt;typename T&gt;
+void bubble_sort(T begin, T end);
+
+void main(){
+    std::vector&lt;std::complex&lt;float&gt; &gt; v;
+    bubble_sort(v.begin(), v.end());
+}</programlisting></para>
+
+    <para>Hmmm, surely we can't pass any type to bubble sort. Indeed, when we
+    include the implementation:</para>
+
+    <para><programlisting>#include &lt;vector&gt;
+#include &lt;complex&gt;
+#include &lt;utility&gt; // swap
+
+template&lt;typename T&gt;
+void bubble_sort(T begin, T end){
+    for(T i = begin; i &lt; end; ++i)
+        for(T j = i + 1; j &lt; end; ++j)
+            if(*j &lt; *i)               // error!
+                std::swap(*i, *j);
+}
+
+void main(){
+    std::vector&lt;std::complex&lt;float&gt; &gt; v;
+    bubble_sort(v.begin(), v.end());
+}
+</programlisting>We get an error message on the line including the comparison.
+    Looking the implementation, considering that in this case T is defined as
+    complex&lt;float&gt;, and recalling that complex is not a type which
+    supports comparison we see the source of our error. It is obvious when we
+    trace into to the implementation of the algorithm. But doing so can
+    consume a huge amount of time when one must trace through several layers
+    of templated code. One of the main reasons for using a library is to hide
+    the implementation of some possible complicated procedure behind a simple
+    declaration of what the function does. Expecting a user to delve deep into
+    the implementation of the procedure defeats the reason for using the
+    library in the first place!</para>
+
+    <para>So we need some way to add information about what types are
+    permeated (type requirements or concepts) and a mechanism to automatically
+    trap instances where these requirements are not satisfied. As I write
+    this, I recommend usage of the <ulink url="???">Boost Concept Checking
+    Library</ulink> for this purpose. Here is how to use it for our example
+    function.</para>
+
+    <para><informaltable>
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry align="center">Documentation</entry>
+
+              <entry align="center">Code</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><programlisting>template&lt;typename T&gt;
+void bubble_sort(T begin, T end)
+
+Type T must be an instance of a Forward
+Iterator type.
+
+For variables t1 and t2 of type T:
+
+*t1 &lt; *t2 must be valid and return value
+convertible to bool
+
+swap(*t1, *t2) must be valid.
+</programlisting></entry>
+
+              <entry><programlisting>#include "boost/concept/requires.hpp"
+#include "boost/concept_check.hpp"
+#include &lt;iterator&gt; // iterator_traits
+
+template &lt;typename T&gt;
+BOOST_CONCEPT_REQUIRES(
+  ((boost::ForwardAccessIterator&lt;T&gt;))
+  ((boost::LessThanComparable&lt;
+     typename std::iterator_traits&lt;T&gt;::value_type
+   &gt;))
+  ((boost::Swappable&lt;
+     typename std::iterator_traits&lt;T&gt;::value_type
+  )),
+  (void)
+)
+bubble_sort(T begin, T end);
+</programlisting></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
+
+    <para>Note that:<itemizedlist>
+        <listitem>
+          <para>The macro BOOST_CONCEPT_REQUIRES takes two arguments: a list
+          of requirements, and the return type of the function. In particular,
+          note that each requirement is placed in it's own set of parenthesis
+          and that requirements are NOT separated by commas. This C++
+          unfriendly syntax is a necessary artifact of the way that the macro
+          is implemented.</para>
+        </listitem>
+
+        <listitem>
+          <para>There is a one to one correspondence between the clauses in
+          the documentation for the function and the lines in the code which
+          implement the concept checking.</para>
+        </listitem>
+
+        <listitem>
+          <para>Our example includes type requirements (ForwardAccessIterator,
+          LessThanComparable and Swappable) which are already defined in the
+          C++ Standard Library. Since the <ulink
+          url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+          Concept Checking Library</ulink> already includes the code for
+          checking these requirements, we didn't have to write any code
+          ourselves. All we had to do was to indicate which of the standard
+          defined requirements should be checked. As it turns out this is
+          quite common and many times we don't need to create any new type
+          requirements</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para>Assuming we've put the code including the type requirements in a
+    header named <code>bubble_sort.hpp</code> we can now write a small program
+    like this:</para>
+
+    <programlisting>#include &lt;list&gt;
+#include &lt;complex&gt;
+
+#include "bubble_sort.hpp"
+
+void main(){
+    std::list&lt;std::complex&lt;float&gt; &gt; l;
+    bubble_sort(l.begin(), l.end());
+}
+</programlisting>
+
+    <para>Attempting to compile this program will result in an error listing
+    which refers to the source line were
+    <code>boost::LessThanComparable</code> is instantiated with a type
+    <code>std::complex</code>. Hopefully, this should remind the user to the
+    fact that the &lt; operator cannot be applied to the complex data type.
+    Note that the user is not required to trace through the implementation of
+    bubble sort to discover this fact. In fact, the bubble sort implementation
+    is not even required to be present for the error to be detected and
+    flagged with a compile time error. This will save your users hours of time
+    and frustration and make it more likely that your library is
+    successful.</para>
+  </section>
+
+  <section>
+    <title>Creating Concept Checking Classes</title>
+
+    <para>The meticulous reader who is compiling the above code examples as he
+    reads will have discovered that one thing is not true. The concept
+    checking class Swappable is not currently defined in the Boost Concept
+    Checking Library. The following is based on <ulink
+    url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/creating_concepts.htm">Creating
+    Concept Checking Classes</ulink> From the documentation for <ulink
+    url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+    Concept Checking Library</ulink> . The following code defines
+    Swappable.</para>
+
+    <programlisting>#include "boost/concept/usage.hpp"
+#include "boost/concept/assert.hpp"
+
+template &lt;class T&gt;
+struct Swappable {
+private:
+    T t1, t2; // must be data members
+public:
+    BOOST_CONCEPT_ASSERT((boost::Assignable&lt;T&gt;));
+    BOOST_CONCEPT_USAGE(Swappable)
+    {
+        swap(t1, t2);
+    }
+};
+</programlisting>
+
+    <para>BOOST_CONCEPT_ASSERT can be used just about anywhere to verify that
+    a given type fulfills the type requirements for any defined concept. Here
+    it's use to register the fact that any <emphasis>Swappable</emphasis> type
+    must be <emphasis>Assignable</emphasis> as well. That is,
+    <emphasis>Swappable</emphasis> is a refinement of
+    <emphasis>Assignable</emphasis>. Given that we've chosen to use
+    BOOST_CONCEPT_REQUIRES for function template arguments, the most common
+    usage BOOST_CONCEPT_ASSERT would be in class templates.</para>
+  </section>
+
+  <section>
+    <title>Future Compatibility</title>
+
+    <para>Inclusion of <emphasis>concepts</emphasis> in C++ has generated a
+    huge amount of discussion, activity, experiments, and effort over the last
+    decade. Googling "C++ Concepts" will result in many, many hits. <ulink
+    url="http://www.osl.iu.edu/publications/prints/2013/lvoufo13:_concepts_terminology.pdf">This
+    paper</ulink> is one of those and gives a summary of the current state of
+    the discussion. The latest effort, <ulink
+    url="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg">Concepts
+    Lite</ulink>, seems to be well received and perhaps destined for approval.
+    Still, inclusion in the language and support by compilers is still years
+    way. <ulink
+    url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+    Concept Checking Library</ulink> on the other hand, can be used today. The
+    following table contrasts <ulink url="???">Boost Concept <ulink
+    url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+    Concept Checking Library</ulink>Checking Library</ulink> with <ulink
+    url="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg">Concepts
+    Lite</ulink>:</para>
+
+    <para><informaltable>
+        <tgroup cols="2">
+          <thead>
+            <row>
+              <entry align="center">Boost Concept Checking</entry>
+
+              <entry align="center">Concepts Lite</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><programlisting>#include "boost/concept/requires.hpp"
+#include "boost/concept_check.hpp"
+#include &lt;iterator&gt; // iterator_traits
+
+template &lt;typename T&gt;
+BOOST_CONCEPT_REQUIRES(
+  ((boost::ForwardAccessIterator&lt;T&gt;))
+  ((boost::LessThanComparable&lt;
+     typename std::iterator_traits&lt;T&gt;::value_type
+   &gt;))
+  ((boost::Swappable&lt;
+     typename std::iterator_traits&lt;T&gt;::value_type
+  )),
+  (void)
+)
+bubble_sort(T begin, T end);
+</programlisting></entry>
+
+              <entry><programlisting>template&lt;typename T&gt;
+requires 
+    ForwardAccessIterator&lt;T&gt;() &amp;&amp;
+    LessThanComparable&lt;
+        typename std::iterator_traits&lt;T&gt;::value_type
+    &gt;() &amp;&amp;
+    Swappable&lt;
+        typename std::iterator_traits&lt;T&gt;::value_type
+    &gt;()
+void bubble_sort(T begin, T end);
+</programlisting></entry>
+            </row>
+
+            <row>
+              <entry><programlisting>BOOST_CONCEPT_ASSERT(
+    boost::ForwardAccessIterator&lt;T&gt;
+)</programlisting></entry>
+
+              <entry><programlisting>static_assert(std::ForwardAccessIterator&lt;T&gt;())</programlisting></entry>
+            </row>
+
+            <row>
+              <entry><programlisting>BOOST_CONCEPT_USAGE</programlisting></entry>
+
+              <entry><programlisting>Unclear on how to specify this at this time</programlisting></entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
+
+    <para>It turns out that there is almost a one to one relationship between
+    lines of code used to specify concepts in between the two systems. So if
+    one uses <ulink url="???">Boost Concept Checking Library</ulink>. So
+    transition to any future standard system when and if that occurs should be
+    almost trivial. Also note that users code will not be effected in any way
+    since any required changes are confined to the library code modules</para>
+
+    <para>.</para>
+  </section>
+
+  <section>
+    <title>References</title>
+
+    <para>More good information regarding practical aspects of C++ concepts
+    and be found by checking the following links<itemizedlist>
+        <listitem>
+          <para><ulink
+          url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+          Concept Checking Library</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://cpp-next.com/archive/2011/12/a-breakthrough-for-concepts/">A
+          Breakthrough for Concepts</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://www.drdobbs.com/windows/checking-concept-without-concepts-in-c/227500449">Checking
+          Concept Without Concepts in C++</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg">Concepts
+          Lite</ulink></para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para/>
+  </section>
+</section>

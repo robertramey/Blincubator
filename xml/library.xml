@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE library PUBLIC "-//Boost//DTD BoostBook XML V1.1//EN"
+"http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
+<library last-revision="$Date: 2008-07-12 20:16:17 +0100 (Sat, 12 Jul 2008) $">
+  <title>
+    <libraryname>Library Name</libraryname>
+  </title>
+
+  <libraryinfo>
+    <author>
+      <firstname/>
+
+      <surname/>
+    </author>
+
+    <copyright>
+      <year/>
+
+      <holder/>
+
+      <holder/>
+    </copyright>
+
+    <legalnotice>
+      <para/>
+    </legalnotice>
+
+    <librarypurpose/>
+
+    <librarycategory name="???"/>
+  </libraryinfo>
+
+  <section>
+    <title id="libraryname.iintroduction">Introduction</title>
+
+    <para>Give the information for a potential user to determine whether he
+    can benefit from this library</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>What the library is does.</para>
+      </listitem>
+
+      <listitem>
+        <para>What problems will this library solve?</para>
+      </listitem>
+
+      <listitem>
+        <para>Perhaps some short examples to support the above</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title id="libraryname.tutorial">Tutorial</title>
+
+    <para>One more annotated examples on how the library can be helpful to
+    solve real problems.</para>
+  </section>
+
+  <section>
+    <title id="libraryname.notes">Notes</title>
+
+    <para>Ancillary information that the user needs to use this library. This
+    may include the following:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>non-obvious requirements and dependencies</para>
+      </listitem>
+
+      <listitem>
+        <para>how to install, build and test the library</para>
+      </listitem>
+    </itemizedlist>
+  </section>
+
+  <section>
+    <title id="libraryname.concepts">Concepts</title>
+
+    <para/>
+  </section>
+
+  <section>
+    <title id="libraryname.types">Types</title>
+
+    <para/>
+  </section>
+
+  <section>
+    <title>Functions</title>
+
+    <para/>
+  </section>
+
+  <section>
+    <title id="libraryname.rationale">Rationale</title>
+
+    <qandaset>
+      <qandaentry>
+        <question>
+          <para>Why does ....?</para>
+        </question>
+
+        <answer>
+          <para>Because ...</para>
+        </answer>
+      </qandaentry>
+    </qandaset>
+  </section>
+
+  <section>
+    <title id="libraryname.changelog">Change Log</title>
+
+    <para/>
+  </section>
+
+  <section>
+    <title id="libraryname.acknowledgements">Acknowledments</title>
+
+    <para/>
+  </section>
+
+  <section>
+    <title id="libraryname.references">References</title>
+
+    <para/>
+  </section>
+</library>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+  <section>
+    <title>Keep Notes as You Make Changes</title>
+
+    <para>Many libraries have a section entitled "Rationale". This section is
+    very helpful for anyone who want's to use the library. The problem is that
+    if you wait until you're done to write this section, you can't remember
+    what the key decisions were and why you made them. That is, you don't
+    remember all the dead ends you discarded to get your final finished
+    product. If your library gets to review, someone will suggest that it you
+    should of done it using method X instead of method Y</para>
+
+    <para>"Easy" way - don't keep notes. Here's what happens.</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>At some point in the development, you discover that you want to
+        change a design decision. This means you have to use method X instead
+        of method Y. Generally this will occur more than once during the
+        development.</para>
+      </listitem>
+
+      <listitem>
+        <para>Finally you get everything done, and submit your library for
+        review.</para>
+      </listitem>
+
+      <listitem>
+        <para>Now some smart guy will make a good case for using method Y
+        instead of method X which you used. Of course you know that since
+        you've been down that road. But now you don't remember exactly why
+        method Y couldn't be made to work.</para>
+      </listitem>
+
+      <listitem>
+        <para>So you sort of fake it with a glib response which only provokes
+        your critic to make an even stronger case. Now everything has
+        escalated to the point where you have to go back and make a really
+        exahaustive explanation (maybe even involving sample code!). This
+        sucks up a huge amount of time.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>"Hard" way - keep notes on your decisions as you go:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>When you discover you want to change a design decision, add an
+        explanation to your log.</para>
+      </listitem>
+
+      <listitem>
+        <para>Keeping such notes diminishes the possibility that you
+        accidently change a design decision back to one that has previously
+        been determined to be a dead end. Don't laugh - this is not hard to
+        do!</para>
+      </listitem>
+
+      <listitem>
+        <para>When writing documentation, take these notes, clean them up and
+        include them in a section called "Rationale". This makes writing this
+        very useful documentation trivial.</para>
+      </listitem>
+
+      <listitem>
+        <para>Users and library reviewers will be able to see your case before
+        they make their "suggestions". This short circuits lot's of pointless
+        discussions. There will likely still be differences of opinion, but
+        all the issues will be visible to all parties at the same time.</para>
+      </listitem>
+    </itemizedlist>
+  </section>

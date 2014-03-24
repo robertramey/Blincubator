@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//Boost//DTD BoostBook XML V1.1//EN"
+"http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
+<section>
+  <title>[Function Name]</title>
+
+  <section>
+    <title>Synopsis</title>
+
+    <para>[The function's declaration. Example]</para>
+
+    <para>Sort is an overloaded name; there are actually two sort
+    functions.</para>
+
+    <programlisting>template &lt;class RandomAccessIterator&gt;
+void sort(RandomAccessIterator first, RandomAccessIterator last);
+
+template &lt;class RandomAccessIterator, class StrictWeakOrdering&gt;
+void sort(RandomAccessIterator first, RandomAccessIterator last, StrictWeakOrdering comp);</programlisting>
+  </section>
+
+  <section>
+    <title>Description</title>
+
+    <para>[A summary of what the function does. Example:]</para>
+
+    <para>Sort sorts the elements in [first, last) into ascending order,
+    meaning that if i and j are any two valid iterators in [first, last) such
+    that i precedes j, then *j is not less than *i.</para>
+
+    <para>The two versions of sort differ in how they define whether one
+    element is less than another. The first version compares objects using
+    <code>operator&lt;</code>, and the second compares objects using a
+    function object <code>comp</code>.</para>
+  </section>
+
+  <section>
+    <title>Type requirements</title>
+
+    <para>[This section lists the requirements that must be satisfied by the
+    function's template parameters. If the function has no template
+    parameters, this section can be skipped. Example:]</para>
+
+    <informaltable>
+      <tgroup cols="2">
+        <colspec align="left"/>
+
+        <colspec align="left" colwidth="3*"/>
+
+        <thead>
+          <row>
+            <entry align="left">Type</entry>
+
+            <entry align="left">Requirements</entry>
+          </row>
+        </thead>
+
+        <tbody>
+          <row>
+            <entry><code>RandomAccessIterator</code></entry>
+
+            <entry><simplelist>
+                <member>Models <ulink url="???">RandomAccessIterator</ulink>
+                concept</member>
+
+                <member>is mutable</member>
+
+                <member>value type is <ulink
+                url="http://www.sgi.com/tech/stl/LessThanComparable.html">LessThanComparable</ulink>.</member>
+              </simplelist></entry>
+          </row>
+
+          <row>
+            <entry><code>StrictWeakOrdering </code></entry>
+
+            <entry><simplelist>
+                <member>is a model of <ulink
+                url="http://www.sgi.com/tech/stl/StrictWeakOrdering.html">StrictWeakOrdering</ulink>.</member>
+              </simplelist></entry>
+          </row>
+
+          <row>
+            <entry><code>RandomAccessIterator::value_type</code></entry>
+
+            <entry><simplelist>
+                <member>is convertible to <ulink
+                url="http://www.sgi.com/tech/stl/StrictWeakOrdering.html">StrictWeakOrdering</ulink>'s
+                argument type</member>
+              </simplelist></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+  </section>
+
+  <section>
+    <title>Preconditions</title>
+
+    <para>[Functions usually aren't guaranteed to yield a well-defined result
+    for any possible input, but only for valid input; it is an error to call a
+    function with invalid input. This section describes the conditions for
+    validity. Example:]</para>
+
+    <simplelist>
+      <member>[<code>first</code>, <code>last)</code> is a valid
+      range.</member>
+    </simplelist>
+  </section>
+
+  <section>
+    <title>Complexity</title>
+
+    <para>[Example:]</para>
+
+    <para>O(N log(N)) comparisons (both average and worst-case), where N is
+    last - first. [2]</para>
+  </section>
+
+  <section>
+    <title>Header</title>
+
+    <para>[A link to the source code where the function header is
+    defined.]</para>
+
+    <para><code>#include &lt;algorithm&gt; </code></para>
+  </section>
+
+  <section>
+    <title>Example of use</title>
+
+    <para>[A code fragment that illustrates how to use the function.]</para>
+
+    <programlisting>#include &lt;algorithm&gt;
+
+int A[] = {1, 4, 2, 8, 5, 7};
+const int N = sizeof(A) / sizeof(int);
+sort(A, A + N);
+copy(A, A + N, ostream_iterator&lt;int&gt;(cout, " "));
+// The output is " 1 2 4 5 7 8"</programlisting>
+  </section>
+
+  <section>
+    <title>Notes</title>
+
+    <para>Footnotes (if any) that are referred to by other parts of the
+    page.</para>
+  </section>
+
+  <section>
+    <title>See Also</title>
+
+    <para>Links to other related pages.</para>
+  </section>
+</section>

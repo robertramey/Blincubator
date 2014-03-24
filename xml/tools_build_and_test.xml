@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//Boost//DTD BoostBook XML V1.1//EN"
+"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<section id="tools_build_and_test">
+  <title>Build and Test</title>
+
+  <para>There is a bewildering array of <ulink
+  url="http://en.wikipedia.org/wiki/List_of_build_automation_software">build
+  systems</ulink>. None of them are really satisfactory. I had hoped to avoid
+  imposing any requirement as to the build/test system and leave the option to
+  each library author to choose what he felt was most convenient. Some
+  experimentation with my prototype library safe_numerics convinced me that
+  this wasn't realistic and that I would have to require a specific build/test
+  system. I wanted a system which:</para>
+
+  <para><itemizedlist>
+      <listitem>
+        <para>would work on the wide variety of environments on which C++ is
+        run.</para>
+      </listitem>
+
+      <listitem>
+        <para>would gracefully handle variants debug/release, dll/static
+        libraries, etc.</para>
+      </listitem>
+
+      <listitem>
+        <para>didn't require any customization for each environment.</para>
+      </listitem>
+
+      <listitem>
+        <para>would include the ability to support both building AND testing
+        of libraries</para>
+      </listitem>
+
+      <listitem>
+        <para>didn't require elaborate installation and/or scripting.</para>
+      </listitem>
+
+      <listitem>
+        <para>didn't much, if any, learning curve.</para>
+      </listitem>
+    </itemizedlist>I looked at a few specific alternatives.</para>
+
+  <section>
+    <title>Alternatives Considered</title>
+
+    <section>
+      <title>Make</title>
+
+      <para>In the spirit of keeping things as simple as possible, this was my
+      first choice. But starting with a basic make file, one would need to add
+      a lot of extras functionality to address the requirements in the above
+      list. Basic make doesn't have enough functionality to support all we
+      need so we're forced to specify a build/test system.</para>
+    </section>
+
+    <section>
+      <title>Autotools</title>
+
+      <para>Autotools is the traditional Unix solution to the problem of
+      build/test/deployment. It has a long history and is widely used. There
+      is lot's of literature on it as well. It garners a number of complaints
+      about how hard it is to use - but then it seems all of these build
+      systems share that trait. And it doesn't do windows which is sort of
+      deal killer for us. None the less, I wanted to take a look at it. First
+      I looked at my books. It was explained but it did seem pretty
+      complicated. I trolled the net and found a couple of references:</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><ulink
+          url="http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16">http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://mij.oltrelinux.com/devel/autoconf-automake/">http://mij.oltrelinux.com/devel/autoconf-automake/</ulink></para>
+        </listitem>
+      </itemizedlist>
+
+      <para>The first one has a graphic on page 16 which helped make it clear
+      how all the pieces of this system fit together. On the other hand, this
+      graphic didn't make it look very easy. I went through the process with
+      my unix-like CYGWIN installation and things seemed to run well until the
+      last step. Again, I had the feeling I could make this work if I was
+      willing to put in more time, but I didn't feel like doing it. An
+      interesting experience but not a good solution for us.</para>
+    </section>
+
+    <section>
+      <title><link linkend="tools_bjam">Boost Build</link></title>
+
+      <xi:include href="tools_bjam.xml" xpointer="element(/1)"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    </section>
+
+    <section>
+      <title><link linkend="tools_cmake">CMake/CTest</link></title>
+
+      <xi:include href="tools_cmake.xml" xpointer="element(/1)"
+                  xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    </section>
+
+    <section>
+      <title>Summary</title>
+
+      <para>Basically I didn't find what I was looking for. I believe that
+      all/any of these build tools could have been made to work, but at a
+      significant overhead cost and learning curve. Turns out I'm not alone.
+      Searching for a good build system hits dozens of <ulink
+      url="http://en.wikipedia.org/wiki/List_of_build_automation_software">tools</ulink>
+      with a huge variety of features and capabilities. These tools have been
+      contributed over more than a decade with arriving all the time.
+      Commentary, critique and comparison of all these options strongly
+      suggest that this problem isn't close to being solved yet. So it's fair
+      to assume it's much harder than it would first seem to solve this
+      problem.</para>
+
+      <para>Here is a list of miscellaneous links to sites that I found useful
+      in my investigation of Build systems.</para>
+
+      <itemizedlist>
+        <listitem>
+          <para><ulink
+          url="http://en.wikipedia.org/wiki/List_of_build_automation_software">http://en.wikipedia.org/wiki/List_of_build_automation_software</ulink></para>
+        </listitem>
+      </itemizedlist>
+    </section>
+  </section>
+</section>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//Boost//DTD BoostBook XML V1.1//EN"
+"http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
+<section>
+  <title>[Concept Name]</title>
+
+  <section>
+    <title>Description</title>
+
+    <para>[A description of the concept's purpose. For purposes of
+    illustration, the following is filled with the information for the
+    Container concept from the <ulink
+    url="http://www.sgi.com/tech/stl/Container.html">STL
+    Library</ulink>.]</para>
+  </section>
+
+  <section>
+    <title>Refinement of</title>
+
+    <para>[A list of other concepts that this concept refines, with links to
+    those concepts.]</para>
+
+    <para><ulink
+    url="http://www.sgi.com/tech/stl/Assignable.html">Assignable&lt;</ulink></para>
+  </section>
+
+  <section>
+    <title>Definitions</title>
+
+    <para>[Some concepts, such as LessThan Comparable, use specialized
+    terminology. If a concept requires any such terminology, it is defined in
+    this section. example:]</para>
+
+    <para>The size of a container is the number of elements it contains. The
+    size is a nonnegative number.</para>
+  </section>
+
+  <section>
+    <title>Notation</title>
+
+    <para>[The next two sections, associated types and valid expressions,
+    present expressions involving types that model the concept being defined.
+    This section defines the meaning of the variables and identifiers used in
+    those expressions.]</para>
+
+    <informaltable>
+      <tgroup cols="2">
+        <colspec align="left"/>
+
+        <colspec align="left" colwidth="3*"/>
+
+        <tbody>
+          <row>
+            <entry><code>X</code></entry>
+
+            <entry>A type that is a model of the [Concept Name]</entry>
+          </row>
+
+          <row>
+            <entry><code>x, a, b</code></entry>
+
+            <entry>An object of type X</entry>
+          </row>
+
+          <row>
+            <entry><code>...</code></entry>
+
+            <entry/>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+  </section>
+
+  <section>
+    <title>Associated Types</title>
+
+    <para>[A concept is a set of requirements on some type. Frequently,
+    however, some of those requirements involve some other type. For example,
+    one of the Unary Function requirements is that a Unary Function must have
+    an argument type; if F is a type that models Unary Function and f is an
+    object of type F, then, in the expression f(x), x must be of F's argument
+    type. If a concept does not have any such associated types this section
+    can be eliminated.]</para>
+
+    <informaltable>
+      <tgroup cols="2">
+        <colspec align="left"/>
+
+        <colspec align="left" colwidth="3*"/>
+
+        <tbody>
+          <row>
+            <entry><code>X::value_type</code></entry>
+
+            <entry>A type of an object stored in [Concept Name]</entry>
+          </row>
+
+          <row>
+            <entry><code>X::iterator</code></entry>
+
+            <entry>An object of type X</entry>
+          </row>
+
+          <row>
+            <entry><code>...</code></entry>
+
+            <entry/>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+  </section>
+
+  <section>
+    <title>Valid Expressions</title>
+
+    <para>[A type that models a concept is required to support certain
+    operations. In most cases, it doesn't make sense to describe this in terms
+    of specific functions or member functions. For example, it doesn't make
+    any difference whether a type that models Input Iterator uses a global
+    function or a member function to provide operator++. This section lists
+    the expressions that a type modeling this concept must support. It
+    includes any special requirements (if any) on the types of the
+    expression's operands, and the expression's return. Example: ]</para>
+
+    <para>In addition to the expressions defined in <ulink
+    url="http://www.sgi.com/tech/stl/Assignable.html">Assignable</ulink> the
+    following expressions must be valid.<informaltable>
+        <tgroup cols="3">
+          <colspec align="left"/>
+
+          <colspec align="left" colwidth="3*"/>
+
+          <colspec align="left" colwidth="3*"/>
+
+          <thead>
+            <row>
+              <entry align="left">Parameter</entry>
+
+              <entry align="left">Type Requirements</entry>
+
+              <entry>Description</entry>
+            </row>
+          </thead>
+
+          <tbody>
+            <row>
+              <entry><code>x.begin()</code></entry>
+
+              <entry>None, except for those imposed by the requirements of
+              <ulink
+              url="http://www.sgi.com/tech/stl/RandomAccessContainer.html">Random
+              Access Container</ulink> and <ulink
+              url="http://www.sgi.com/tech/stl/BackInsertionSequence.html">Back
+              Insertion Sequence</ulink>.</entry>
+
+              <entry><para>The value type. This is also defined as
+              <code>vector:::value_type</code></para></entry>
+            </row>
+
+            <row>
+              <entry><code>x.size()</code></entry>
+
+              <entry>Alloc is an <ulink url="???">Allocator</ulink>.</entry>
+
+              <entry>The types allocator, used for all internal memory
+              management.</entry>
+            </row>
+
+            <row>
+              <entry><code>...</code></entry>
+
+              <entry>(only needed for templates)</entry>
+
+              <entry/>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable></para>
+  </section>
+
+  <section>
+    <title>Complexity Guarentees</title>
+
+    <para>[In some cases, the run-time complexity of certain operations is an
+    important part of a concept's requirements. For example, one of the most
+    significant distinctions between a Bidirectional Iterator and a Random
+    Access Iterator is that, for random access iterators, expressions like p +
+    n take constant time. Any such requirements on run-time complexity are
+    listed in this section. If there are no such requirements, this section
+    can be eliminated.]</para>
+  </section>
+
+  <section>
+    <title>Invariants</title>
+
+    <para>[Many concepts require that some property is always true for objects
+    of a type that models the concept being defined. For example, LessThan
+    Comparable imposes the requirement of transitivity: if <code>x &lt;
+    y</code> and <code>y &lt; z,</code> then <code>x &lt; z</code>. Some such
+    properties are "axioms" (that is, they are independent of any other
+    requirements) and some are "theorems" (that is, they follow either from
+    requirements in the expression semantics section or from other
+    requirements in the invariants section). This section can be eliminated If
+    there are no invariants.]</para>
+
+    <informaltable>
+      <tgroup cols="1">
+        <tbody>
+          <row>
+            <entry>For any container a, [a.begin(), a.end()) is a valid
+            range.</entry>
+          </row>
+
+          <row>
+            <entry>a.size() is equal to the distance from a.begin() to
+            a.end()</entry>
+          </row>
+
+          <row>
+            <entry>...</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </informaltable>
+  </section>
+
+  <section>
+    <title>Header</title>
+
+    <para>[A link to the source code where the concept checking header is
+    defined. This header should contain boost concept checking class for this
+    concept]</para>
+
+    <para><code>#include &lt;boost/concept_check.hpp&gt; </code></para>
+  </section>
+
+  <section>
+    <title>Models</title>
+
+    <para>[A list of examples of types that are models of this concept. Note
+    that this list is not intended to be complete: in most cases a complete
+    list would be impossible, because there are an infinite number of types
+    that could model the concept. Example:]</para>
+
+    <para><code>std::vector&lt;T&gt;</code></para>
+  </section>
+
+  <section>
+    <title>Notes</title>
+
+    <para>[Footnotes that are referred to by other parts of the page. If there
+    are notes on the page, this section can be eliminated]<footnote
+        id="concept1">
+        <para>For any Assignable type, swap can be defined in terms of
+        assignment.</para>
+      </footnote></para>
+  </section>
+
+  <section>
+    <title>See Also</title>
+
+    <para>[links to other related concepts]</para>
+
+    <para><ulink url="http://www.sgi.com/tech/stl/Iterators.html">Iterator
+    Overview</ulink>, <ulink
+    url="http://www.sgi.com/tech/stl/Iterators.html">input
+    Iterator</ulink></para>
+  </section>
+</section>
