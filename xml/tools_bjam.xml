@@ -103,7 +103,7 @@
       process. Create these files in the designated places in the directory
       hierarchy of your project. You may also use <filename>safe
       numerics</filename> library as an example. Here is the file
-      <filename>Jamfile.jam</filename> in the directory
+      <filename>Jamfile.v2</filename> in the directory
       <filename>safe_numerics/test</filename></para>
 
       <programlisting>import testing ;
@@ -244,15 +244,14 @@ fi</programlisting>
       </listitem>
     </itemizedlist></para>
 
-  <para>Now you should have everything in place to executate the above
-  described procedure for testing your library and reviewing the results. The
-  focus here has been to describe a simple boost friendly procedure for
-  building and testing one's library. This procedure should permit anyone who
-  has boost installed to run the tests on any download from this site. Users
-  should be encouraged to run the test suite on their local platform/compiler
-  before using the library. In the future we hope to enhance the library
-  status page displayed with a button to upload the test results to a common
-  site so that library authors and potential users can review the test results
-  when ever it might be convenient. However, for now this is the best we
-  have.</para>
+  <para>Now you should have everything in place to execute the above described
+  procedure for testing your library and reviewing the results. The focus here
+  has been to describe a simple boost friendly procedure for building and
+  testing one's library. This procedure should permit anyone who has boost
+  installed to run the tests on any download from this site. Users should be
+  encouraged to run the test suite on their local platform/compiler before
+  using the library. In the future we hope to enhance the library status page
+  displayed with a button to upload the test results to a common site so that
+  library authors and potential users can review the test results when ever it
+  might be convenient. However, for now this is the best we have.</para>
 </section>

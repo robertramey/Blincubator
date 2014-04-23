@@ -11,6 +11,7 @@
   <link linkend="Jamroot.jam">  Jamroot.jam</link> // if using bjam build
   CMake // if you're using CMake
     CMakeList.txt
+    CTestConfig.cmake
   include/
     boost/  // you could use your own name here
       &lt;library_name&gt;
@@ -57,9 +58,8 @@
       makehtml.sh 
 </programlisting></para>
 
-  <para>This is a little different than the current Boost directory structure
-  requirements. But it should look familiar to those with some experience with
-  Boost Libraries. It's designed so that the library is contained in one
+  <para>This is identical to the recently updated Boost directory structure
+  requirements. It's designed so that the library is contained in one
   directory structure and need not occupy a specific place within any higher
   level structure.</para>
 
@@ -82,23 +82,23 @@
     </listitem>
 
     <listitem>
-      <para>The library must supply a file named <link
+      <para>The library may include files named <link
       linkend="Jamroot.jam">Jamroot.jam</link> to support the Bjam build
       system.</para>
     </listitem>
 
     <listitem>
-      <para>The library must supply <link
-      linkend="Jamroot.jam">Jamfile.jam</link> files for each of the src,
-      example and test directories.</para>
+      <para>The library may include files named CMakeLists.txt to support the
+      CMake build system</para>
     </listitem>
 
     <listitem>
       <para>Other build system support is optional. If supplied it should be
       either as one file (example: bjam) or as a subdirectory with multiple
       files.</para>
-
-      <para/>
     </listitem>
   </itemizedlist>
+
+  <para>Note that there is no reason that support for more than one build
+  system cannot be included.</para>
 </section>

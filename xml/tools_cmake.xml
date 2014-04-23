@@ -2,7 +2,7 @@
 <!DOCTYPE section PUBLIC "-//Boost//DTD BoostBook XML V1.1//EN"
 "http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
 <section>
-  <title>CMake/CTest</title>
+  <title>CMake/CTest/CDash</title>
 
   <para>A number of prominent boosters have been advocating moving from BJam
   to CMake. It has some very attractive features.</para>
@@ -24,14 +24,14 @@
 
     <listitem>
       <para>It includes a system for invoking test suites and posting results
-      to a common website. (Ctest and CDash) This is a really attractive
+      to a common website. (CTest and CDash) This is a really attractive
       feature that we absolutely have to have. Having it "out of the box"
       would be a huge plus.</para>
     </listitem>
 
     <listitem>
       <para>It includes some extra features which we don't really need but
-      would be useful.<itemizedlist>
+      might be useful.<itemizedlist>
           <listitem>
             <para>CPack - for creation of installation packages including zip
             files, tar balls etc.</para>
@@ -54,7 +54,7 @@
     <listitem>
       <para>It has the ability to create files for different kind of build
       systems including Makefiles, Visual Studio Project files for windows,
-      XCode project files for Mac OXS, and Eclipse project files among others.
+      XCode project files for Mac OS, and Eclipse project files among others.
       I found this feature extremely compelling as I am a heavy user of
       different IDEs.</para>
     </listitem>
@@ -108,16 +108,15 @@
   </itemizedlist>
 
   <section>
-    <title>CMakeList.txt Cheatsheet</title>
+    <title>CMakeList.txt Cheat Sheet</title>
 
-    <para>The typical way of using CMake consists of sprinking the the
-    directory which contains your code with a files named CMakeList.txt. These
-    permit as sort of "inheritance" from the top down so that commonality
-    doesn't have to be repeated. These files contain CMake commands as
-    described in the <ulink
-    url="http://www.cmake.org/cmake/help/v2.8.12/cmake.html">CMake Reference
-    Manual</ulink>. The reference manual is a little hard to figure out so
-    I've take the liberty of making my own "cheat sheet" distilling my
+    <para>The typical way of using CMake consists of sprinkling the directory
+    which contains your code with a files named CMakeList.txt. These permit as
+    sort of "inheritance" from the top down so that commonality doesn't have
+    to be repeated. These files contain CMake commands as described in the
+    <ulink url="http://www.cmake.org/cmake/help/v2.8.12/cmake.html">CMake
+    Reference Manual</ulink>. The reference manual is a little hard to figure
+    out so I've take the liberty of making my own "cheat sheet" distilling my
     experience with this tool.</para>
 
     <para><itemizedlist>
@@ -250,7 +249,7 @@ target_link_libraries (TestLogger logger verror log4cplus )</programlisting></pa
       </itemizedlist></para>
 
     <para>Once one has prepared the CMakeList.txt files and placed them into
-    the directory hierachy of the project, he can invoke CMake "Configure"
+    the directory hierarchy of the project, he can invoke CMake "Configure"
     from the CMake executable. This parses all the CMakeList.txt files from
     the top down and highlight which variables such as build type, library
     locations, etc. etc. need to be defined. Next step is to define the
@@ -262,9 +261,9 @@ target_link_libraries (TestLogger logger verror log4cplus )</programlisting></pa
     Distributing a number of files around the directory allows one to factor
     out commonality. But it also means that the information required to
     understand what's going one isn't found is one place. Also part of that
-    information is implicite in the relative position of different
-    CMakeList.txt files in the directory hierarchy. It's a two edged sword.
-    </para>
+    information is implicit in the relative position of different
+    CMakeList.txt files in the directory hierarchy. It's a two edged
+    sword.</para>
   </section>
 
   <section>
@@ -282,7 +281,7 @@ target_link_libraries (TestLogger logger verror log4cplus )</programlisting></pa
       CMakeList.txt files throughout the project directory. This isn't as bad
       as it sounds as there are only 3-5 such required. As a convenience I've
       excerpted part of the project so you don't have to go the trouble to
-      uzip it.</para>
+      unzip it.</para>
 
       <para><informaltable>
           <tgroup align="left" cols="3" rowsep="0">
@@ -498,7 +497,11 @@ ENDIF(project_build_shared)
 
                 <entry valign="top"><code>CMakeList.txt</code></entry>
 
-                <entry><programlisting>FILE (GLOB_RECURSE test_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
+                <entry><programlisting># ENABLE_TESTING()
+# the following includes "ENABLE_TESTING()" 
+INCLUDE(CTest)
+
+FILE (GLOB_RECURSE test_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
 SET (test_LIBS ${Boost_LIBRARIES} ${Log4Cxx_LIBRARIES} ${UnitTestPlusPlus_LIBRARIES} ${PROJECT_NAME})
 SET (test_BIN ${PROJECT_NAME}-unittests)
 
@@ -520,15 +523,18 @@ ENDIF (NOT CMAKE_CROSSCOMPILING)
     </section>
 
     <section>
-      <title>CMake Library - abbreviated version</title>
+      <title>CMake Library Template - abbreviated version</title>
 
       <para>The above looks useful - but still a little too "heavyweight" for
       my taste. It also distributes the CMake files around the project which
-      conficts with common practice for Boost libraries. The following
+      conflicts with common practice for Boost libraries. The following
       CMakeList.txt file creates a project for the XCode IDE to test and edit
       the safe_numerics library. I haven't tested it on other platforms such
       as the Visual Studio or Eclipse IDE but hopefully it should require only
-      minimal changes to do so.</para>
+      minimal changes to do so. It's different from the original version in
+      that it is entirely contained in one CMakeList.txt file. Files outside
+      the CMake directory can be referenced with the <code>../&lt;file
+      name&gt;</code> syntax</para>
 
       <informaltable>
         <tgroup align="left" cols="3" rowsep="0">
@@ -671,7 +677,9 @@ link_directories("${Boost_LIBRARY_DIRS}")
 ###########################
 # testing
 
-enable_testing()
+# enable_testing()
+# the following includes "enable_testing()" 
+include(CTest)
 
 message(STATUS "test_add")
   add_executable( test_add 
@@ -783,5 +791,93 @@ add_custom_target(include SOURCES ${include_files})
         </tgroup>
       </informaltable>
     </section>
+  </section>
+
+  <section>
+    <title>CTest/CDash</title>
+
+    <para>We've seen how CTest supports the automatic creation of test
+    scripts. This supports testing of a library by the original developer as
+    well as the user who downloads the library. <ulink
+    url="http://www.cdash.org">CDash</ulink> supports the submission of the
+    test results to a common location. This permits developers, users and
+    reviewers to look at test results for all other users of the library. The
+    <ulink url="http://www.cdash.org">CDash</ulink> system depends upon the
+    installation of a</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>Go to the <ulink url="http://my.cdash.org/index.php">my.cdash
+          website</ulink> and invoke "Start my dashboard" (it's free!).</para>
+        </listitem>
+
+        <listitem>
+          <para>Step through the tabbed dialog. It's unclear which information
+          is optional and which is required. Just push on through to the
+          end.</para>
+        </listitem>
+
+        <listitem>
+          <para>Create a file named CTestConfig.cmake in the same directory
+          which contains CMakeList.txt. If you have more than one
+          CMakeList.txt file in different directories, place it in the highest
+          level directory which contains a CMakeList.txt file. The file should
+          be a simple text file which contains the following<programlisting>## This file should be placed in the root directory of your project.
+## Then modify the CMakeLists.txt file in the root directory of your
+## project to incorporate the testing dashboard.
+## # The following are required to uses Dart and the Cdash dashboard
+##   ENABLE_TESTING()
+##   INCLUDE(CTest)
+set(CTEST_PROJECT_NAME "Safe Numerics")
+set(CTEST_NIGHTLY_START_TIME "01:00:00 UTC")
+
+set(CTEST_DROP_METHOD "http")
+set(CTEST_DROP_SITE "my.cdash.org")
+set(CTEST_DROP_LOCATION "/submit.php?project=Safe+Numerics")
+set(CTEST_DROP_SITE_CDASH TRUE)
+</programlisting>Naturally, your version of this file will contain the name of
+          your project in place of "Safe Numerics". This will be the same name
+          used in the CDash project edit dialogs.</para>
+        </listitem>
+
+        <listitem>
+          <para>Build the CMake BUILD_ALL and RUN_TESTS targets as you have
+          been doing. </para>
+        </listitem>
+
+        <listitem>
+          <para>If everything goes well up to this point and you are satisfied
+          with the test results you can submit them to the CDash server by
+          building the CMake target named "Experimental". This should be all
+          there is to it. </para>
+        </listitem>
+
+        <listitem>
+          <para>Note that besides "Experimental", there are some other test
+          targets which CMake creates - "Continuous", "Nightly",
+          "NightlyMemoryCheck". I'm not sure what these are for. In fact,
+          CDash seems to be a lot more ambitious than just maintaining the
+          test results dashboard. It seems that it actually runs the test on -
+          I'm not sure where. It's not at all well explained and extremely
+          confusing. Never the less, I have tested the above procedure and am
+          (almost) totally please with the results.</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para>This procedure produces everything I want. It should:<itemizedlist>
+        <listitem>
+          <para>Distribute the testing load among all users interested in the
+          library</para>
+        </listitem>
+
+        <listitem>
+          <para>Display of testing results all those (and only those)
+          platforms and compilers which actually use the library.</para>
+        </listitem>
+
+        <listitem>
+          <para>Be easy and painless to maintain.</para>
+        </listitem>
+      </itemizedlist></para>
   </section>
 </section>

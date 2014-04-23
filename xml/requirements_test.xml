@@ -4,14 +4,50 @@
 <section>
   <title>Test and Build</title>
 
-  <para>One of the key features of Boost librariies is that they are
+  <para>The common problem faced by developers of C++ libraries is that, in
+  spite of having a detailed standard supported by a very dedicated group of
+  volunteers, C++ programs cannot be guarenteed to be portable. This is due to
+  a couple of factors</para>
+
+  <para><itemizedlist>
+      <listitem>
+        <para>There exist many C++ constructs which are legal syntax but whose
+        semantics are undefined. Usually these aren't even flagged as warnings
+        by the compiler. It's very easy to inadvertently and unknowingly write
+        code which depends on this undefined behavior. Its very common for
+        code which passes test on the developer's environment to fail when
+        moved to another. Many developers test on multiple platforms for this
+        reason. This helps, but it means that code only get's tested on the
+        most commonly available platforms.</para>
+      </listitem>
+
+      <listitem>
+        <para>All code depends upon other code libraries. Given the size of
+        these libraries - e.g. the C++ standard library - it's inevitable that
+        there will be subtle variations in implementation and interface of
+        these other libraries.</para>
+      </listitem>
+
+      <listitem>
+        <para>All compilers have bugs.</para>
+      </listitem>
+
+      <listitem>
+        <para>All compilers omit some feature of the latest C++ standard.
+        Older but still widely used compilers omit many features of the latest
+        standard. It's not at all easy to keep track of which
+        compilers/libraries support which features.</para>
+      </listitem>
+    </itemizedlist></para>
+
+  <para>One of the key features of Boost libraries is that they are
   extensively tested. This is done by volunteers who test all the libraries on
-  particular platforms. From our perspecitve here, this has a number of
+  particular platforms. From our perspective, this has a number of
   drawbacks:</para>
 
   <para><itemizedlist>
       <listitem>
-        <para>It is very demanding on the voluteers. Usually takes all night
+        <para>It is very demanding on the volunteers. Usually takes all night
         to run tests on all of boost.</para>
       </listitem>
 
@@ -40,10 +76,17 @@
     <listitem>
       <para>A test script for running these tests.</para>
     </listitem>
+
+    <listitem>
+      <para>Logging and display of test results from other library
+      users.</para>
+    </listitem>
   </itemizedlist>
 
   <para>This will permit any users of a submitted library to run his own
-  tests. </para>
+  tests. It will also permit prospective library users to get some idea as to
+  how the library might work in his particular environment before he even
+  downloads it.</para>
 
   <para>Elsewhere on this website, we'll describe the test system we
   recommend.</para>

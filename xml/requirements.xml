@@ -4,10 +4,10 @@
 <section id="requirements">
   <title>Library Requirements</title>
 
-  <para>Any library submitted to this site must fullfill a set of minimum set
-  of requirements. These requirements are formutated in order to make it as
+  <para>Any library submitted to this site must fulfill a set of minimum set
+  of requirements. These requirements are formulated in order to make it as
   simple as possible to download a library, test and use it. The only
-  requirement that a potential user should have to fullfill is that the a
+  requirement that a potential user should have to fulfill is that the a
   recent copy of Boost Libraries be installed.</para>
 
   <para>Note that some of these requirements may differ somewhat from the

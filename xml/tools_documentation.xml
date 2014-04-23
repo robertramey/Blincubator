@@ -7,7 +7,7 @@
   <para>Documentation of software libraries and APIs has a well deserved
   reputation for being incomplete and hard to use. Personally, I had a lot of
   difficulty making documentation for the Boost Serialization Library. The
-  following opinions are the the result of this and other experience.</para>
+  following opinions are the result of this and other experience.</para>
 
   <section>
     <title>Boost Documentation Tools</title>
@@ -30,8 +30,8 @@
       <listitem>
         <para><emphasis>Separation of Content from Presentation</emphasis>.
         This system should permit same files to be used to generate
-        documentaion as web pages, PDF files, and perhaps other formats such
-        as htmlhelp and ePub.</para>
+        documentation as web pages, PDF files, and perhaps other formats such
+        as Htmlhelp and ePub.</para>
       </listitem>
 
       <listitem>
@@ -52,9 +52,9 @@
           </listitem>
 
           <listitem>
-            <para>guarentees that docments respect structure requirements. For
-            example, it should prohibit the creation of a table row anywhere
-            but inside a table.</para>
+            <para>guarantees that documents respect structure requirements.
+            For example, it should prohibit the creation of a table row
+            anywhere but inside a table.</para>
           </listitem>
 
           <listitem>
@@ -63,7 +63,7 @@
           </listitem>
 
           <listitem>
-            <para>Permits the creation of "templates" of premade document
+            <para>Permits the creation of "templates" of pre-made document
             fragments which can be inserted into the document and then
             modified. Basically I want to include the "template" for Type and
             then use it as a form to fill in the specific information for some
@@ -77,7 +77,7 @@
       </listitem>
     </itemizedlist>
 
-    <para>Currently, the most common methods used to generate documation
+    <para>Currently, the most common methods used to generate documentation
     are:</para>
 
     <section>
@@ -86,7 +86,7 @@
       <para>One can just prepare the HTML pages with a simple text editor. In
       many cases this is the simplest to do and many libraries have been
       documented in this manner. The main disadvantage is that PDF (and maybe
-      others) can't be prepared from the html pages. Also as the library gets
+      others) can't be prepared from the HTML pages. Also as the library gets
       larger, it becomes tedious to keep everything in sync.</para>
     </section>
 
@@ -96,7 +96,7 @@
       <para><ulink
       url="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html">BoostBook</ulink>
       is an extension of <ulink url="http://www.docbook.org/">DocBook</ulink>.
-      The workflow is:</para>
+      The work flow is:</para>
 
       <itemizedlist>
         <listitem>
@@ -150,8 +150,8 @@
         <listitem>
           <para>BootBook defines a large group of XML tags which can be used
           characterize elements in C++ documentation. These includes things
-          like function name, const, etc. etc. Potentially these could be used
-          to generate useful things like function cross references, syntax
+          like function name, const, etc.. Potentially these could be used to
+          generate useful things like function cross references, syntax
           coloring and the like.</para>
         </listitem>
 
@@ -183,11 +183,11 @@
           url="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html">BoostBook</ulink>
           specifies a large collection of tags to characterize documentation
           elements, the large majority of these are not used by Boost library
-          documentation It seems that that they've been included in the hopes
-          of being available for future use. This would be OK except for the
-          fact that the attaching all these tags to one's documentation would
-          be a huge job - which would yield no benefit with the current
-          document preparation system.</para>
+          documentation It seems that they've been included in the hopes of
+          being available for future use. This would be OK except for the fact
+          that the attaching all these tags to one's documentation would be a
+          huge job - which would yield no benefit with the current document
+          preparation system.</para>
 
           <para>It's not clear from the <ulink
           url="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html">BoostBook</ulink>
@@ -204,8 +204,8 @@
           BoostBuild, using the HTML/PDF which is left somewhere else in the
           local Boost directory. That is, conversion of documents in
           intimately coupled with BoostBuild. I understand the appeal of this
-          for those whose task it it to deploy Boost as a monolithic software
-          package. And it may be OK for those whose docmentation is done and
+          for those whose task it to deploy Boost as a monolithic software
+          package. And it may be OK for those whose documentation is done and
           already checked into the Boost directory, But for the rest of us,
           its very unwieldy.</para>
         </listitem>
@@ -215,10 +215,10 @@
     <section>
       <title>Doxygen</title>
 
-      <para><ulink url="http://www.stack.nl/~dimitri/doxygen/">Doxygen</ulink>
+      <para><ulink url="http://www.stack.nl/~dimitri/doxygen/">DOxygen</ulink>
       is a system for generating documentation of class and function types by
-      scanning the progrogram code along with from enhanced comments included
-      by the author.</para>
+      scanning the program code along with from enhanced comments included by
+      the author.</para>
 
       <itemizedlist>
         <listitem>
@@ -230,7 +230,7 @@
 
         <listitem>
           <para><ulink
-          url="http://www.stack.nl/~dimitri/doxygen/">Doxygen</ulink> works
+          url="http://www.stack.nl/~dimitri/doxygen/">DOxygen</ulink> works
           pretty much as advertised.</para>
         </listitem>
 
@@ -238,14 +238,14 @@
           <para>The <ulink
           url="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html">BoostBook</ulink>/BoostBuild
           process can incorporate XML output produced by <ulink
-          url="http://www.stack.nl/~dimitri/doxygen/">Doxygen</ulink>. And a
-          number of boost libraries have successfulliy incorporated the files
+          url="http://www.stack.nl/~dimitri/doxygen/">DOxygen</ulink>. And a
+          number of boost libraries have successfully incorporated the files
           it generates in their documentation.</para>
         </listitem>
 
         <listitem>
           <para>Using <ulink
-          url="http://www.stack.nl/~dimitri/doxygen/">Doxygen</ulink> to get a
+          url="http://www.stack.nl/~dimitri/doxygen/">DOxygen</ulink> to get a
           specific kind of output requires setting the right combination of
           configuration options (There are scores of these) and including
           special comments in the source code.</para>
@@ -253,12 +253,12 @@
 
         <listitem>
           <para>A lot of the <ulink
-          url="http://www.stack.nl/~dimitri/doxygen/">Doxygen</ulink>
+          url="http://www.stack.nl/~dimitri/doxygen/">DOxygen</ulink>
           generated documentation I've seen seems just to do little more than
           paraphrase the code. After spending some time experimenting with it,
           I've come to believe that this is likely in large part due to the
           manner that <ulink
-          url="http://www.stack.nl/~dimitri/doxygen/">Doxygen</ulink> has been
+          url="http://www.stack.nl/~dimitri/doxygen/">DOxygen</ulink> has been
           used. One might be able to generate the documentation I want, but it
           would require a lot of effort in tweaking the configuration and the
           program comments.</para>
@@ -267,7 +267,7 @@
     </section>
 
     <section>
-      <title>Quickbook</title>
+      <title>QuickBook</title>
 
       <para>The principle disadvantage of <ulink
       url="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html">BoostBook</ulink>
@@ -338,9 +338,9 @@
           </listitem>
 
           <listitem>
-            <para>guarentees that docments respect structure requirements. For
-            example, it should prohibit the creation of a table row anywhere
-            but inside a table.</para>
+            <para>guarantees that documents respect structure requirements.
+            For example, it should prohibit the creation of a table row
+            anywhere but inside a table.</para>
           </listitem>
 
           <listitem>
@@ -349,7 +349,7 @@
           </listitem>
 
           <listitem>
-            <para>Permits the creation of "templates" of premade document
+            <para>Permits the creation of "templates" of pre-made document
             fragments which can be inserted into the document and then
             modified. Basically I want to include the "template" for Type and
             then use it as a form to fill in the specific information for some
@@ -361,14 +361,14 @@
           </listitem>
         </itemizedlist>
 
-        <para>This requirement is fullfilled is - a free XML editor. This
-        beatifully made product permits one to add his own XML syntax checking
-        files (DTD files). I've added files to enforce the extra rules that
-        <ulink
+        <para>This requirement is fulfilled is - a free XML editor. This
+        beautifully made product permits one to add his own XML syntax
+        checking files (DTD files). I've added files to enforce the extra
+        rules that <ulink
         url="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html">BoostBook</ulink>
         requires. I've also added some "templates" for C++ library
         documentation elements: library, concept, type, and function. So one
-        can build his documentation from within the editor by adding in hte
+        can build his documentation from within the editor by adding in the
         standard templates and "filling in the blanks". This will go a long
         way to making "C++ library formal documentation" with a minimum of
         effort. <ulink
@@ -378,17 +378,17 @@
 
       <listitem>
         <para>A system which separates content from presentation so the same
-        files can be used to generate documentaion as web pages, PDF files,
-        and perhaps other formats such as htmlhelp and ePub.</para>
+        files can be used to generate documentation as web pages, PDF files,
+        and perhaps other formats such as Htmlhelp and ePub.</para>
 
-        <para>This requirement is fullfilled by using <ulink
+        <para>This requirement is fulfilled by using <ulink
         url="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html">BoostBook</ulink>
         with no changes. A small additional XSLT styling sheet is employed to
         interface with the rest of the system.</para>
       </listitem>
 
       <listitem>
-        <para>I've addressed this by creating some custom XSLT stylesheets
+        <para>I've addressed this by creating some custom XSLT style sheets
         which extend the standard <ulink
         url="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html">BoostBook</ulink>
         ones. These just remove the requirement that the XML files be part of
@@ -404,16 +404,16 @@
     </itemizedlist>
 
     <figure>
-      <title>XML Mind Editor Screenshot</title>
+      <title>XML Mind Editor Screen shot</title>
 
       <informalfigure>
         <screenshot>
-          <screeninfo>XMLMind Editor screenshot</screeninfo>
+          <screeninfo>XMLMind Editor screen shot</screeninfo>
 
           <mediaobject>
             <imageobject>
               <imagedata entityref="XMLMindScreenshot.jpg"
-                         fileref="XMLMindScreenshot.jpg" format="JPG" />
+                         fileref="XMLMindScreenshot.jpg" format="JPG"/>
             </imageobject>
           </mediaobject>
         </screenshot>
@@ -469,7 +469,7 @@
         url="catalog.xml">catalog.xml</ulink></filename> and edit the file
         accordingly. This will result in references to local copies of
         BoostBook and DocBook tools on your local file system and permit the
-        usage of XML processing tools without dependence on an internet
+        usage of XML processing tools without dependence on an Internet
         connection.</para>
       </listitem>
 
@@ -534,11 +534,11 @@
         directory. This contains a custom configuration for XMLMind to
         facilitate the editing of <ulink
         url="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html">BoostBook</ulink>
-        documenation.</para>
+        documentation.</para>
       </listitem>
 
       <listitem>
-        <para>UnZip this file into the XMLMind program directory. This
+        <para>unzip this file into the XMLMind program directory. This
         directory should look like:</para>
 
         <programlisting>&lt;XMLMind program directory&gt;
@@ -562,7 +562,7 @@
         <para>Verify that XMLMind is properly configured by invoking
         File-&gt;New shows</para>
 
-        <graphic fileref="NewScreenShot.jpg" format="JPG" />
+        <graphic fileref="NewScreenShot.jpg" format="JPG"/>
       </listitem>
     </orderedlist>
 
@@ -579,13 +579,13 @@
 
         <listitem>
           <para>To get the hang of it, practice editing the BoostBook
-          documentation for a library you've already downloaded. Note the the
+          documentation for a library you've already downloaded. Note the
           safe_numerics demo library documentation has been prepared with this
           system so it would be a good candidate to practice with.</para>
         </listitem>
 
         <listitem>
-          <para>XMLMind is very well docmented and explained - including
+          <para>XMLMind is very well documented and explained - including
           videos! - check though all this information.</para>
         </listitem>
 
@@ -605,13 +605,13 @@
             <listitem>
               <para><ulink
               url="http://xml.web.cern.ch/XML/goossens/dbatcern/index.htm">Writing
-              Documenatation Using DocBook</ulink></para>
+              Documentation Using DocBook</ulink></para>
             </listitem>
 
             <listitem>
               <para><ulink
               url="http://infohost.nmt.edu/tcc/help/pubs/docbook/web/index.html">Writing
-              Documentaion With DocBook 4.3</ulink></para>
+              Documentation With DocBook 4.3</ulink></para>
             </listitem>
 
             <listitem>
@@ -624,7 +624,7 @@
 
         <listitem>
           <para>Any XML editor is at it's root a system for editing a very
-          elaborate tree of nexted XML elements can be very, very tedious. For
+          elaborate tree of nested XML elements can be very, very tedious. For
           this reason, it's very helpful to use copy/paste of "branches" which
           are already complete. This speeds up the process considerably for
           things like tables, etc.</para>
@@ -632,13 +632,13 @@
 
         <listitem>
           <para>Lookup the "node selection bar" in the XMLMind help. This is
-          key to understanding where you are in the the node tree.</para>
+          key to understanding where you are in the node tree.</para>
         </listitem>
 
         <listitem>
-          <para>Edit in WYSIWYG mode. This guarentees that your document
+          <para>Edit in WYSIWYG mode. This guarantees that your document
           follows that BoostBook Document Type Definition and that the
-          BoostBook Tool chain will produce Boost conformant
+          BoostBook Tool chain will produce Boost con formant
           documentation.</para>
         </listitem>
 
@@ -692,11 +692,11 @@
     format we can render it in a variety of formats. This is done with the
     BoostBook toolset. In the official Boost distribution, this is done with
     BoostBuild. We use a simpler more transparent method. Creating HTML
-    documentation is a two step process using xslt.</para>
+    documentation is a two step process using XSLT.</para>
 
     <orderedlist>
       <listitem>
-        <para>Translate BoostBook XML to DocBook XML xsl stylesheets</para>
+        <para>Translate BoostBook XML to DocBook XML XSL style sheets</para>
       </listitem>
 
       <listitem>
@@ -709,7 +709,7 @@
 xsltproc --nonet db2html.xsl -</programlisting></para>
 
     <para>In addition, we need to copy a few files from the boost
-    installation. The following files should be copied to the html directory
+    installation. The following files should be copied to the HTML directory
     from the boost root directory.</para>
 
     <para><filename>doc/src/boostbook.css </filename>// cascaded style sheet
@@ -718,8 +718,8 @@ xsltproc --nonet db2html.xsl -</programlisting></para>
     <para><filename>doc/html/images</filename> // directory of images for
     arrows, etc.</para>
 
-    <para>and finally you should add to the html directory a file named
-    <filename>pre-boost.jpg</filename>. After all this, the html documentation
+    <para>and finally you should add to the HTML directory a file named
+    <filename>pre-boost.jpg</filename>. After all this, the HTML documentation
     director structure should look like the following</para>
 
     <programlisting>doc/

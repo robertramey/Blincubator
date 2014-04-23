@@ -14,7 +14,7 @@
     <title>Structure</title>
 
     <para><emphasis>A library MUST contain a doc/html directory with an
-    included file index.html. The documenation should be browsable with or
+    included file index.html. The documentation should be browsable with or
     without being connected to the net.</emphasis></para>
 
     <para>Optionally, it may include Information to build the HTML directory
@@ -27,13 +27,13 @@
     <title>Contents</title>
 
     <para>What should documentation for a software library contain? The answer
-    turns out to be surprisingly unobvious.</para>
+    turns out to be surprisingly un obvious.</para>
 
     <para>The obvious thing seems to just write expanded information about
     each class and function. However, it's very difficult to keep this from
     ending up just paraphrasing the code. Documentation which is prepared
-    separatly is much more likely to manifest "conceptual integrity". That is,
-    it is likely to look like a set of minimally coupled, composible
+    separately is much more likely to manifest "conceptual integrity". That
+    is, it is likely to look like a set of minimally coupled, composable
     orthogonal ideas whose purpose and usage is easy to understand. Generating
     or writing documentation from the completed code is more likely to result
     in a library that looks like a collection of dependent components which
@@ -107,10 +107,10 @@
     section which are not applicable, and fill in the information particular
     to his component.</para>
 
-    <para>Here is an <link linkend="library">outline</link> of what what
-    library documentation should look like. Not all libraries need all the
-    sections, but most should be there. Links point to "mockups" for the
-    corresponding section which can be used as a basis of creating your own
+    <para>Here is an <link linkend="library">outline</link> of what library
+    documentation should look like. Not all libraries need all the sections,
+    but most should be there. Links point to "mock ups" for the corresponding
+    section which can be used as a basis of creating your own
     documentation.</para>
 
     <itemizedlist>
@@ -119,7 +119,7 @@
 
         <para>A concise description of what the library does. The object is to
         give the reader enough information to know whether this library
-        addresses the need which lead him to check this documenation in the
+        addresses the need which lead him to check this documentation in the
         first place. Often times, a short motivating example can show what
         "problem" the library solves and how it is used to do it.</para>
       </listitem>
@@ -159,7 +159,7 @@
 
         <para>Each concept is a description of a set of operations that a type
         must support in order to be considered as meeting the requirements of
-        the concept. The concept name is a succint way of specifying the
+        the concept. The concept name is a succinct way of specifying the
         constraints on type parameters passed to C++ templates. Note that you
         need document only the new concepts you create. Those that are
         included from the Boost Concept Check headers are already

@@ -7,7 +7,7 @@
   <para>Ideally, one would prefer to have no requirement as to the specific
   tools to be used as long as the <link linkend="requirements">Library
   Requirements</link> are satisfied. To this end, I experimented with various
-  tools to see how they fit theset requirements. The results of these
+  tools to see how they fit these requirements. The results of these
   experiments are described below. Unfortunately, it turns out that we can't
   achieve all we want with this website without specifying some specific
   tools.</para>

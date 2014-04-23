@@ -47,9 +47,9 @@
 
       <listitem>
         <para>We expect users who download libraries on this site to run the
-        regression/acceptance tests on their local platform and (someday)
-        report their results to a central site. This distributes testing among
-        users in way that will always scale.</para>
+        regression/acceptance tests on their local platform and report their
+        results to a central site. This distributes testing among users in way
+        that will always scale.</para>
       </listitem>
     </itemizedlist></para>
 
@@ -59,10 +59,10 @@
   <itemizedlist>
     <listitem>
       <para>The libraries are distributed all at once in one large zip file or
-      tarball. Once one download and installs this package, he has all he
+      tarball. Once one downloads and installs this package, he has all he
       boost libraries available. Any decision to change the composition of
       this package - e.g. Deprecation of a library, is arrived at by consensus
-      of boost developers. Since test occurs every day on the whole
+      of boost developers. Since testing occurs every day on the whole
       distribution, users can be confident that everything will work even if
       libraries have been coupled together - inadvertently or
       otherwise.</para>
@@ -70,7 +70,9 @@
 
     <listitem>
       <para>libraries don't have their own version numbers. Version numbers
-      are assigned to each boost distribution.</para>
+      are assigned to each boost distribution. Note that the recent Boost
+      modularization requires per library version numbers, but this
+      requirement is not yet enforced.</para>
     </listitem>
 
     <listitem>
@@ -86,8 +88,6 @@
       the testing sites.</para>
     </listitem>
   </itemizedlist>
-
-  <para/>
 
   <section>
     <title>Links</title>
@@ -169,59 +169,6 @@
     linkend="submit-my-library">Library Submission Page</link> .</para>
 
     <section>
-      <title>GitHub</title>
-
-      <itemizedlist>
-        <listitem>
-          <para>Reviews - not supported. Git does have a facility named "code
-          review" but it's not the same as what we've called "formal review".
-          Git also has a Wiki which might be made to work - but it's a little
-          bit crude for our purposes.</para>
-        </listitem>
-
-        <listitem>
-          <para>Documentation - Includes the facility to browse HTML files in
-          the project via any java script compatible browser. Since libraries
-          on this site are required to provide browsable documentation in
-          HTML, this is an incredibly convenient facility. The only thing we
-          have to do is specify the correct link on our <link
-          linkend="submit-my-library">Library Submission Page</link> . The
-          Using safe_numerics library as an example, the link would be:</para>
-
-          <para><ulink
-          url="http://htmlpreview.github.com/?https://raw.github.com/robertramey/safe_numerics/master/safe_numerics/doc/html/index.html">http://htmlpreview.github.com/?https://raw.github.com/robertramey/safe_numerics/master/safe_numerics/doc/html/index.html</ulink></para>
-
-          <para>Now we don't have to find a separate place to load our
-          documentation so that potential users may review the documentation
-          prior to downloading the library. Whenever we push our local copy to
-          the repository, the documentation is automatically synchronized with
-          the code.</para>
-        </listitem>
-
-        <listitem>
-          <para>Code repository - Uses Git (naturally)</para>
-        </listitem>
-
-        <listitem>
-          <para>Download - Includes a download facility for any project
-          loaded. The correct link would be <ulink
-          url="https://github.com/robertramey/safe_numerics/archive/master.zip">https://github.com/robertramey/safe_numerics/archive/master.zip</ulink></para>
-        </listitem>
-
-        <listitem>
-          <para>Issues - Includes a simple Issues facility automatically for
-          any project loaded. The correct link to paste into the <link
-          linkend="submit-my-library">Library Submission Page</link> would be
-          <ulink
-          url="https://github.com/robertramey/safe_numerics/issues">https://github.com/robertramey/safe_numerics/issues</ulink></para>
-        </listitem>
-      </itemizedlist>
-
-      <para>All in all, GitHub is <emphasis>almost</emphasis> a perfect match
-      for our purposes.</para>
-    </section>
-
-    <section>
       <title>Google Code</title>
 
       <para><itemizedlist>
@@ -295,6 +242,64 @@
             url="https://sourceforge.net/p/safenumerics/tickets/">https://sourceforge.net/p/safenumerics/tickets/</ulink></para>
           </listitem>
         </itemizedlist></para>
+    </section>
+
+    <section>
+      <title>GitHub</title>
+
+      <itemizedlist>
+        <listitem>
+          <para>Reviews - not supported. Git does have a facility named "code
+          review" but it's not the same as what we've called "formal review".
+          Git also has a Wiki which might be made to work - but it's a little
+          bit crude for our purposes.</para>
+        </listitem>
+
+        <listitem>
+          <para>Documentation - Includes the facility to browse HTML files in
+          the project via any java script compatible browser. Since libraries
+          on this site are required to provide browsable documentation in
+          HTML, this is an incredibly convenient facility. The only thing we
+          have to do is specify the correct link on our <link
+          linkend="submit-my-library">Library Submission Page</link> . The
+          Using safe_numerics library as an example, the link would be:</para>
+
+          <para><ulink
+          url="http://htmlpreview.github.com/?https://raw.github.com/robertramey/safe_numerics/master/safe_numerics/doc/html/index.html">http://htmlpreview.github.com/?https://raw.github.com/robertramey/safe_numerics/master/safe_numerics/doc/html/index.html</ulink></para>
+
+          <para>Now we don't have to find a separate place to load our
+          documentation so that potential users may review the documentation
+          prior to downloading the library. Whenever we push our local copy to
+          the repository, the documentation is automatically synchronized with
+          the code.</para>
+        </listitem>
+
+        <listitem>
+          <para>Code repository - Uses Git (naturally)</para>
+        </listitem>
+
+        <listitem>
+          <para>Download - Includes a download facility for any project
+          loaded. The correct link would be <ulink
+          url="https://github.com/robertramey/safe_numerics/archive/master.zip">https://github.com/robertramey/safe_numerics/archive/master.zip</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para>Issues - Includes a simple Issues facility automatically for
+          any project loaded. The correct link to paste into the <link
+          linkend="submit-my-library">Library Submission Page</link> would be
+          <ulink
+          url="https://github.com/robertramey/safe_numerics/issues">https://github.com/robertramey/safe_numerics/issues</ulink></para>
+        </listitem>
+      </itemizedlist>
+
+      <para>All in all, GitHub is <emphasis>almost</emphasis> a perfect match
+      for our purposes. In addition, Boost itself has
+      <emphasis>modularized</emphasis> it's libraries and each one has it's
+      own separate repository on GitHub. Experience with this has been very
+      positive. Given all this, GitHub would have to be the preferred choice
+      unless there are some very compelling reasons to choose something
+      else.</para>
     </section>
   </section>
 </section>
