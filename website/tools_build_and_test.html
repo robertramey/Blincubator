@@ -5,33 +5,41 @@
   experimentation with my prototype library safe_numerics convinced me that
   this wasn't realistic and that I would have to require a specific build/test
   system. I wanted a system which:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>would work on the wide variety of environments on which C++ is
-        run.</p></li><li class="listitem"><p>would gracefully handle variants debug/release, dll/static
-        libraries, etc.</p></li><li class="listitem"><p>didn't require any customization for each environment.</p></li><li class="listitem"><p>would include the ability to support both building AND testing
-        of libraries</p></li><li class="listitem"><p>didn't require elaborate installation and/or scripting.</p></li><li class="listitem"><p>didn't much, if any, learning curve.</p></li></ul></div><p>I looked at a few specific alternatives.</p><div class="section" title="Alternatives Considered"><div class="titlepage"><div><div><h3 class="title"><a name="idm114023403040"></a>Alternatives Considered</h3></div></div></div><div class="section" title="Make"><div class="titlepage"><div><div><h4 class="title"><a name="idm114023402400"></a>Make</h4></div></div></div><p>In the spirit of keeping things as simple as possible, this was my
-      first choice. But starting with a basic make file, one would need to add
-      a lot of extras functionality to address the requirements in the above
-      list. Basic make doesn't have enough functionality to support all we
-      need so we're forced to specify a build/test system.</p></div><div class="section" title="Autotools"><div class="titlepage"><div><div><h4 class="title"><a name="idm114023400880"></a>Autotools</h4></div></div></div><p>Autotools is the traditional Unix solution to the problem of
-      build/test/deployment. It has a long history and is widely used. There
-      is lot's of literature on it as well. It garners a number of complaints
-      about how hard it is to use - but then it seems all of these build
-      systems share that trait. And it doesn't do windows which is sort of
-      deal killer for us. None the less, I wanted to take a look at it. First
-      I looked at my books. It was explained but it did seem pretty
-      complicated. I trolled the net and found a couple of references:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16" target="_top">http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16</a></p></li><li class="listitem"><p><a class="ulink" href="http://mij.oltrelinux.com/devel/autoconf-automake/" target="_top">http://mij.oltrelinux.com/devel/autoconf-automake/</a></p></li></ul></div><p>The first one has a graphic on page 16 which helped make it clear
-      how all the pieces of this system fit together. On the other hand, this
-      graphic didn't make it look very easy. I went through the process with
-      my unix-like CYGWIN installation and things seemed to run well until the
-      last step. Again, I had the feeling I could make this work if I was
-      willing to put in more time, but I didn't feel like doing it. An
-      interesting experience but not a good solution for us.</p></div><div class="section" title="Boost Build"><div class="titlepage"><div><div><h4 class="title"><a name="idm114023395712"></a><a href="tools_bjam">Boost Build</a></h4></div></div></div></div><div class="section" title="CMake/CTest"><div class="titlepage"><div><div><h4 class="title"><a name="idm114023393808"></a><a href="tools_cmake">CMake/CTest</a></h4></div></div></div></div><div class="section" title="Summary"><div class="titlepage"><div><div><h4 class="title"><a name="idm114023391984"></a>Summary</h4></div></div></div><p>Basically I didn't find what I was looking for. I believe that
-      all/any of these build tools could have been made to work, but at a
-      significant overhead cost and learning curve. Turns out I'm not alone.
-      Searching for a good build system hits dozens of <a class="ulink" href="http://en.wikipedia.org/wiki/List_of_build_automation_software" target="_top">tools</a>
-      with a huge variety of features and capabilities. These tools have been
-      contributed over more than a decade with arriving all the time.
-      Commentary, critique and comparison of all these options strongly
-      suggest that this problem isn't close to being solved yet. So it's fair
-      to assume it's much harder than it would first seem to solve this
-      problem.</p><p>Here is a list of miscellaneous links to sites that I found useful
-      in my investigation of Build systems.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://en.wikipedia.org/wiki/List_of_build_automation_software" target="_top">http://en.wikipedia.org/wiki/List_of_build_automation_software</a></p></li></ul></div></div></div></div>
+        run.</p></li><li class="listitem"><p>would gracefully handle build variants such as debug/release,
+        dll/static libraries, etc.</p></li><li class="listitem"><p>didn't require any customization for each environment.</p></li><li class="listitem"><p>didn't require elaborate installation and/or scripting.</p></li><li class="listitem"><p>minimized the learning curve.</p></li><li class="listitem"><p>would include the ability to support both building AND testing
+        of libraries.</p><p>This last has turned out to be particularly problematic.
+        Repeatable, portable unit testing is essential to development of
+        robust software. We require a system which supports the
+        following:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Run by developer in his local enviroment before code is
+            committed.</p></li><li class="listitem"><p>Run by prospective library users when library is
+            downloaded.</p></li><li class="listitem"><p>Log of test results from various users posted in a public
+            place which is easily viewable by library developers, users and
+            reviewers.</p></li><li class="listitem"><p>Is scalable - doesn't require some centralized testing
+            setup.</p></li><li class="listitem"><p>Tests with a wide variety of platforms and compilers.</p></li></ul></div></li></ul></div><p>I looked at a few specific alternatives.</p><div class="section" title="Make"><div class="titlepage"><div><div><h3 class="title"><a name="idm232429540496"></a>Make</h3></div></div></div><p>In the spirit of keeping things as simple as possible, this was my
+    first choice. But starting with a basic make file, one would need to add a
+    lot of extras functionality to address the requirements in the above list.
+    Basic make doesn't have enough functionality to support all we need so
+    we're forced to specify a build/test system.</p></div><div class="section" title="Autotools"><div class="titlepage"><div><div><h3 class="title"><a name="idm232429538992"></a>Autotools</h3></div></div></div><p>Autotools is the traditional Unix solution to the problem of
+    build/test/deployment. It has a long history and is widely used. There is
+    lot's of literature on it as well. It garners a number of complaints about
+    how hard it is to use - but then it seems all of these build systems share
+    that trait. And it doesn't do windows which is sort of deal killer for us.
+    None the less, I wanted to take a look at it. First I looked at my books.
+    It was explained but it did seem pretty complicated. I trolled the net and
+    found a couple of references:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16" target="_top">http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16</a></p></li><li class="listitem"><p><a class="ulink" href="http://mij.oltrelinux.com/devel/autoconf-automake/" target="_top">http://mij.oltrelinux.com/devel/autoconf-automake/</a></p></li></ul></div><p>The first one has a graphic on page 16 which helped make it clear
+    how all the pieces of this system fit together. On the other hand, this
+    graphic didn't make it look very easy. I went through the process with my
+    unix-like CYGWIN installation and things seemed to run well until the last
+    step. Again, I had the feeling I could make this work if I was willing to
+    put in more time, but I didn't feel like doing it. An interesting
+    experience but not a good solution for us.</p></div><div class="section" title="Summary and Conclusion"><div class="titlepage"><div><div><h3 class="title"><a name="idm232429531984"></a>Summary and Conclusion</h3></div></div></div><p>After trying and/or investigating many of the alternatives, I've
+    settled on CMake/CTest/CDash for Safe Numerics. I feel comfortable
+    strongly recommending this for those who want to make libraries which they
+    hope to submit to Boost. It supports our list of requirements as well as
+    any of the other alternatives considered. AND it's the only alternative
+    which supports our specific requierments for logging test results in a
+    commonly accessable place. As I write this, I see CMake/CTest/CDash as
+    indispensible for libraries posted on this website. </p><p>Note the above doesn't preclude support for other build systems as
+    well. In particular BJAM might be a candidate if one's library evolves to
+    the point of being a serious candidate for inclusion into boost.</p><p>Here is a list of miscellaneous links to sites that I found useful
+    in my investigation of Build systems.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://en.wikipedia.org/wiki/List_of_build_automation_software" target="_top">http://en.wikipedia.org/wiki/List_of_build_automation_software</a></p></li></ul></div></div></div>

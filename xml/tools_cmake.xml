@@ -24,7 +24,7 @@
 
     <listitem>
       <para>It includes a system for invoking test suites and posting results
-      to a common website. (CTest and CDash) This is a really attractive
+      to a common website. (CTest and cash) This is a really attractive
       feature that we absolutely have to have. Having it "out of the box"
       would be a huge plus.</para>
     </listitem>
@@ -33,7 +33,7 @@
       <para>It includes some extra features which we don't really need but
       might be useful.<itemizedlist>
           <listitem>
-            <para>CPack - for creation of installation packages including zip
+            <para>pack - for creation of installation packages including zip
             files, tar balls etc.</para>
           </listitem>
 
@@ -54,8 +54,8 @@
     <listitem>
       <para>It has the ability to create files for different kind of build
       systems including Makefiles, Visual Studio Project files for windows,
-      XCode project files for Mac OS, and Eclipse project files among others.
-      I found this feature extremely compelling as I am a heavy user of
+      code project files for Mac OS, and Eclipse project files among others. I
+      found this feature extremely compelling as I am a heavy user of
       different IDEs.</para>
     </listitem>
   </itemizedlist>
@@ -528,7 +528,7 @@ ENDIF (NOT CMAKE_CROSSCOMPILING)
       <para>The above looks useful - but still a little too "heavyweight" for
       my taste. It also distributes the CMake files around the project which
       conflicts with common practice for Boost libraries. The following
-      CMakeList.txt file creates a project for the XCode IDE to test and edit
+      CMakeList.txt file creates a project for the code IDE to test and edit
       the safe_numerics library. I haven't tested it on other platforms such
       as the Visual Studio or Eclipse IDE but hopefully it should require only
       minimal changes to do so. It's different from the original version in
@@ -799,10 +799,10 @@ add_custom_target(include SOURCES ${include_files})
     <para>We've seen how CTest supports the automatic creation of test
     scripts. This supports testing of a library by the original developer as
     well as the user who downloads the library. <ulink
-    url="http://www.cdash.org">CDash</ulink> supports the submission of the
+    url="http://www.cdash.org">cash</ulink> supports the submission of the
     test results to a common location. This permits developers, users and
     reviewers to look at test results for all other users of the library. The
-    <ulink url="http://www.cdash.org">CDash</ulink> system depends upon the
+    <ulink url="http://www.cdash.org">cash</ulink> system depends upon the
     installation of a</para>
 
     <para><itemizedlist>
@@ -837,37 +837,88 @@ set(CTEST_DROP_LOCATION "/submit.php?project=Safe+Numerics")
 set(CTEST_DROP_SITE_CDASH TRUE)
 </programlisting>Naturally, your version of this file will contain the name of
           your project in place of "Safe Numerics". This will be the same name
-          used in the CDash project edit dialogs.</para>
+          used in the cash project edit dialogs.</para>
         </listitem>
 
         <listitem>
           <para>Build the CMake BUILD_ALL and RUN_TESTS targets as you have
-          been doing. </para>
+          been doing.</para>
         </listitem>
 
         <listitem>
           <para>If everything goes well up to this point and you are satisfied
-          with the test results you can submit them to the CDash server by
-          building the CMake target named "Experimental". This should be all
-          there is to it. </para>
-        </listitem>
+          with the test results you can submit them to the cash server by
+          building the CMake target named "Experimental".</para>
 
-        <listitem>
           <para>Note that besides "Experimental", there are some other test
           targets which CMake creates - "Continuous", "Nightly",
-          "NightlyMemoryCheck". I'm not sure what these are for. In fact,
-          CDash seems to be a lot more ambitious than just maintaining the
-          test results dashboard. It seems that it actually runs the test on -
-          I'm not sure where. It's not at all well explained and extremely
+          "NightlyMemoryCheck". I'm not sure what these are for. In fact, cash
+          seems to be a lot more ambitious than just maintaining the test
+          results dashboard. It seems that it actually runs the test on - I'm
+          not sure where. It's not at all well explained and extremely
           confusing. Never the less, I have tested the above procedure and am
-          (almost) totally please with the results.</para>
+          (almost) totally pleased with the results.</para>
         </listitem>
-      </itemizedlist></para>
 
-    <para>This procedure produces everything I want. It should:<itemizedlist>
         <listitem>
-          <para>Distribute the testing load among all users interested in the
-          library</para>
+          <para>Now when you go to <ulink
+          url="www.my.cdash.org/index.hpp">your test dash board</ulink> you
+          should see your submitted test results:<figure>
+              <title>cdash Screen shot</title>
+
+              <informalfigure>
+                <screenshot>
+                  <screeninfo>Cdash screen shot</screeninfo>
+
+                  <mediaobject>
+                    <imageobject>
+                      <imagedata entityref="CDashScreenShot.jpg"
+                                 fileref="CDashScreenShot.jpg" format="JPG"/>
+                    </imageobject>
+                  </mediaobject>
+                </screenshot>
+              </informalfigure>
+            </figure></para>
+        </listitem>
+
+        <listitem>
+          <para>There is only one small problem left. The default setup of the
+          dashboard only shows the current days results. Since we want a
+          cumulative record of results for different platforms we need to make
+          some changes. Our example here shows what you see after invoking
+          "Show Filters". Modify the filter so that it will display all
+          results for the past year. Then invoke "Create Hyper link". This
+          link can be used to bring up this view anytime necessary.</para>
+        </listitem>
+
+        <listitem>
+          <para>To complete the process, go back to your library submission
+          page and paste this Hyper link into the "Test Results Dashboard"
+          field. Now anyone can review the test history for this particular
+          library.</para>
+
+          <para><figure>
+              <title>Library Page Screen shot</title>
+
+              <informalfigure>
+                <screenshot>
+                  <screeninfo>Library Page screen shot</screeninfo>
+
+                  <mediaobject>
+                    <imageobject>
+                      <imagedata entityref="LibraryPage.jpg"
+                                 fileref="LibraryPage.jpg" format="JPG"/>
+                    </imageobject>
+                  </mediaobject>
+                </screenshot>
+              </informalfigure>
+            </figure></para>
+        </listitem>
+      </itemizedlist>This procedure produces everything I want. It
+    should:<itemizedlist>
+        <listitem>
+          <para>Distribute the testing load among all those (and only those)
+          users interested in the library.</para>
         </listitem>
 
         <listitem>

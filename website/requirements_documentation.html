@@ -2,17 +2,17 @@
   reputation for being obtuse, opaque, incomplete, hard to use and not very
   helpful. Boost documentation is better, but still not good enough. One of
   the main motivations of this website is to improve documentation of
-  libraries submitted to Boost.</p><div class="section" title="Structure"><div class="titlepage"><div><div><h3 class="title"><a name="idm197277886096"></a>Structure</h3></div></div></div><p><span class="emphasis"><em>A library MUST contain a doc/html directory with an
-    included file index.html. The documenation should be browsable with or
+  libraries submitted to Boost.</p><div class="section" title="Structure"><div class="titlepage"><div><div><h3 class="title"><a name="idm63892749968"></a>Structure</h3></div></div></div><p><span class="emphasis"><em>A library MUST contain a doc/html directory with an
+    included file index.html. The documentation should be browsable with or
     without being connected to the net.</em></span></p><p>Optionally, it may include Information to build the HTML directory
     from other tools such DocBook, BoostBook or QuickBook or some other
     system. These systems provide the benefit of being able to generate output
-    formats other than HTML such as PDF, ebook and others.</p></div><div class="section" title="Contents"><div class="titlepage"><div><div><h3 class="title"><a name="idm197277883152"></a>Contents</h3></div></div></div><p>What should documentation for a software library contain? The answer
-    turns out to be surprisingly unobvious.</p><p>The obvious thing seems to just write expanded information about
+    formats other than HTML such as PDF, ebook and others.</p></div><div class="section" title="Contents"><div class="titlepage"><div><div><h3 class="title"><a name="idm63892747840"></a>Contents</h3></div></div></div><p>What should documentation for a software library contain? The answer
+    turns out to be surprisingly un obvious.</p><p>The obvious thing seems to just write expanded information about
     each class and function. However, it's very difficult to keep this from
     ending up just paraphrasing the code. Documentation which is prepared
-    separatly is much more likely to manifest "conceptual integrity". That is,
-    it is likely to look like a set of minimally coupled, composible
+    separately is much more likely to manifest "conceptual integrity". That
+    is, it is likely to look like a set of minimally coupled, composable
     orthogonal ideas whose purpose and usage is easy to understand. Generating
     or writing documentation from the completed code is more likely to result
     in a library that looks like a collection of dependent components which
@@ -53,19 +53,19 @@
     the following "templates" which a library author can "fill in". One can
     include these templates in his library documentation, eliminate those
     section which are not applicable, and fill in the information particular
-    to his component.</p><p>Here is an <a href="library">outline</a> of what what
-    library documentation should look like. Not all libraries need all the
-    sections, but most should be there. Links point to "mockups" for the
-    corresponding section which can be used as a basis of creating your own
+    to his component.</p><p>Here is an <a href="library">outline</a> of what library
+    documentation should look like. Not all libraries need all the sections,
+    but most should be there. Links point to "mock ups" for the corresponding
+    section which can be used as a basis of creating your own
     documentation.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Introduction</p><p>A concise description of what the library does. The object is to
         give the reader enough information to know whether this library
-        addresses the need which lead him to check this documenation in the
+        addresses the need which lead him to check this documentation in the
         first place. Often times, a short motivating example can show what
         "problem" the library solves and how it is used to do it.</p></li><li class="listitem"><p>Tutorial</p><p>Detailed examples of library usage. These examples should
         include code that the user can build and try on his own.</p></li><li class="listitem"><p>Notes</p><p>Include useful formation which doesn't fit anywhere else.
         Examples would be:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Pointers to other libraries which do a similar thing.</p></li><li class="listitem"><p>Information on testing.</p></li><li class="listitem"><p>compiler/platform quirks and dependencies.</p></li></ul></div></li><li class="listitem"><p><a href="concept">Concepts</a></p><p>List of concepts defined by the library.</p><p>Each concept is a description of a set of operations that a type
         must support in order to be considered as meeting the requirements of
-        the concept. The concept name is a succint way of specifying the
+        the concept. The concept name is a succinct way of specifying the
         constraints on type parameters passed to C++ templates. Note that you
         need document only the new concepts you create. Those that are
         included from the Boost Concept Check headers are already

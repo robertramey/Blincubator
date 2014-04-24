@@ -1,4 +1,4 @@
-<div class="section" title="Boost Build"><div class="titlepage"><div><div><h2 class="title"><a name="idm272028440976"></a>Boost Build</h2></div></div><hr></div><p>This is a natural choice for a boost library. And any library
+<div class="section" title="Boost Build"><div class="titlepage"><div><div><h2 class="title"><a name="idm459410359632"></a>Boost Build</h2></div></div><hr></div><p>This is a natural choice for a boost library. And any library
   currently accepted into Boost must include Bjam script files. It's got some
   good features:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>It's very powerful - basically can be scripted to do just about
       anything related to build and test.</p></li><li class="listitem"><p>Once it's properly set up, it works well.</p></li><li class="listitem"><p>It includes support for most all C++ environments.</p></li><li class="listitem"><p>Bjam developers are always available to help users set this
@@ -25,7 +25,7 @@
       process. Create these files in the designated places in the directory
       hierarchy of your project. You may also use <code class="filename">safe
       numerics</code> library as an example. Here is the file
-      <code class="filename">Jamfile.jam</code> in the directory
+      <code class="filename">Jamfile.v2</code> in the directory
       <code class="filename">safe_numerics/test</code></p><pre><code>import testing ;
 
 run test_add.cpp test_add1.cpp test_add2.cpp test_add3.cpp
@@ -89,14 +89,13 @@ fi</code></pre></li></ul></div><p>Your boost installation might or might not hav
         root&gt;/tools/regression/build</code> .</p></li><li class="listitem"><p>invoke <code class="code">b2 toolset=&lt;....&gt; variant=release
         library_status</code></p></li><li class="listitem"><p>copy the resulting <code class="code">library_status</code> executable to a
         place in your path. Most likely this will be the same place where the
-        b2 executable is to be found.</p></li></ul></div><p>Now you should have everything in place to executate the above
-  described procedure for testing your library and reviewing the results. The
-  focus here has been to describe a simple boost friendly procedure for
-  building and testing one's library. This procedure should permit anyone who
-  has boost installed to run the tests on any download from this site. Users
-  should be encouraged to run the test suite on their local platform/compiler
-  before using the library. In the future we hope to enhance the library
-  status page displayed with a button to upload the test results to a common
-  site so that library authors and potential users can review the test results
-  when ever it might be convenient. However, for now this is the best we
-  have.</p></div>
+        b2 executable is to be found.</p></li></ul></div><p>Now you should have everything in place to execute the above described
+  procedure for testing your library and reviewing the results. The focus here
+  has been to describe a simple boost friendly procedure for building and
+  testing one's library. This procedure should permit anyone who has boost
+  installed to run the tests on any download from this site. Users should be
+  encouraged to run the test suite on their local platform/compiler before
+  using the library. In the future we hope to enhance the library status page
+  displayed with a button to upload the test results to a common site so that
+  library authors and potential users can review the test results when ever it
+  might be convenient. However, for now this is the best we have.</p></div>

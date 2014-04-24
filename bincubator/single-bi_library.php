@@ -100,6 +100,7 @@ function library_form_values(){
 		'documentation_link' => get_post_meta($post_id, 'documentation_link', true),
 		'download_link' => get_post_meta($post_id, 'download_link', true),
 		'repository_link' => get_post_meta($post_id, 'repository_link', true),
+		'test_dashboard_link' => get_post_meta($post_id, 'test_dashboard_link', true),
 		'issues_link' => get_post_meta($post_id, 'issues_link', true)
 	);
 }

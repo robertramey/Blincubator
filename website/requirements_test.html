@@ -1,11 +1,30 @@
-<div class="section" title="Test and Build"><div class="titlepage"><div><div><h2 class="title"><a name="idm15144252624"></a>Test and Build</h2></div></div><hr></div><p>One of the key features of Boost librariies is that they are
+<div class="section" title="Test and Build"><div class="titlepage"><div><div><h2 class="title"><a name="idm353142735648"></a>Test and Build</h2></div></div><hr></div><p>The common problem faced by developers of C++ libraries is that, in
+  spite of having a detailed standard supported by a very dedicated group of
+  volunteers, C++ programs cannot be guarenteed to be portable. This is due to
+  a couple of factors</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>There exist many C++ constructs which are legal syntax but whose
+        semantics are undefined. Usually these aren't even flagged as warnings
+        by the compiler. It's very easy to inadvertently and unknowingly write
+        code which depends on this undefined behavior. Its very common for
+        code which passes test on the developer's environment to fail when
+        moved to another. Many developers test on multiple platforms for this
+        reason. This helps, but it means that code only get's tested on the
+        most commonly available platforms.</p></li><li class="listitem"><p>All code depends upon other code libraries. Given the size of
+        these libraries - e.g. the C++ standard library - it's inevitable that
+        there will be subtle variations in implementation and interface of
+        these other libraries.</p></li><li class="listitem"><p>All compilers have bugs.</p></li><li class="listitem"><p>All compilers omit some feature of the latest C++ standard.
+        Older but still widely used compilers omit many features of the latest
+        standard. It's not at all easy to keep track of which
+        compilers/libraries support which features.</p></li></ul></div><p>One of the key features of Boost libraries is that they are
   extensively tested. This is done by volunteers who test all the libraries on
-  particular platforms. From our perspecitve here, this has a number of
-  drawbacks:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>It is very demanding on the voluteers. Usually takes all night
+  particular platforms. From our perspective, this has a number of
+  drawbacks:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>It is very demanding on the volunteers. Usually takes all night
         to run tests on all of boost.</p></li><li class="listitem"><p>The environments being tested might or might not be the same as
         those platforms that users actually use.</p></li><li class="listitem"><p>It's not obvious how to test just one library.</p></li><li class="listitem"><p>It only includes libraries already accepted into boost. So it is
         of no help to target audience of this web site.</p></li></ul></div><p>To address these considerations we will require that every
   library submission include the following:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>A reasonably complete set of tests which can be run by anyone who
-      downloads the library.</p></li><li class="listitem"><p>A test script for running these tests.</p></li></ul></div><p>This will permit any users of a submitted library to run his own
-  tests. </p><p>Elsewhere on this website, we'll describe the test system we
+      downloads the library.</p></li><li class="listitem"><p>A test script for running these tests.</p></li><li class="listitem"><p>Logging and display of test results from other library
+      users.</p></li></ul></div><p>This will permit any users of a submitted library to run his own
+  tests. It will also permit prospective library users to get some idea as to
+  how the library might work in his particular environment before he even
+  downloads it.</p><p>Elsewhere on this website, we'll describe the test system we
   recommend.</p></div>
