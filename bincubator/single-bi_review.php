@@ -14,16 +14,6 @@ function is_new(){
 		return false;
 }
 
-function is_editable(){
-	global $post;
-	$author = $post->post_author;
-	$user = get_current_user_id();
-	if($author == $user)
-		return true;
-	else
-		return false;
-}
-
 if(!is_new()){
 ?>
 <script type="text/javascript">
@@ -40,7 +30,17 @@ if(!is_new()){
 <?php
 }
 
-if(!is_editable()){
+function is_editable(){
+	global $post;
+	$author = $post->post_author;
+	$user = get_current_user_id();
+	if($author == $user)
+		return true;
+	else
+		return false;
+}
+
+if(!is_editable() && !is_new()){
 ?>
 <script type="text/javascript">
 	jQuery(document).ready(function($){

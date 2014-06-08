@@ -36,7 +36,7 @@ add_action(
 
 function review_handler($entry, $form)
 {
-	echo "entry = " .  print_r($entry) . "<br/>";
+	//echo "entry = " .  print_r($entry) . "<br/>";
 	$post_id = $entry['post_id'];
 	if(get_post_type($post_id) != 'bi_review')
 		return;
@@ -47,7 +47,7 @@ function review_handler($entry, $form)
 	$post->post_title = $entry[13];
 	$post->post_status = 'pending';
 	$post->post_parent = get_post_meta($post_id, 'post_parent', true);
-echo "post->parent = " . $post->post_parent . "<br/>";
+    //echo "post->parent = " . $post->post_parent . "<br/>";
 	wp_update_post( $post );
 }
 
