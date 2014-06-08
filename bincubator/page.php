@@ -17,34 +17,45 @@ get_header();
 <script type="text/javascript">
 	jQuery(document).ready(function($){
 		$('#respond').prop('hidden', true);
-		$('#comments').prop('hidden', true);
+		$('.comment').prop('hidden', true);
 		$('#comments_button').click(function(event) {
 			var hide = ! $('#respond').prop('hidden');
 			$('#respond').prop(
 				'hidden',
 				hide
 			);
-			$('#comments').prop(
+			$('.comment').prop(
 				'hidden',
 				hide
 			);
 		});
-	});
+    });
 </script>
 <div id="container">
 	<div id="content" role="main">
 	<?php
-	get_sidebar(); 
-	while ( have_posts() ) : 
+	get_sidebar();
+    /*
+	while ( have_posts() ) :
 		the_post();
 		the_content();
 		//get_template_part( 'content', 'page' );
+        comments_template( '', true );
 	endwhile; // end of the loop.
-	comment_form();
-	?>
-    <input class="blincubator_button" value="Show/Hide Comments" id="comments_button" name="submit">
-	</div><!-- #content -->
-</div><!-- #container -->
+    */
+    if( have_posts() ) {
+        the_post();
+        the_content();
+        ?>
+        <input class="blincubator_button" value="Show/Hide Comments" id="comments_button" name="submit">
+        <?php
+        comment_form();
+        $comments = get_comments("post_id=$post->ID");
+        wp_list_comments('', $comments);
+    }
+    ?>
+	</div> <!-- #content -->
+</div> <!-- #container -->
 <?php
 get_footer(); 
 ?>

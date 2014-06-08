@@ -78,7 +78,6 @@ function is_editable(){
 		});
 		// set edit on for new documents, viewing for everthing else
 		set_edit_mode(<?php echo is_new() ? 'true' : 'false' ; ?>);
-		show_comments(false);
 	});
 </script>
 
