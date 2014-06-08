@@ -476,17 +476,13 @@ function bi_library_line(){
 	global $post;
 	$post_id = $post->ID;
 	$output = null;
-	$output .= '<a href="' . get_permalink() . '?gform_post_id=' . $post_id . '">';
-	// $output .= '<a href="' . get_permalink() . '">';
-    $output .=
-	$output .= get_the_title();
-	$output .= '</a>';
-
-	$output .= ' ' . $post->post_excerpt;
-
+    $output .= '<dt><a href="' . get_permalink() . '?gform_post_id=' . $post_id . '">';
+    $output .= get_the_title();
+	$output .= '</a></dt>';
+    $output .= "<dd>" . $post->post_excerpt;
 	$output .= ' by ';
 	$output .= get_the_author_link();
-	$output .= '<br/>';
+	$output .= '</dd>';
 	return $output;
 }
 

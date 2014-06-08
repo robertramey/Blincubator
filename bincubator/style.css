@@ -15,7 +15,7 @@ body {
 	height: auto;
 }
 
-p {
+p, dd {
     font-family: sans-serif;
 }
 
