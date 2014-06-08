@@ -24,13 +24,21 @@ function is_editable(){
 ?>
 <script type="text/javascript">
 	jQuery(document).ready(function($){
+		$('#respond').prop('hidden', true);
+		$('.comment').prop('hidden', true);
+		$('#comments_button').click(function(event) {
+			var hide = ! $('#respond').prop('hidden');
+			$('#respond').prop(
+				'hidden',
+				hide
+			);
+			$('.comment').prop(
+				'hidden',
+				hide
+			);
+		});
+
 		var edit_mode = false;
-		var comments_visible = false;
-		function show_comments(show){
-			comments_visible = show;
-			$('#respond').prop('hidden', ! comments_visible);
-			$('#comment-2').prop('hidden',  ! comments_visible);
-		}
 		function set_edit_mode(mode){
 			$('#gform_submit_button_1').prop('hidden', ! mode);
 			$('#comments_button').prop('hidden', mode);
@@ -135,16 +143,18 @@ function library_form_values(){
 			<input type="submit" value="Edit/View" class="blincubator_button" id="edit_button" name="submit">
 			<?php
 		}
-		?>
+        ?>
 		<a class="blincubator_button" id="reviews_button" href="reviews?library_post_id=<?php the_ID(); ?>">Reviews</a>
-		<input type="submit"  id="comments_button" value="Show/Hide Comments" class="blincubator_button"name="submit">
-		<?php
-		$comments = get_comments("post_id=$post->ID");
-		wp_list_comments('', $comments);
+        <input class="blincubator_button" value="Show/Hide Comments" id="comments_button" name="submit">
+        <?php
+        $comments = get_comments("post_id=$post->ID");
+        wp_list_comments('', $comments);
 		comment_form();
+        ?>
+        <?php
+
 	}
 	?>
-	</div>
-</div>
-<?php get_footer(); ?>
+	</div><!-- #content -->
+</div><!-- #container -->
 <?php get_footer(); ?>

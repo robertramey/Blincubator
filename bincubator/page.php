@@ -39,12 +39,10 @@ get_header();
 		the_post();
 		the_content();
 		//get_template_part( 'content', 'page' );
-?>
-<input class="blincubator_button" value="Show/Hide Comments" id="comments_button" name="submit">
-<?php
-	comments_template( '', true );
 	endwhile; // end of the loop.
+	comment_form();
 	?>
+    <input class="blincubator_button" value="Show/Hide Comments" id="comments_button" name="submit">
 	</div><!-- #content -->
 </div><!-- #container -->
 <?php
