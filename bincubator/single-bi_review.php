@@ -80,10 +80,10 @@ function review_form_values($post_id){
 	<div id="content">
 	<?php 
 	get_sidebar();
-	global $post;
+	//global $post;
 	$field_values = array();
 	//echo "1 field_values = " . print_r($field_values) . "<br/>";
-	$library_post = null;
+    $library_post_id;
 	if(is_new()){
 		$library_post_id = $_GET['library_post_id'];
 		$field_values = array('post_parent' => $library_post_id);
@@ -119,6 +119,7 @@ function review_form_values($post_id){
 		<input class="blincubator_button" type="submit" value="Show/Hide Comments" id="comments_button" name="submit">
 		<?php
 		//comments_template( '', true );
+        $comments = get_comments("post_id=$library_post_id");
 		wp_list_comments();
 		comment_form();
 	}
