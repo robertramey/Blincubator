@@ -21,6 +21,7 @@ p {
 
 #content code {
  	font-size: 16px;
+    font-family: mono;
 }
 
 #wrapper {
@@ -52,21 +53,19 @@ p {
 }
 
 #primary, #secondary {
-    	overflow: visible;
+    overflow: visible;
 }
 
 #primary {
-    	float: right;
-    	width: 150px;
-    	width: 150px;
+float: right;
+    width: 150px;
 	border: 2px solid black;
 	margin: 8px 0px 0px 8px;
 }
 
 #secondary {
-    	float: right;
-    	width: 150px;
-    	width: 150px;
+    float: right;
+    width: 150px;
 	border: 2px solid black;
 	margin: 8px 0px 0px 8px;
 }
@@ -126,8 +125,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #site-info {
-    	float: left;
-    	width: auto;
+    float: left;
+    width: auto;
 }
 
 #left_logo {
@@ -147,9 +146,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #colophon #copyright_notice {
-    	display: inline-block;
-    	line-height: 16px;
-    	text-decoration: none;
+    display: inline-block;
+    line-height: 16px;
+    text-decoration: none;
 	font-style: italic;
 	clear: both;
 	float: right;
@@ -161,6 +160,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 .gform_wrapper ul li.gfield {
 	clear: none !important;
+}
+.gform_description {
+    font-family: sans-serif;
+}
+.ginput_container {
     font-family: sans-serif;
 }
 

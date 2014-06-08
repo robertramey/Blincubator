@@ -478,6 +478,7 @@ function bi_library_line(){
 	$output = null;
 	$output .= '<a href="' . get_permalink() . '?gform_post_id=' . $post_id . '">';
 	// $output .= '<a href="' . get_permalink() . '">';
+    $output .=
 	$output .= get_the_title();
 	$output .= '</a>';
 
