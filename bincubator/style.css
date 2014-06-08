@@ -15,6 +15,10 @@ body {
 	height: auto;
 }
 
+p {
+    font-family: sans-serif;
+}
+
 #content code {
  	font-size: 16px;
 }
@@ -151,16 +155,20 @@ h1, h2, h3, h4, h5, h6 {
 	float: right;
 }
 
+/* gravity forms overrides */
 .gform_wrapper ul li.library_link input {
 	color: rgb(0,102,204) !important;
 }
 .gform_wrapper ul li.gfield {
 	clear: none !important;
+    font-family: sans-serif;
 }
 
 .gform_wrapper ul.gfield_radio li input[type="radio"]:checked + label {
 	color: red;
 }
+
+/**/
 
 .blincubator_button, .gform_button, #commentform input {
     background: url("../images/button-grad.png") repeat-x scroll left top #21759B;

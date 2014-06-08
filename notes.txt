@@ -1,0 +1,34 @@
+Notes on local development
+==========================
+
+I've had a lot of trouble getting my MAC setup for local WordPress development.
+
+a) I used the pages at http://codex.wordpress.org/MacOS_X_Local_Mirror
+and http://coolestguidesontheplanet.com/get-apache-mysql-php-phpmyadmin-working-osx-10-9-mavericks/ to:
+   1) enable the local versions of Apache Server and PHP
+   2) create local mirror of Blincubator.com
+   3) Install and configure MySQL
+   4) Install and configure phpMyAdmin - UI for administering MySQL
+
+b) Backup the BLincubator website into two files.  
+   1) One for the WP theme/plugin/php code
+   2) One for the database tables
+
+c) Using phpMySQL - load the backup database tables into the local database
+
+d) WordPress requires the usage of global urls (permalinks) in order to function.
+This makes it effectively impossible to move the installation to another server.
+To get around this, we use create an .htaccess file in the Sites directory which
+enables the filtering and modification of all links which specify blincubator.com
+into
+
+http://rrsd.com/blincubator.com/
+
+http://localhost/~robertramey
+
+e) useful information:
+   1) the apache error log on mac os is located at /var/log/apache2/error_log
+
+http://codex.wordpress.org/Using_Permalinks
+
+

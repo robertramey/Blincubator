@@ -147,7 +147,7 @@ function get_reviews( $query ) {
 }
 
 /*
- * update database for library submission
+ * update data. for library submission
  */
 
 add_action(
@@ -288,6 +288,7 @@ add_action('init', 'bi_register_shortcodes' );
 
 function bi_register_shortcodes() {
 	add_shortcode('html_include', 'html_include');
+	add_shortcode('html_include2', 'html_include2');
 	add_shortcode('libraries_by_name', 'bi_libraries_by_name');
 	add_shortcode('libraries_by_category', 'bi_libraries_by_category');
 	add_shortcode('reviews_by_date', 'bi_reviews_by_date');
@@ -409,7 +410,8 @@ function bi_reviews_by_date() {
 }
 
 function callback($matches){
-	static $baseurl = 'http://www.blincubator.com';
+	# static $baseurl = 'http://www.blincubator.com';
+    $baseurl = home_url( $path);
         // if there is no '.' - must be a wordpress permalink
         if('' == $matches[4]){
                 // return unchanged.
@@ -426,10 +428,29 @@ function callback($matches){
 }
 
 function html_include($attributes){
-	$pattern = '%(href|src)="(http://www\.|http://|www\.|)([^"\.]*(\.)[^"]*)"%';
-        $count = -1;
+	static $pattern = '%(href|src)="(http://www\.|http://|www\.|)([^"\.]*(\.)[^"]*)"%';
+    $count = -1;
 	$file = $attributes['file'];
 	$page = file_get_contents($file);
+	if(null == $page){
+		echo $file . ' not found\n';
+	}
+	$page = preg_replace_callback(
+		$pattern,
+		'callback',
+                $page,
+                -1,
+                $count
+	);
+	return $page;
+}
+
+function html_include2($attributes){
+	static $pattern = '%(href|src)="(http://www\.|http://|www\.|)([^"\.]*(\.)[^"]*)"%';
+    $count = -1;
+	$file = $attributes['file'];
+
+	$page = file_get_contents( home_url() . '/' . $file );
 	if(null == $page){
 		echo $file . ' not found\n';
 	}

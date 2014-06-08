@@ -40,7 +40,7 @@ get_header();
 		the_content();
 		//get_template_part( 'content', 'page' );
 ?>
-<input class="blincubator_button" type="submit" value="Show/Hide Comments" id="comments_button" name="submit">
+<input class="blincubator_button" value="Show/Hide Comments" id="comments_button" name="submit">
 <?php
 	comments_template( '', true );
 	endwhile; // end of the loop.
