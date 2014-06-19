@@ -37,10 +37,14 @@ function is_editable(){
 			$('#gform_submit_button_1').prop('hidden', ! mode);
 			$('#comments_button').prop('hidden', mode);
 			$('#reviews_button').prop('hidden', mode);
+            $('.ginput_container input').prop('readonly', ! mode);
+            $('.ginput_container textarea').prop('readonly', ! mode);
+            // author is never editable
+            $('.gform_wrapper #input_1_17').prop('readonly', true);
+            $('.library_link input').css('cursor', mode ? 'auto' : 'pointer');
+
 			edit_mode = mode;
 		}
-		// author is never editable
-		$('.gform_wrapper #input_1_17').prop('readonly', true);
 
 		// setup handler for comment button
 		$('#comments_button').click(function($) {
@@ -57,18 +61,6 @@ function is_editable(){
 				window.open(this.children[1].firstChild.value);
 				event.preventDefault();
 			}
-		});
-		$('.library_link').hover(function($) {
- 			if(! edit_mode){
-   				$(this).css('cursor','pointer');
-				//$(this).prop('cursor', 'pointer');
-			}
-			else{
-   				$(this).css('cursor','text');
-			}
-			//event.preventDefault();
- 		}, function($) {
-    			$(this).css('cursor','auto');
 		});
 		// set edit on for new documents, viewing for everthing else
 		set_edit_mode(<?php echo is_new() ? 'true' : 'false' ; ?>);
