@@ -205,3 +205,8 @@ div.star-holder .star-rating {
     float: left;
     height: 17px;
 }
+
+.review-line {
+    font-family: sans-serif;
+}
+

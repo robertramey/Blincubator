@@ -387,19 +387,20 @@ function bi_stars_line($post_id, $axis, $axis_name){
 }
 
 function bi_review_summary($post_id){
+    echo '<p>';
 	echo get_the_author_link();
 	echo '</a> - ';
 	echo get_the_title();
 	echo '<a href="review?gform_post_id=' . $post_id . '"> - more ...</a>';
 	echo '<br/>';
-
+    echo '<div class="review-line">';
 	bi_stars_line($post_id, 'knowledge_rating', 'Reviewer Knowledge');
 	bi_stars_line($post_id, 'effort_rating', 'Reviewer Effort');
 	bi_stars_line($post_id, 'usefulness_rating', 'Potential Usefulness');
 	bi_stars_line($post_id, 'design_rating', 'Design');
 	bi_stars_line($post_id, 'implementation_rating', 'Implementation');
 	bi_stars_line($post_id, 'documentation_rating', 'Documentation');
-	echo '<p/>';
+    echo '</div></p>';
 }
 
 function bi_reviews_by_date() {
@@ -424,12 +425,21 @@ function bi_reviews_by_date() {
 	}
 	if(0 == $count)
 		echo "No reviews yet for this library";
-	?>
-	<br/>
-	<a class="blincubator_button" href="review?library_post_id=<?php echo $library_post_id; ?>">Add you're own review</a>
-	<br/>
-	<br/>
-	<?php
+    if(! is_user_logged_in()){
+        ?>
+        <p>
+        Login as a registered user if you want to add your own review.
+        </p>
+        <?php
+        return;
+    }
+    else{
+        ?>
+        <p>
+        <a class="blincubator_button" href="review?library_post_id=<?php echo $library_post_id; ?>">Add you're own review</a>
+        </p>
+        <?php
+    }
 	wp_reset_postdata();
 }
 
