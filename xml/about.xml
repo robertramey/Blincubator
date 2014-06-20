@@ -4,23 +4,28 @@
 <section>
   <title>About This Website</title>
 
-  <para>This web site is an effort to:<itemizedlist>
+  <para>This web site is an effort to support the creation of more quality C++
+  libraries by<itemizedlist>
       <listitem>
-        <para>Specify the minimal requirements that a C++ library must
-        fullfill to be useful to the C++ community.</para>
+        <para>Specifying the minimal requirements that a C++ library must
+        fulfill to be useful to the C++ community.</para>
       </listitem>
 
       <listitem>
-        <para>Provide the tools to meet those requirements with minimal
-        effort.</para>
+        <para>Suggesting the tools and methods to meet those requirements with
+        minimal effort.</para>
       </listitem>
 
       <listitem>
-        <para>Impose no more requirements than the minimum required.</para>
+        <para>Facilitating the review and evaluation of such libraries for
+        certification by users and organization such as <ulink
+        url="http://www.boost.org">Boost</ulink>. I also wanted to entice
+        <ulink url="http://www.boost.org">Boost</ulink> into helping promote
+        this concept.</para>
       </listitem>
     </itemizedlist></para>
 
-  <para>That is, while specifiying the library requirements and suggesting
+  <para>That is, while specifying the library requirements and suggesting
   tools to be used, we wanted to permit libraries to use their own tools if
   the author desired. This means that we can add per-existing conforming
   libraries to the site without disruption. Also, in practice, there is a wide
@@ -34,35 +39,113 @@
   library submission provide links to where these facilities are actually
   implemented.</para>
 
-  <para>Finally, I wanted a website that had all the features that modern
-  websites should have:</para>
+  <section>
+    <title>Prior Art</title>
 
-  <itemizedlist>
-    <listitem>
-      <para>Aesthetically pleasing with good typography, flowing text,
-      etc.</para>
-    </listitem>
+    <para>There are pieces of this all over the place.<itemizedlist>
+        <listitem>
+          <para><ulink url="http://sourceforge.net">sourceforge</ulink></para>
+        </listitem>
+      </itemizedlist><itemizedlist>
+        <listitem>
+          <para><ulink url="https://github.com">github</ulink></para>
+        </listitem>
+      </itemizedlist><itemizedlist>
+        <listitem>
+          <para><ulink url="www.rypll.org">rypll</ulink></para>
+        </listitem>
+      </itemizedlist><itemizedlist>
+        <listitem>
+          <para>many more</para>
+        </listitem>
+      </itemizedlist></para>
 
-    <listitem>
-      <para>Ease of maintenance, update, etc.</para>
-    </listitem>
+    <para>These were interesting in that they focused on providing a unitified
+    system for library development. I was never sold on the idea that one
+    could be successful by telling C++ programmers what to do. (I can get
+    barely get anyone to listen to my suggestions). And besides - it's a huge
+    amount of work do something of this scale.</para>
 
-    <listitem>
-      <para>Accept commentary and library submissions.</para>
-    </listitem>
+    <para>So my approach was to make a "facade" which would<itemizedlist>
+        <listitem>
+          <para>permit an author to use what he already has for repository,
+          issues, testing dashboard, etc. This would make it easier to make a
+          submission. So far this has worked out well. There are already
+          multiple kinds of repositories and test dashboards being used by
+          different authors. Apparently they had no problem making a
+          submission. The main obstacle for a submission is that I require
+          browsable html documentation. Even this low bar keeps out much
+          useless code.</para>
+        </listitem>
 
-    <listitem>
-      <para>Appropriate user control and spam suppression.</para>
-    </listitem>
-  </itemizedlist>
+        <listitem>
+          <para>present a unified interface to a variety of underlying tool
+          implementations. The user interface is a "facade". This is to make
+          it easy to browse documentation, code and issues, etc. in a more or
+          less unified way. I want a user to be able to evaluate 10 libraries
+          in an hour so he can accept one for his own application. Currently
+          this takes a couple of days to do.</para>
+        </listitem>
+
+        <listitem>
+          <para>Not have to do any of the facilities myself since it's
+          pointless to replicate other's work - and let them maintain it. If
+          they do a bad job - then authors will switch and just update their
+          links. You can see the whole point is for me to avoid doing any
+          actual work - which of course is why I'm a software developer in the
+          first place.</para>
+        </listitem>
+
+        <listitem>
+          <para>provide mentoring for library authors to maximize the success
+          of their efforts.</para>
+        </listitem>
+
+        <listitem>
+          <para>build on and support the Boost review system. </para>
+        </listitem>
+      </itemizedlist></para>
+  </section>
 
   <section>
-    <title>Alternatives Considered</title>
+    <title>Implementation Alternatives Considered</title>
+
+    <para>I wanted a website that had all the features that modern websites
+    should have:</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Aesthetically pleasing with good typography, flowing text,
+        etc.</para>
+      </listitem>
+
+      <listitem>
+        <para>Ease of maintenance, update, etc.</para>
+      </listitem>
+
+      <listitem>
+        <para>Accept commentary and library submissions.</para>
+      </listitem>
+
+      <listitem>
+        <para>Appropriate user control and spam suppression</para>
+      </listitem>
+
+      <listitem>
+        <para>Exploit modern social media features such as RSS feeds, Facebook
+        Favorites, per library and per page nested comment threads to
+        facilitate library development. Perhaps these will become a permanent
+        historical record which gathers all the "extra" information required.
+        Also this will permit users to leave hints for those users which
+        follow. It's about organizing information which is now all over the
+        place.</para>
+      </listitem>
+    </itemizedlist>
 
     <para>Achieving the above turns out to be much more effort than one would
     think. The whole web development universe turns out to be a very
     unpleasant place for a C++ programmer. I won't spend time with the
-    details, but here are the options I considered.</para>
+    details, but here are some of the options I considered.</para>
 
     <section>
       <title>PERL</title>
@@ -76,7 +159,7 @@
     <section>
       <title>RVSiteBuilder</title>
 
-      <para>This is a websie bulder which generates all the site pages by
+      <para>This is a website builder which generates all the site pages by
       answering questions. Actually not bad as far as it goes - it can only go
       so far. Fortunately I didn't have to invest a huge amount of time to
       understand that it wasn't going to do the job.</para>
@@ -121,8 +204,8 @@
 
           <listitem>
             <para>I'm not sure how much overhead dynamically interpreting PHP
-            adds to the serving of web pages. I just assumed that it would be
-            an issue on this low traffic web site.</para>
+            adds to the serving of web pages. I just assumed that it would not
+            be an issue on this low traffic web site.</para>
           </listitem>
         </itemizedlist></para>
 
@@ -134,7 +217,7 @@
     </section>
 
     <section>
-      <title>TikiWiki</title>
+      <title>TikiWiki, Media Wiki, etc.</title>
 
       <para>Having seen the PHP documentation and being a being a huge fan of
       <ulink url="http://www.wikipedia.org/">WikiPedia</ulink>, I investigated
@@ -145,11 +228,10 @@
     </section>
 
     <section>
-      <title>Wordpress</title>
+      <title><ulink url="www.wordpress.org">Wordpress</ulink></title>
 
-      <para>Next I tried <ulink
-      url="https://wordpress.org/">Wordpress</ulink>. This is a very
-      impressive setup.<itemizedlist>
+      <para>Next I tried <ulink url="www.wordpress.org">Wordpress</ulink>.
+      This is a very impressive setup.<itemizedlist>
           <listitem>
             <para>A complete system for administering the site including
             users, pages, PHP code etc.</para>
@@ -182,6 +264,53 @@
       of time. Like most things, it has to be "made to work". Still, all in
       all I got it to make most of the things in this site work the way I
       wanted.</para>
+
+      <para>The result you see here is a customization of a standard <ulink
+      url="www.wordpress.org">Wordpress</ulink> theme. This required
+      approximately 1000 lines of PHP code and 13 (at last count) free and
+      paid <ulink url="www.wordpress.org">Wordpress</ulink> plug-ins. Trying
+      to count all the <ulink url="www.wordpress.org">Wordpress</ulink> and
+      plug-in code included would be hard to do - but I doubt it would be less
+      than 20,000 lines. I don't know if another tool (that I didn't look at)
+      would have made the job easier, faster or better. I just stopped looking
+      when I found something that could do the job.</para>
+    </section>
+
+    <section>
+      <title>Other Tools</title>
+
+      <para>Editing of these pages is done in XML using XMLMind and DocBook
+      4.0 style sheets. The pages are then rendered into HTML using xslt. So
+      the total list of tools used in producting this effort is:</para>
+
+      <para><itemizedlist>
+          <listitem>
+            <para><ulink url="http://www.xmlmind.com">XMLMind</ulink></para>
+          </listitem>
+
+          <listitem>
+            <para><ulink
+            url="http://en.wikipedia.org/wiki/XSLT">XSLT</ulink></para>
+          </listitem>
+
+          <listitem>
+            <para><ulink url="http://www.docbook.org">DocBook
+            4.0</ulink></para>
+          </listitem>
+
+          <listitem>
+            <para><ulink url="http://php.net">PHP</ulink></para>
+          </listitem>
+
+          <listitem>
+            <para><ulink url="http://jquery.com">JQuery</ulink></para>
+          </listitem>
+
+          <listitem>
+            <para><ulink
+            url="http://en.wikipedia.org/wiki/Cascading_Style_Sheets">CSS</ulink></para>
+          </listitem>
+        </itemizedlist></para>
     </section>
   </section>
 

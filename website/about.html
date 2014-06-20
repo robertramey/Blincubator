@@ -1,6 +1,10 @@
-<div class="section" title="About This Website"><div class="titlepage"><div><div><h2 class="title"><a name="idm5823712096"></a>About This Website</h2></div></div><hr></div><p>This web site is an effort to:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Specify the minimal requirements that a C++ library must
-        fullfill to be useful to the C++ community.</p></li><li class="listitem"><p>Provide the tools to meet those requirements with minimal
-        effort.</p></li><li class="listitem"><p>Impose no more requirements than the minimum required.</p></li></ul></div><p>That is, while specifiying the library requirements and suggesting
+<div class="section" title="About This Website"><div class="titlepage"><div><div><h2 class="title"><a name="idm335133870656"></a>About This Website</h2></div></div><hr></div><p>This web site is an effort to support the creation of more quality C++
+  libraries by</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Specifying the minimal requirements that a C++ library must
+        fulfill to be useful to the C++ community.</p></li><li class="listitem"><p>Suggesting the tools and methods to meet those requirements with
+        minimal effort.</p></li><li class="listitem"><p>Facilitating the review and evaluation of such libraries for
+        certification by users and organization such as <a class="ulink" href="http://www.boost.org" target="_top">Boost</a>. I also wanted to entice
+        <a class="ulink" href="http://www.boost.org" target="_top">Boost</a> into helping promote
+        this concept.</p></li></ul></div><p>That is, while specifying the library requirements and suggesting
   tools to be used, we wanted to permit libraries to use their own tools if
   the author desired. This means that we can add per-existing conforming
   libraries to the site without disruption. Also, in practice, there is a wide
@@ -12,18 +16,46 @@
   library tools to evolve as well. It is for this reason we don't implement
   facilities such as issue tracking in this website but rather expect the a
   library submission provide links to where these facilities are actually
-  implemented.</p><p>Finally, I wanted a website that had all the features that modern
-  websites should have:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Aesthetically pleasing with good typography, flowing text,
-      etc.</p></li><li class="listitem"><p>Ease of maintenance, update, etc.</p></li><li class="listitem"><p>Accept commentary and library submissions.</p></li><li class="listitem"><p>Appropriate user control and spam suppression.</p></li></ul></div><div class="section" title="Alternatives Considered"><div class="titlepage"><div><div><h3 class="title"><a name="idm5823703504"></a>Alternatives Considered</h3></div></div></div><p>Achieving the above turns out to be much more effort than one would
+  implemented.</p><div class="section" title="Prior Art"><div class="titlepage"><div><div><h3 class="title"><a name="idm335133864176"></a>Prior Art</h3></div></div></div><p>There are pieces of this all over the place.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://sourceforge.net" target="_top">sourceforge</a></p></li></ul></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="https://github.com" target="_top">github</a></p></li></ul></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="www.rypll.org" target="_top">rypll</a></p></li></ul></div><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>many more</p></li></ul></div><p>These were interesting in that they focused on providing a unitified
+    system for library development. I was never sold on the idea that one
+    could be successful by telling C++ programmers what to do. (I can get
+    barely get anyone to listen to my suggestions). And besides - it's a huge
+    amount of work do something of this scale.</p><p>So my approach was to make a "facade" which would</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>permit an author to use what he already has for repository,
+          issues, testing dashboard, etc. This would make it easier to make a
+          submission. So far this has worked out well. There are already
+          multiple kinds of repositories and test dashboards being used by
+          different authors. Apparently they had no problem making a
+          submission. The main obstacle for a submission is that I require
+          browsable html documentation. Even this low bar keeps out much
+          useless code.</p></li><li class="listitem"><p>present a unified interface to a variety of underlying tool
+          implementations. The user interface is a "facade". This is to make
+          it easy to browse documentation, code and issues, etc. in a more or
+          less unified way. I want a user to be able to evaluate 10 libraries
+          in an hour so he can accept one for his own application. Currently
+          this takes a couple of days to do.</p></li><li class="listitem"><p>Not have to do any of the facilities myself since it's
+          pointless to replicate other's work - and let them maintain it. If
+          they do a bad job - then authors will switch and just update their
+          links. You can see the whole point is for me to avoid doing any
+          actual work - which of course is why I'm a software developer in the
+          first place.</p></li><li class="listitem"><p>provide mentoring for library authors to maximize the success
+          of their efforts.</p></li><li class="listitem"><p>build on and support the Boost review system. </p></li></ul></div></div><div class="section" title="Implementation Alternatives Considered"><div class="titlepage"><div><div><h3 class="title"><a name="idm335133850784"></a>Implementation Alternatives Considered</h3></div></div></div><p>I wanted a website that had all the features that modern websites
+    should have:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Aesthetically pleasing with good typography, flowing text,
+        etc.</p></li><li class="listitem"><p>Ease of maintenance, update, etc.</p></li><li class="listitem"><p>Accept commentary and library submissions.</p></li><li class="listitem"><p>Appropriate user control and spam suppression</p></li><li class="listitem"><p>Exploit modern social media features such as RSS feeds, Facebook
+        Favorites, per library and per page nested comment threads to
+        facilitate library development. Perhaps these will become a permanent
+        historical record which gathers all the "extra" information required.
+        Also this will permit users to leave hints for those users which
+        follow. It's about organizing information which is now all over the
+        place.</p></li></ul></div><p>Achieving the above turns out to be much more effort than one would
     think. The whole web development universe turns out to be a very
     unpleasant place for a C++ programmer. I won't spend time with the
-    details, but here are the options I considered.</p><div class="section" title="PERL"><div class="titlepage"><div><div><h4 class="title"><a name="idm5823702192"></a>PERL</h4></div></div></div><p>Previously, many years ago, I made some websites. To implement
+    details, but here are some of the options I considered.</p><div class="section" title="PERL"><div class="titlepage"><div><div><h4 class="title"><a name="idm335133844320"></a>PERL</h4></div></div></div><p>Previously, many years ago, I made some websites. To implement
       forms I used PERL. It was easy to use, but ended up very much a hack.
       Good enough for the simple things I wanted to do then, but I knew
-      immediately that I needed more help than PERL could offer.</p></div><div class="section" title="RVSiteBuilder"><div class="titlepage"><div><div><h4 class="title"><a name="idm5823700752"></a>RVSiteBuilder</h4></div></div></div><p>This is a websie bulder which generates all the site pages by
+      immediately that I needed more help than PERL could offer.</p></div><div class="section" title="RVSiteBuilder"><div class="titlepage"><div><div><h4 class="title"><a name="idm335133842880"></a>RVSiteBuilder</h4></div></div></div><p>This is a website builder which generates all the site pages by
       answering questions. Actually not bad as far as it goes - it can only go
       so far. Fortunately I didn't have to invest a huge amount of time to
-      understand that it wasn't going to do the job.</p></div><div class="section" title="PHP"><div class="titlepage"><div><div><h4 class="title"><a name="idm5823699312"></a>PHP</h4></div></div></div><p>I looked at PHP and was quite impressed. </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Excellent documentation of the language and libraries. This
+      understand that it wasn't going to do the job.</p></div><div class="section" title="PHP"><div class="titlepage"><div><div><h4 class="title"><a name="idm335133841456"></a>PHP</h4></div></div></div><p>I looked at PHP and was quite impressed. </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Excellent documentation of the language and libraries. This
             really impressed me. Also all the documentation pages permit
             additional explanation, examples, etc. To be added by the
             community. This turns out to be very, very helpful. I resolved to
@@ -41,18 +73,18 @@
             the vary least it would require a server on one's local system. I
             didn't think I should have to go to all that trouble just for a
             relatively simple application.</p></li><li class="listitem"><p>I'm not sure how much overhead dynamically interpreting PHP
-            adds to the serving of web pages. I just assumed that it would be
-            an issue on this low traffic web site.</p></li></ul></div><p>I actually made a prototype web site using just PHP. It was not
+            adds to the serving of web pages. I just assumed that it would not
+            be an issue on this low traffic web site.</p></li></ul></div><p>I actually made a prototype web site using just PHP. It was not
       unsatisfactory, but by this time I became enamored with the ability to
       comment on submissions and pages and added this facility as a
       requirement. Also, maintenance would be an issue. So I resolved to find
-      a more complete solution.</p></div><div class="section" title="TikiWiki"><div class="titlepage"><div><div><h4 class="title"><a name="idm5823690688"></a>TikiWiki</h4></div></div></div><p>Having seen the PHP documentation and being a being a huge fan of
+      a more complete solution.</p></div><div class="section" title="TikiWiki, Media Wiki, etc."><div class="titlepage"><div><div><h4 class="title"><a name="idm335133833904"></a>TikiWiki, Media Wiki, etc.</h4></div></div></div><p>Having seen the PHP documentation and being a being a huge fan of
       <a class="ulink" href="http://www.wikipedia.org/" target="_top">WikiPedia</a>, I investigated
       <a class="ulink" href="http://www.mediawiki.org" target="_top">MediaWiki </a>and other Wiki
       systems. There are many of these. Most are written in PHP. After
       spending too much time, I concluded that making this do what I want
-      would entail too much work and resolved to look elsewhere.</p></div><div class="section" title="Wordpress"><div class="titlepage"><div><div><h4 class="title"><a name="idm5823687248"></a>Wordpress</h4></div></div></div><p>Next I tried <a class="ulink" href="https://wordpress.org/" target="_top">Wordpress</a>. This is a very
-      impressive setup.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>A complete system for administering the site including
+      would entail too much work and resolved to look elsewhere.</p></div><div class="section" title="Wordpress"><div class="titlepage"><div><div><h4 class="title"><a name="idm335133831216"></a><a class="ulink" href="www.wordpress.org" target="_top">Wordpress</a></h4></div></div></div><p>Next I tried <a class="ulink" href="www.wordpress.org" target="_top">Wordpress</a>.
+      This is a very impressive setup.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>A complete system for administering the site including
             users, pages, PHP code etc.</p></li><li class="listitem"><p>An architecture which supports "plugins" and "themes". These
             permit one to decouple - to some extent, the look and feel of the
             sight from the content. There are thousands of plugins and themes
@@ -66,6 +98,16 @@
       finally meant learning quite about the whole system which consumed a lot
       of time. Like most things, it has to be "made to work". Still, all in
       all I got it to make most of the things in this site work the way I
-      wanted.</p></div></div><div class="section" title="Acknowledgements"><div class="titlepage"><div><div><h3 class="title"><a name="idm5823679728"></a>Acknowledgements</h3></div></div></div><p>The logo for this website was designed by Matias Capeletto. It's
+      wanted.</p><p>The result you see here is a customization of a standard <a class="ulink" href="www.wordpress.org" target="_top">Wordpress</a> theme. This required
+      approximately 1000 lines of PHP code and 13 (at last count) free and
+      paid <a class="ulink" href="www.wordpress.org" target="_top">Wordpress</a> plug-ins. Trying
+      to count all the <a class="ulink" href="www.wordpress.org" target="_top">Wordpress</a> and
+      plug-in code included would be hard to do - but I doubt it would be less
+      than 20,000 lines. I don't know if another tool (that I didn't look at)
+      would have made the job easier, faster or better. I just stopped looking
+      when I found something that could do the job.</p></div><div class="section" title="Other Tools"><div class="titlepage"><div><div><h4 class="title"><a name="idm335133821632"></a>Other Tools</h4></div></div></div><p>Editing of these pages is done in XML using XMLMind and DocBook
+      4.0 style sheets. The pages are then rendered into HTML using xslt. So
+      the total list of tools used in producting this effort is:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://www.xmlmind.com" target="_top">XMLMind</a></p></li><li class="listitem"><p><a class="ulink" href="http://en.wikipedia.org/wiki/XSLT" target="_top">XSLT</a></p></li><li class="listitem"><p><a class="ulink" href="http://www.docbook.org" target="_top">DocBook
+            4.0</a></p></li><li class="listitem"><p><a class="ulink" href="http://php.net" target="_top">PHP</a></p></li><li class="listitem"><p><a class="ulink" href="http://jquery.com" target="_top">JQuery</a></p></li><li class="listitem"><p><a class="ulink" href="http://en.wikipedia.org/wiki/Cascading_Style_Sheets" target="_top">CSS</a></p></li></ul></div></div></div><div class="section" title="Acknowledgements"><div class="titlepage"><div><div><h3 class="title"><a name="idm335133812848"></a>Acknowledgements</h3></div></div></div><p>The logo for this website was designed by Matias Capeletto. It's
     cleverly designed to evoke the idea of "boost library under
     construction".</p></div></div>
