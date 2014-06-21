@@ -2,7 +2,6 @@
 
 /*
  * remove items from admin menu - not currently used
- */
 add_action( 'admin_menu', 'remove_links_menu' );
 function remove_links_menu() {
      remove_menu_page('index.php'); // Dashboard
@@ -17,6 +16,7 @@ function remove_links_menu() {
      remove_menu_page('tools.php'); // Tools
      remove_menu_page('options-general.php'); // Settings
 }
+*/
 
 /*
  * only permit admins to see the admin bar
