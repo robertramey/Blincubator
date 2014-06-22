@@ -17,11 +17,32 @@ body {
 
 p, dd {
     font-family: sans-serif;
+    margin-bottom: 16px;
+}
+
+#content {
+	margin: 0px 150px 0px 0;
+	padding: 0;
+	width: auto;
+}
+
+#content p {
+    margin-bottom: 12px;
 }
 
 #content code {
  	font-size: 16px;
     font-family: monospace;
+}
+
+#content .note {
+	margin: 0px 150px 0px 0;
+	padding: 20px;
+	width: inherit;
+}
+
+#content ul, #content ol, #content pre, #content hr {
+    margin-bottom: 12px;
 }
 
 #wrapper {
@@ -37,19 +58,6 @@ p, dd {
     width: inherit;
 	float: none;
 }
-
-#content {
-	margin: 0px 150px 0px 0;
-	padding: 0;
-	width: auto;
-}
-
-#content .note {
-	margin: 0px 150px 0px 0;
-	padding: 20px;
-	width: inherit;
-}
-
 #primary, #secondary {
     overflow: visible;
 }
