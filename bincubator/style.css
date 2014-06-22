@@ -33,23 +33,21 @@ p, dd {
 }
 
 #container {
-        margin: 0 -150px 0 0;
-        width: inherit;
+    margin: 0 -150px 0 0;
+    width: inherit;
 	float: none;
 }
 
 #content {
 	margin: 0px 150px 0px 0;
 	padding: 0;
-	width: inherit;
-}
-
-#content li p {
-	margin-bottom: 0px;
-}
-
-#content table {
 	width: auto;
+}
+
+#content .note {
+	margin: 0px 150px 0px 0;
+	padding: 20px;
+	width: inherit;
 }
 
 #primary, #secondary {
@@ -57,7 +55,7 @@ p, dd {
 }
 
 #primary {
-float: right;
+    float: right;
     width: 150px;
 	border: 2px solid black;
 	margin: 8px 0px 0px 8px;
@@ -175,14 +173,14 @@ h1, h2, h3, h4, h5, h6 {
 /**/
 
 .blincubator_button, .gform_button, #commentform input {
-    background: url("../images/button-grad.png") repeat-x scroll left top #21759B;
+    background: repeat-x scroll left top #21759B;
     border-color: #298CBA;
     color: #FFFFFF !important;
     font-family: "Helvetica Neue",Arial,Helvetica,"Nimbus Sans L",sans-serif;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
     text-color: #FFFFFF;
-    -moz-box-sizing: content-box;
+    /* -moz-box-sizing: content-box; */
     border-radius: 11px 11px 11px 11px;
     border-style: solid;
     border-width: 1px;
