@@ -120,6 +120,7 @@ function library_form_values(){
 		$field_values
 	);
 	if(! is_new()){
+        echo apply_filters('the_content', '');
 		?>
 		<a class="blincubator_button" id="statistics_button" href="http://rrsd.com/wordpresstest/wp-admin/admin.php?page=wp-slim-view-3&fs[user]=is_not_equal_to+<?php echo get_userdata($post->post_author)->user_login;?>&fs[type]=is_not_equal_to+1&fs[resource]=contains+<?php echo $post->post_name;?>">Display Statistics</a>
 		<?php

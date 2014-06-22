@@ -115,6 +115,7 @@ function review_form_values($post_id){
 	echo "is_new() = " . (is_new() ? "true" : " false") . "<br/>";
 	*/
 	if(!is_new()){
+        echo apply_filters('the_content', '');
 		?>
 		<input class="blincubator_button" type="submit" value="Show/Hide Comments" id="comments_button" name="submit">
 		<?php
