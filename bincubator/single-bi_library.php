@@ -29,7 +29,7 @@ function is_editable(){
 		$('#comments_button').click(function(event) {
 			var hide = ! $('#respond').prop('hidden');
 			$('#respond').prop('hidden',hide);
-			$('#comments').prop('hidden',hide);
+			$('.comment').prop('hidden',hide);
 		});
 
 		var edit_mode = false;

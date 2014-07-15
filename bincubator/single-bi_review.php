@@ -19,11 +19,11 @@ if(!is_new()){
 <script type="text/javascript">
 	jQuery(document).ready(function($){
 		$('#respond').prop('hidden', true);
-		$('#comments').prop('hidden', true);
+		$('.comment').prop('hidden', true);
 		$('#comments_button').click(function(event) {
 			var hide = ! $('#respond').prop('hidden');
 			$('#respond').prop('hidden',hide);
-			$('#comments').prop('hidden',hide);
+			$('.comment').prop('hidden',hide);
 		});
 	});
 </script>
