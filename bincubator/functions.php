@@ -29,8 +29,8 @@ if (!current_user_can('manage_options')) {
  * prevent any submissions from unregistered users
  */
 
-add_filter('gform_validation', 'custom_validation');
-function custom_validation($validation_result){
+add_filter('gform_validation', 'user_validation');
+function user_validation($validation_result){
 	if(! is_user_logged_in())
 		$validation_result['is_valid'] = false;
 	return $validation_result;

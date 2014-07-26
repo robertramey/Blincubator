@@ -41,8 +41,9 @@ function is_editable(){
             $('.ginput_container textarea').prop('readonly', ! mode);
             // author is never editable
             $('.gform_wrapper #input_1_17').prop('readonly', true);
+            // library name is only editable for new submissions
+            $('.gform_wrapper #input_1_1').prop('readonly', <?php echo is_new() ? 'false' : 'true' ; ?>);
             $('.library_link input').css('cursor', mode ? 'auto' : 'pointer');
-
 			edit_mode = mode;
 		}
 
@@ -134,11 +135,9 @@ function library_form_values(){
         <input class="blincubator_button" value="Show/Hide Comments" id="comments_button" name="submit">
         <?php
         $comments = get_comments("post_id=$post->ID");
+        echo "There are " . count($comments) . " comments";
         wp_list_comments('', $comments);
 		comment_form();
-        ?>
-        <?php
-
 	}
 	?>
 	</div><!-- #content -->
