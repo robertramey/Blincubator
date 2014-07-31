@@ -51,6 +51,7 @@ get_header();
         <?php
         comment_form();
         $comments = get_comments("post_id=$post->ID");
+        echo "There are " . count($comments) . " comments";
         wp_list_comments('', $comments);
     }
     ?>
