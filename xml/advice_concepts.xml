@@ -139,9 +139,10 @@ void main(){
     <para>So we need some way to add information about what types are
     permeated (type requirements or concepts) and a mechanism to automatically
     trap instances where these requirements are not satisfied. As I write
-    this, I recommend usage of the <ulink url="???">Boost Concept Checking
-    Library</ulink> for this purpose. Here is how to use it for our example
-    function.</para>
+    this, I recommend usage of the <ulink
+    url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+    Concept Checking Library</ulink> for this purpose. Here is how to use it
+    for our example function.</para>
 
     <para><informaltable>
         <tgroup cols="2">
@@ -303,9 +304,9 @@ public:
     way. <ulink
     url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
     Concept Checking Library</ulink> on the other hand, can be used today. The
-    following table contrasts <ulink url="???">Boost Concept <ulink
+    following table contrasts <ulink url="???"><ulink
     url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
-    Concept Checking Library</ulink>Checking Library</ulink> with <ulink
+    Concept Checking Library</ulink></ulink> with <ulink
     url="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg">Concepts
     Lite</ulink>:</para>
 
@@ -313,7 +314,7 @@ public:
         <tgroup cols="2">
           <thead>
             <row>
-              <entry align="center">Boost Concept Checking</entry>
+              <entry align="center">Boost Concept Checking Library</entry>
 
               <entry align="center">Concepts Lite</entry>
             </row>
@@ -371,10 +372,12 @@ void bubble_sort(T begin, T end);
 
     <para>It turns out that there is almost a one to one relationship between
     lines of code used to specify concepts in between the two systems. So if
-    one uses <ulink url="???">Boost Concept Checking Library</ulink>. So
-    transition to any future standard system when and if that occurs should be
-    almost trivial. Also note that users code will not be effected in any way
-    since any required changes are confined to the library code modules</para>
+    one uses <ulink
+    url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
+    Concept Checking Library</ulink>. So transition to any future standard
+    system when and if that occurs should be almost trivial. Also note that
+    users code will not be effected in any way since any required changes are
+    confined to the library code modules</para>
 
     <para>.</para>
   </section>
