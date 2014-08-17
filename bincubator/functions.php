@@ -23,7 +23,8 @@ function remove_links_menu() {
  */
 function hide_admin_bar() {
 	if( ! current_user_can('manage_options') )
-		add_filter('show_admin_bar', '__return_false');	
+		add_filter('show_admin_bar', '__return_false');
+    add_theme_support( 'html5', array('comment-form') );
 }
 add_action( 'after_setup_theme', 'hide_admin_bar' );
  
@@ -31,18 +32,23 @@ add_action( 'after_setup_theme', 'hide_admin_bar' );
  * only display dashboard for admins
  */
 function hide_dashboard(){
-	//if ( ! current_user_can( 'manage_options' ) ){
+	if ( ! current_user_can( 'manage_options' ) ){
 		wp_redirect( home_url() );
 		exit;		
-	//}
+	}
 }
 add_action( 'admin_init', 'hide_dashboard' );
 
 /*
- * only permit admins to see the admin bar
+ * alter instructions on comment form 
  */
-if (!current_user_can('manage_options')) {
-	add_filter('show_admin_bar', '__return_false');
+add_filter('comment_form_defaults', 'change_allowed_fields');
+
+function change_allowed_fields($defaults) 
+{
+    //All the comment form fields are available in the $defaults array
+    $defaults['comment_notes_after'] = "All html5 markup permitted";
+    return $defaults;
 }
 
 /*
