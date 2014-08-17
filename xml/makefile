@@ -24,6 +24,7 @@ all: \
 	../website/tools_documentation.html \
 	../website/tools_deployment.html \
 	../website/about.html \
+	../website/open_content.html \
 
 #../website/%.html : %.html %.db
 #	xsltproc --nonet -o $@ website.xsl $<
@@ -59,3 +60,4 @@ all: \
 ../website/tools_bjam.html : website.xsl tools_bjam.xml
 ../website/tools_cmake.html : website.xsl tools_cmake.xml
 ../website/about.html : website.xsl about.xml
+../website/open_content.html : website.xsl open_content.xml

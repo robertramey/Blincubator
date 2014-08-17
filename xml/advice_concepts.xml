@@ -137,9 +137,9 @@ void main(){
     library in the first place!</para>
 
     <para>So we need some way to add information about what types are
-    permeated (type requirements or concepts) and a mechanism to automatically
-    trap instances where these requirements are not satisfied. As I write
-    this, I recommend usage of the <ulink
+    permitted (type requirements or constraints) and a mechanism to
+    automatically trap instances where these requirements are not satisfied.
+    As I write this, I recommend usage of the <ulink
     url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
     Concept Checking Library</ulink> for this purpose. Here is how to use it
     for our example function.</para>
@@ -272,9 +272,8 @@ private:
     T t1, t2; // must be data members
 public:
     BOOST_CONCEPT_ASSERT((boost::Assignable&lt;T&gt;));
-    BOOST_CONCEPT_USAGE(Swappable)
-    {
-        swap(t1, t2);
+    BOOST_CONCEPT_USAGE(Swappable){
+        boost::swap(t1, t2);
     }
 };
 </programlisting>
@@ -282,7 +281,7 @@ public:
     <para>BOOST_CONCEPT_ASSERT can be used just about anywhere to verify that
     a given type fulfills the type requirements for any defined concept. Here
     it's use to register the fact that any <emphasis>Swappable</emphasis> type
-    must be <emphasis>Assignable</emphasis> as well. That is,
+    must be <emphasis>Assignable</emphasis>. That is,
     <emphasis>Swappable</emphasis> is a refinement of
     <emphasis>Assignable</emphasis>. Given that we've chosen to use
     BOOST_CONCEPT_REQUIRES for function template arguments, the most common
@@ -362,9 +361,17 @@ void bubble_sort(T begin, T end);
             </row>
 
             <row>
-              <entry><programlisting>BOOST_CONCEPT_USAGE</programlisting></entry>
+              <entry><programlisting>BOOST_CONCEPT_USAGE(Swappable){
+    boost::swap(t1, t2);
+}</programlisting></entry>
 
-              <entry><programlisting>Unclear on how to specify this at this time</programlisting></entry>
+              <entry><programlisting>template &lt;typename T&gt;
+concept bool Swappable(){
+    return requires(T t1, T t2){
+        requires Assignable&lt;T&gt;;
+        boost::swap(t1, t2);
+    }
+}</programlisting></entry>
             </row>
           </tbody>
         </tgroup>
@@ -410,8 +417,12 @@ void bubble_sort(T begin, T end);
           url="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg">Concepts
           Lite</ulink></para>
         </listitem>
-      </itemizedlist></para>
 
-    <para/>
+        <listitem>
+          <para><ulink
+          url="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4040.pdf">Working
+          Draft, C++ Extensions for Concepts</ulink></para>
+        </listitem>
+      </itemizedlist></para>
   </section>
 </section>

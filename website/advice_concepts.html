@@ -1,5 +1,5 @@
-<div class="section" title="Use Concepts and Concept Checking Classes"><div class="titlepage"><div><div><h2 class="title"><a name="idm521639678400"></a>Use Concepts and Concept Checking Classes</h2></div></div><hr></div><p>Use "Concepts" to constain template parameters. This will make your
-  library </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>easier to use.</p></li><li class="listitem"><p>easier to learn to use.</p></li><li class="listitem"><p>harder to misuse.</p></li><li class="listitem"><p>more logically coherent.</p></li><li class="listitem"><p>faster to develop.</p></li><li class="listitem"><p>easier and faster to write correct documentation.</p></li></ul></div><div class="section" title="What is a Concept?"><div class="titlepage"><div><div><h3 class="title"><a name="idm521639672208"></a>What is a Concept?</h3></div></div></div><p>For our purposes, we will define "C++ concept" as:</p><p>A C++ Template will have one or more type arguments. The template
+<div class="section" title="Use Concepts and Concept Checking Classes"><div class="titlepage"><div><div><h2 class="title"><a name="idm509322047760"></a>Use Concepts and Concept Checking Classes</h2></div></div><hr></div><p>Use "Concepts" to constain template parameters. This will make your
+  library </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>easier to use.</p></li><li class="listitem"><p>easier to learn to use.</p></li><li class="listitem"><p>harder to misuse.</p></li><li class="listitem"><p>more logically coherent.</p></li><li class="listitem"><p>faster to develop.</p></li><li class="listitem"><p>easier and faster to write correct documentation.</p></li></ul></div><div class="section" title="What is a Concept?"><div class="titlepage"><div><div><h3 class="title"><a name="idm509322041408"></a>What is a Concept?</h3></div></div></div><p>For our purposes, we will define "C++ concept" as:</p><p>A C++ Template will have one or more type arguments. The template
     may require that each argument fullfill more or more requirements in order
     for the template to compile without error. These requirements are called
     <span class="emphasis"><em>Concepts</em></span>. In this context, the word concept is
@@ -12,7 +12,7 @@
     only necessary to understand <span class="emphasis"><em>concepts</em></span> when writting a
     templated library. Since very few programmers actually write such code,
     very few people actually use this idea and hence are unfamilar with
-    it.</p></div><div class="section" title="Concept Checking for Function Templates"><div class="titlepage"><div><div><h3 class="title"><a name="idm521639666640"></a>Concept Checking for Function Templates</h3></div></div></div><p>Our discussion below is largely based on and example from the
+    it.</p></div><div class="section" title="Concept Checking for Function Templates"><div class="titlepage"><div><div><h3 class="title"><a name="idm509322035840"></a>Concept Checking for Function Templates</h3></div></div></div><p>Our discussion below is largely based on and example from the
     documentation of <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
     Concept Checking Library</a> As an illustration consider the standard
     C library function qsort. The prototype for this function is</p><pre><code>void qsort(
@@ -73,11 +73,11 @@ void main(){
     declaration of what the function does. Expecting a user to delve deep into
     the implementation of the procedure defeats the reason for using the
     library in the first place!</p><p>So we need some way to add information about what types are
-    permeated (type requirements or concepts) and a mechanism to automatically
-    trap instances where these requirements are not satisfied. As I write
-    this, I recommend usage of the <a class="ulink" href="???" target="_top">Boost Concept Checking
-    Library</a> for this purpose. Here is how to use it for our example
-    function.</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><thead><tr><th align="center">Documentation</th><th align="center">Code</th></tr></thead><tbody><tr><td><pre><code>template&lt;typename T&gt;
+    permitted (type requirements or constraints) and a mechanism to
+    automatically trap instances where these requirements are not satisfied.
+    As I write this, I recommend usage of the <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
+    Concept Checking Library</a> for this purpose. Here is how to use it
+    for our example function.</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><thead><tr><th align="center">Documentation</th><th align="center">Code</th></tr></thead><tbody><tr><td><pre><code>template&lt;typename T&gt;
 void bubble_sort(T begin, T end)
 
 Type T must be an instance of a Forward
@@ -141,7 +141,7 @@ void main(){
     is not even required to be present for the error to be detected and
     flagged with a compile time error. This will save your users hours of time
     and frustration and make it more likely that your library is
-    successful.</p></div><div class="section" title="Creating Concept Checking Classes"><div class="titlepage"><div><div><h3 class="title"><a name="idm521639641264"></a>Creating Concept Checking Classes</h3></div></div></div><p>The meticulous reader who is compiling the above code examples as he
+    successful.</p></div><div class="section" title="Creating Concept Checking Classes"><div class="titlepage"><div><div><h3 class="title"><a name="idm509318070032"></a>Creating Concept Checking Classes</h3></div></div></div><p>The meticulous reader who is compiling the above code examples as he
     reads will have discovered that one thing is not true. The concept
     checking class Swappable is not currently defined in the Boost Concept
     Checking Library. The following is based on <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/creating_concepts.htm" target="_top">Creating
@@ -164,11 +164,11 @@ public:
 </code></pre><p>BOOST_CONCEPT_ASSERT can be used just about anywhere to verify that
     a given type fulfills the type requirements for any defined concept. Here
     it's use to register the fact that any <span class="emphasis"><em>Swappable</em></span> type
-    must be <span class="emphasis"><em>Assignable</em></span> as well. That is,
+    must be <span class="emphasis"><em>Assignable</em></span>. That is,
     <span class="emphasis"><em>Swappable</em></span> is a refinement of
     <span class="emphasis"><em>Assignable</em></span>. Given that we've chosen to use
     BOOST_CONCEPT_REQUIRES for function template arguments, the most common
-    usage BOOST_CONCEPT_ASSERT would be in class templates.</p></div><div class="section" title="Future Compatibility"><div class="titlepage"><div><div><h3 class="title"><a name="idm521639635104"></a>Future Compatibility</h3></div></div></div><p>Inclusion of <span class="emphasis"><em>concepts</em></span> in C++ has generated a
+    usage BOOST_CONCEPT_ASSERT would be in class templates.</p></div><div class="section" title="Future Compatibility"><div class="titlepage"><div><div><h3 class="title"><a name="idm509318064336"></a>Future Compatibility</h3></div></div></div><p>Inclusion of <span class="emphasis"><em>concepts</em></span> in C++ has generated a
     huge amount of discussion, activity, experiments, and effort over the last
     decade. Googling "C++ Concepts" will result in many, many hits. <a class="ulink" href="http://www.osl.iu.edu/publications/prints/2013/lvoufo13:_concepts_terminology.pdf" target="_top">This
     paper</a> is one of those and gives a summary of the current state of
@@ -177,9 +177,9 @@ public:
     Still, inclusion in the language and support by compilers is still years
     way. <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
     Concept Checking Library</a> on the other hand, can be used today. The
-    following table contrasts <a class="ulink" href="???" target="_top">Boost Concept <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
-    Concept Checking Library</a>Checking Library</a> with <a class="ulink" href="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg" target="_top">Concepts
-    Lite</a>:</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><thead><tr><th align="center">Boost Concept Checking</th><th align="center">Concepts Lite</th></tr></thead><tbody><tr><td><pre><code>#include "boost/concept/requires.hpp"
+    following table contrasts <a class="ulink" href="???" target="_top"><a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
+    Concept Checking Library</a></a> with <a class="ulink" href="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg" target="_top">Concepts
+    Lite</a>:</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><thead><tr><th align="center">Boost Concept Checking Library</th><th align="center">Concepts Lite</th></tr></thead><tbody><tr><td><pre><code>#include "boost/concept/requires.hpp"
 #include "boost/concept_check.hpp"
 #include &lt;iterator&gt; // iterator_traits
 
@@ -209,10 +209,11 @@ void bubble_sort(T begin, T end);
     boost::ForwardAccessIterator&lt;T&gt;
 )</code></pre></td><td><pre><code>static_assert(std::ForwardAccessIterator&lt;T&gt;())</code></pre></td></tr><tr><td><pre><code>BOOST_CONCEPT_USAGE</code></pre></td><td><pre><code>Unclear on how to specify this at this time</code></pre></td></tr></tbody></table></div><p>It turns out that there is almost a one to one relationship between
     lines of code used to specify concepts in between the two systems. So if
-    one uses <a class="ulink" href="???" target="_top">Boost Concept Checking Library</a>. So
-    transition to any future standard system when and if that occurs should be
-    almost trivial. Also note that users code will not be effected in any way
-    since any required changes are confined to the library code modules</p><p>.</p></div><div class="section" title="References"><div class="titlepage"><div><div><h3 class="title"><a name="idm521639616976"></a>References</h3></div></div></div><p>More good information regarding practical aspects of C++ concepts
+    one uses <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
+    Concept Checking Library</a>. So transition to any future standard
+    system when and if that occurs should be almost trivial. Also note that
+    users code will not be effected in any way since any required changes are
+    confined to the library code modules</p><p>.</p></div><div class="section" title="References"><div class="titlepage"><div><div><h3 class="title"><a name="idm509318046416"></a>References</h3></div></div></div><p>More good information regarding practical aspects of C++ concepts
     and be found by checking the following links</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
           Concept Checking Library</a></p></li><li class="listitem"><p><a class="ulink" href="http://cpp-next.com/archive/2011/12/a-breakthrough-for-concepts/" target="_top">A
           Breakthrough for Concepts</a></p></li><li class="listitem"><p><a class="ulink" href="http://www.drdobbs.com/windows/checking-concept-without-concepts-in-c/227500449" target="_top">Checking
