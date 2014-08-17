@@ -21,6 +21,26 @@ function remove_links_menu() {
 /*
  * only permit admins to see the admin bar
  */
+function hide_admin_bar() {
+	if( ! current_user_can('manage_options') )
+		add_filter('show_admin_bar', '__return_false');	
+}
+add_action( 'after_setup_theme', 'hide_admin_bar' );
+ 
+/**
+ * only display dashboard for admins
+ */
+function hide_dashboard(){
+	//if ( ! current_user_can( 'manage_options' ) ){
+		wp_redirect( home_url() );
+		exit;		
+	//}
+}
+add_action( 'admin_init', 'hide_dashboard' );
+
+/*
+ * only permit admins to see the admin bar
+ */
 if (!current_user_can('manage_options')) {
 	add_filter('show_admin_bar', '__return_false');
 }

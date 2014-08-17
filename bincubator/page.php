@@ -47,7 +47,7 @@ get_header();
         the_post();
         the_content();
         ?>
-        <input class="blincubator_button" value="Show/Hide Comments" id="comments_button" name="submit">
+        <input class="blincubator_button" value="Show/Add/Hide Comments" id="comments_button" name="submit">
         <?php
         comment_form();
         $comments = get_comments("post_id=$post->ID");

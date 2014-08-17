@@ -132,7 +132,7 @@ function library_form_values(){
 		}
         ?>
 		<a class="blincubator_button" id="reviews_button" href="reviews?library_post_id=<?php the_ID(); ?>">Reviews</a>
-        <input class="blincubator_button" value="Show/Hide Comments" id="comments_button" name="submit">
+        <input class="blincubator_button" value="Show/Add/Hide Comments" id="comments_button" name="submit">
         <?php
         $comments = get_comments("post_id=$post->ID");
         echo "There are " . count($comments) . " comments";
