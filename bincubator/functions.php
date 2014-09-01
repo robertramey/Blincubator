@@ -39,10 +39,66 @@ function hide_dashboard(){
 }
 add_action( 'admin_init', 'hide_dashboard' );
 
+
+/**
+ * enhanced comment editor
+add_filter( 'comment_form_field_comment', 'comment_editor' );
+ 
+function comment_editor() {
+  global $post;
+ 
+  ob_start();
+ 
+  wp_editor( '', 'comment', array(
+    'textarea_rows' => 15,
+    'teeny' => true,
+    'quicktags' => false,
+    'media_buttons' => false
+  ) );
+ 
+  $editor = ob_get_contents();
+ 
+  ob_end_clean();
+ 
+  //make sure comment media is attached to parent post
+  $editor = str_replace( 'post_id=0', 'post_id='.get_the_ID(), $editor );
+ 
+  return $editor;
+}
+ 
+// wp_editor doesn't work when clicking reply. Here is the fix.
+add_action( 'wp_enqueue_scripts', '__THEME_PREFIX__scripts' );
+function __THEME_PREFIX__scripts() {
+    wp_enqueue_script('jquery');
+}
+add_filter( 'comment_reply_link', '__THEME_PREFIX__comment_reply_link' );
+function __THEME_PREFIX__comment_reply_link($link) {
+    return str_replace( 'onclick=', 'data-onclick=', $link );
+}
+add_action( 'wp_head', '__THEME_PREFIX__wp_head' );
+function __THEME_PREFIX__wp_head() {
+?>
+<script type="text/javascript">
+  jQuery(function($){
+    $('.comment-reply-link').click(function(e){
+      e.preventDefault();
+      var args = $(this).data('onclick');
+      args = args.replace(/.*\(|\)/gi, '').replace(/\"|\s+/g, '');
+      args = args.split(',');
+      tinymce.EditorManager.execCommand('mceRemoveEditor', true, 'comment');
+      addComment.moveForm.apply( addComment, args );
+      tinymce.EditorManager.execCommand('mceAddEditor', true, 'comment');
+    });
+  });
+</script>
+<?php
+}
+ */
+
+
 /*
  * alter instructions on comment form 
- */
-add_filter('comment_form_defaults', 'change_allowed_fields');
+ add_filter('comment_form_defaults', 'change_allowed_fields');
 
 function change_allowed_fields($defaults) 
 {
@@ -50,6 +106,7 @@ function change_allowed_fields($defaults)
     $defaults['comment_notes_after'] = "All html5 markup permitted";
     return $defaults;
 }
+ */
 
 /*
  * prevent any submissions from unregistered users
@@ -65,11 +122,12 @@ function user_validation($validation_result){
 /*
  * fix the comment header 
  */
-function comment_reform ($arg) {
+ function comment_reform ($arg) {
 	$arg['title_reply'] = __('Comment on This Page');
 	return $arg;
 }
 add_filter('comment_form_defaults','comment_reform');
+
 
 function change_message($message, $form){
 	return "Failed Validation - " . $form["title"];

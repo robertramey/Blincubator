@@ -119,10 +119,8 @@ function review_form_values($post_id){
 		?>
 		<input class="blincubator_button" type="submit" value="Show/Hide Comments" id="comments_button" name="submit">
 		<?php
-		//comments_template( '', true );
-        $comments = get_comments("post_id=$library_post_id");
-		wp_list_comments();
 		comment_form();
+		wp_list_comments();
 	}
 	?>
 	</div>

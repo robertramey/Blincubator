@@ -2,10 +2,10 @@
 <!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <section>
-  <title>Use Concepts and Concept Checking Classes</title>
+  <title>Use Type Constraints (Concepts) for Template Parameters</title>
 
-  <para>Use "Concepts" to constain template parameters. This will make your
-  library <itemizedlist>
+  <para>Use Type Constraints (Concepts) for Template Parameters. This will
+  make your library <itemizedlist>
       <listitem>
         <para>easier to use.</para>
       </listitem>
@@ -32,30 +32,31 @@
     </itemizedlist></para>
 
   <section>
-    <title>What is a Concept?</title>
+    <title>What is a Type Constraint?</title>
 
-    <para>For our purposes, we will define "C++ concept" as:</para>
+    <para>For our purposes, we will define "C++ Type Constraint" in the
+    following way:</para>
 
     <para>A C++ Template will have one or more type arguments. The template
-    may require that each argument fullfill more or more requirements in order
+    may require that each argument fullfill more or more conditions in order
     for the template to compile without error. These requirements are called
-    <emphasis>Concepts</emphasis>. In this context, the word concept is
-    equivalent to <emphasis>type requirements</emphasis> or <emphasis>type
-    contraints</emphasis>.</para>
+    <emphasis>Type Constraints</emphasis> or <emphasis>Type
+    Requirements</emphasis>. </para>
 
-    <para>So, for our purposes, the word <emphasis>concepts</emphasis> can be
-    substituted with <emphasis>type requirements</emphasis> or <emphasis>type
-    constraints</emphasis> without losing meaning. In fact, the meaning word
-    <emphasis>concept</emphasis> in this context is one of the reasons that
-    the subject has been so confusing. Another reason is that it is really
-    only necessary to understand <emphasis>concepts</emphasis> when writting a
-    templated library. Since very few programmers actually write such code,
-    very few people actually use this idea and hence are unfamilar with
-    it.</para>
+    <para>C++ literature and documentation use the word
+    <emphasis>Concept</emphasis> for this purpose. In fact, this usage of the
+    word <emphasis>Concept</emphasis> is one of the reasons that the subject
+    has been so confusing. Another reason is that it is really only necessary
+    to understand <emphasis>Concepts</emphasis> when writing a templated
+    library. Since very few programmers actually write such code, very few
+    people actually use this idea and hence are unfamilar with it. Our term
+    <emphasis>Type Constraint</emphasis> is exactly equivalent to the C++ term
+    <emphasis>Concept</emphasis>. Either one can be substituted for the other
+    without loss of meaning.</para>
   </section>
 
   <section>
-    <title>Concept Checking for Function Templates</title>
+    <title>Type Constraints for Function Templates</title>
 
     <para>Our discussion below is largely based on and example from the
     documentation of <ulink
@@ -126,15 +127,18 @@ void main(){
 }
 </programlisting>We get an error message on the line including the comparison.
     Looking the implementation, considering that in this case T is defined as
-    complex&lt;float&gt;, and recalling that complex is not a type which
-    supports comparison we see the source of our error. It is obvious when we
-    trace into to the implementation of the algorithm. But doing so can
-    consume a huge amount of time when one must trace through several layers
-    of templated code. One of the main reasons for using a library is to hide
-    the implementation of some possible complicated procedure behind a simple
-    declaration of what the function does. Expecting a user to delve deep into
-    the implementation of the procedure defeats the reason for using the
-    library in the first place!</para>
+    type <code>std::vector&lt;std::complex&lt;float&gt;::iterator</code>, the
+    dereferencing operator * will yield an instance of
+    <code>std::complex&lt;float&gt;</code> and <code>std::complex</code> is
+    not a type which supports comparison. We can now see the source of our
+    error. It becomes obvious when we trace into to the implementation of the
+    algorithm. But doing so can consume a huge amount of time when one must
+    trace through several layers of templated code. One of the main reasons
+    for using a library is to hide the implementation of some possibly
+    complicated procedure behind a simple declaration of what the function
+    does. Expecting a user to delve deep into the implementation of the
+    procedure to understand how to invoke it defeats the whole purpose of
+    using the library in the first place!</para>
 
     <para>So we need some way to add information about what types are
     permitted (type requirements or constraints) and a mechanism to
@@ -205,7 +209,8 @@ bubble_sort(T begin, T end);
         <listitem>
           <para>There is a one to one correspondence between the clauses in
           the documentation for the function and the lines in the code which
-          implement the concept checking.</para>
+          implement the concept checking. It's trivial to verify that one's
+          documentation is consistent with the code.</para>
         </listitem>
 
         <listitem>
@@ -248,10 +253,33 @@ void main(){
     flagged with a compile time error. This will save your users hours of time
     and frustration and make it more likely that your library is
     successful.</para>
+
+    <para>Note that our <code>bubble_sort</code> above will compile and run
+    properly in some cases where <code>std::sort</code> will fail.</para>
+
+    <para><programlisting>#include &lt;list&gt;
+#include &lt;algorithm&gt; // std::sort
+
+#include "bubble_sort.hpp"
+
+void main(){
+    std::list&lt;int&gt; l;
+    std::sort(l.begin(), l.end()); // fails to compile
+    bubble_sort(l.begin(), l.end()); // compiles and runs
+}
+</programlisting>The <code>std::sort</code> requires that the arguments meet
+    type requirements of a RandomAccessIterator. But our
+    <code>bubble_sort</code> requires that the arguments meet the weaker type
+    requirements of a ForwardAccessIterator.</para>
+
+    <para>Without explicit type requirements, this will be an extremely
+    confusing result which will require browsing the standard library
+    implementation of std::sort to sort out. With explicit type requirements,
+    the error message will directly reveal the source of the problem.</para>
   </section>
 
   <section>
-    <title>Creating Concept Checking Classes</title>
+    <title>Creating Type Constraint Checking Classes</title>
 
     <para>The meticulous reader who is compiling the above code examples as he
     reads will have discovered that one thing is not true. The concept
@@ -266,6 +294,7 @@ void main(){
     <programlisting>#include "boost/concept/usage.hpp"
 #include "boost/concept/assert.hpp"
 
+namespace boost {
 template &lt;class T&gt;
 struct Swappable {
 private:
@@ -276,6 +305,7 @@ public:
         boost::swap(t1, t2);
     }
 };
+} // boost
 </programlisting>
 
     <para>BOOST_CONCEPT_ASSERT can be used just about anywhere to verify that
@@ -291,7 +321,7 @@ public:
   <section>
     <title>Future Compatibility</title>
 
-    <para>Inclusion of <emphasis>concepts</emphasis> in C++ has generated a
+    <para>Inclusion of <emphasis>Concepts</emphasis> in C++ has generated a
     huge amount of discussion, activity, experiments, and effort over the last
     decade. Googling "C++ Concepts" will result in many, many hits. <ulink
     url="http://www.osl.iu.edu/publications/prints/2013/lvoufo13:_concepts_terminology.pdf">This
@@ -321,6 +351,26 @@ public:
 
           <tbody>
             <row>
+              <entry><programlisting>#include "boost/concept/assert.hpp"
+#include "boost/concept/usage.hpp"
+
+BOOST_CONCEPT_USAGE(Swappable){
+    BOOST_CONCEPT_ASSERT((boost::Assignable&lt;T&gt;));
+    boost::swap(t1, t2);
+}</programlisting></entry>
+
+              <entry><programlisting>template &lt;typename T&gt;
+concept bool Swappable(){
+    return requires(){
+        requires Assignable&lt;T&gt;;
+        requires requires(T t1, T t2){
+            boost::swap(t1, t2);
+        }
+    }
+}</programlisting></entry>
+            </row>
+
+            <row>
               <entry><programlisting>#include "boost/concept/requires.hpp"
 #include "boost/concept_check.hpp"
 #include &lt;iterator&gt; // iterator_traits
@@ -341,37 +391,23 @@ bubble_sort(T begin, T end);
 
               <entry><programlisting>template&lt;typename T&gt;
 requires 
-    ForwardAccessIterator&lt;T&gt;() &amp;&amp;
-    LessThanComparable&lt;
-        typename std::iterator_traits&lt;T&gt;::value_type
-    &gt;() &amp;&amp;
-    Swappable&lt;
+    std::ForwardIterator&lt;T&gt;()
+    &amp;&amp; std::LessThanComparable&lt;
         typename std::iterator_traits&lt;T&gt;::value_type
     &gt;()
+    &amp;&amp; std::ValueSwappable&lt;T&gt;()
 void bubble_sort(T begin, T end);
 </programlisting></entry>
             </row>
 
             <row>
-              <entry><programlisting>BOOST_CONCEPT_ASSERT(
+              <entry><programlisting>#include "boost/concept/assert.hpp"
+
+BOOST_CONCEPT_ASSERT(
     boost::ForwardAccessIterator&lt;T&gt;
 )</programlisting></entry>
 
-              <entry><programlisting>static_assert(std::ForwardAccessIterator&lt;T&gt;())</programlisting></entry>
-            </row>
-
-            <row>
-              <entry><programlisting>BOOST_CONCEPT_USAGE(Swappable){
-    boost::swap(t1, t2);
-}</programlisting></entry>
-
-              <entry><programlisting>template &lt;typename T&gt;
-concept bool Swappable(){
-    return requires(T t1, T t2){
-        requires Assignable&lt;T&gt;;
-        boost::swap(t1, t2);
-    }
-}</programlisting></entry>
+              <entry><programlisting>static_assert(std::ForwardIterator&lt;T&gt;())</programlisting></entry>
             </row>
           </tbody>
         </tgroup>
@@ -384,9 +420,7 @@ concept bool Swappable(){
     Concept Checking Library</ulink>. So transition to any future standard
     system when and if that occurs should be almost trivial. Also note that
     users code will not be effected in any way since any required changes are
-    confined to the library code modules</para>
-
-    <para>.</para>
+    confined to the library code modules.</para>
   </section>
 
   <section>
@@ -394,6 +428,18 @@ concept bool Swappable(){
 
     <para>More good information regarding practical aspects of C++ concepts
     and be found by checking the following links<itemizedlist>
+        <listitem>
+          <para><ulink
+          url="https://isocpp.org/files/papers/N3797.pdf">N3797</ulink> C++14
+          standard section 17.5 Method of description (Informative)</para>
+        </listitem>
+
+        <listitem>
+          <para>Documentation on C++11 concepts from <ulink
+          url="http://en.cppreference.com/w/cpp/concept">CPP
+          Reference</ulink></para>
+        </listitem>
+
         <listitem>
           <para><ulink
           url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
@@ -414,14 +460,28 @@ concept bool Swappable(){
 
         <listitem>
           <para><ulink
-          url="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg">Concepts
-          Lite</ulink></para>
+          url="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4040.pdf">Working
+          Draft, C++ Extensions for Concepts</ulink></para>
         </listitem>
 
         <listitem>
           <para><ulink
-          url="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4040.pdf">Working
-          Draft, C++ Extensions for Concepts</ulink></para>
+          url="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg">Concepts
+          Lite</ulink></para>
+
+          <para>Note that there is at least one serious problem with this
+          paper. Section 2 - Tutorial uses the following
+          example<programlisting>template&lt;typename Cont&gt;
+    requires Sortable&lt;Cont&gt;()
+  void sort(Cont&amp; cont)</programlisting>This is clearly tautological. The
+          definition of Sortable is .... not obvious. Any definition of value
+          must define one idea in terms of other, hopefully, more fundamental
+          ideas. That is what our examples do above. The chief value of this
+          paper is that it reveals the intentions of influential C++ designers
+          as to the future language syntax support for type requirements. Note
+          that isn't really relevant to library authors as there is already a
+          one to one correspondence to the current library solution and the
+          future language syntax solution.</para>
         </listitem>
       </itemizedlist></para>
   </section>

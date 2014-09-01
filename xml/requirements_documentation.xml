@@ -222,4 +222,18 @@
     This library ls really a group of smaller libraries each with it's own set
     of concepts, types and functions.</para>
   </section>
+
+  <section>
+    <title>References</title>
+
+    <para>The information in this section is meant to be consistent with
+    generally accepted standards and recommendations for C++14. For more
+    information see <itemizedlist>
+        <listitem>
+          <para><ulink
+          url="https://isocpp.org/files/papers/N3797.pdf">N3797</ulink> C++14
+          standard section 17.5 Method of description (Informative)</para>
+        </listitem>
+      </itemizedlist></para>
+  </section>
 </section>

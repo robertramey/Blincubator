@@ -136,8 +136,8 @@ function library_form_values(){
         <?php
         $comments = get_comments("post_id=$post->ID");
         echo "There are " . count($comments) . " comments";
-        wp_list_comments('', $comments);
 		comment_form();
+        wp_list_comments('', $comments);
 	}
 	?>
 	</div><!-- #content -->

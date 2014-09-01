@@ -4,20 +4,17 @@
 <section id="tools">
   <title>Simple Tools</title>
 
-  <para>Ideally, one would prefer to have no requirement as to the specific
-  tools to be used as long as the <link linkend="requirements">Library
-  Requirements</link> are satisfied. To this end, I experimented with various
-  tools to see how they fit these requirements. The results of these
-  experiments are described below. Unfortunately, it turns out that we can't
-  achieve all we want with this website without specifying some specific
-  tools.</para>
+  <para>Strictly speaking, it is irrelevent which tools a library author uses
+  to meet the <link linkend="requirements">Library Requirements</link>.
+  However in practice, the library author's selection to edit, build, test and
+  document the library have a huge influence on whether or not a library is
+  likely to be successful. I experimented with various tools to see how suited
+  they were to the task. The results of these experiments are described below.
+  Unfortunately, it turns out that we can't achieve all we want with this
+  website without specifying some specific tools.</para>
 
-  <para>On the other hand, we've tried to minimise the requirements as to any
-  specific tools used.</para>
-
-  <para>With the exception of Boost Build for testing, authors are free to use
-  the tools of his choosing. Here we describe a number of different tools
-  which might be considered.</para>
+  <para>Here we describe a number of different tools which might be
+  considered.</para>
 
   <xi:include href="tools_documentation.xml" xpointer="element(/1)"
               xmlns:xi="http://www.w3.org/2001/XInclude"/>
