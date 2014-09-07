@@ -231,6 +231,12 @@
     information see <itemizedlist>
         <listitem>
           <para><ulink
+          url="http://www.sgi.com/tech/stl/doc_introduction.html">How to use
+          the STL documentation</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
           url="https://isocpp.org/files/papers/N3797.pdf">N3797</ulink> C++14
           standard section 17.5 Method of description (Informative)</para>
         </listitem>

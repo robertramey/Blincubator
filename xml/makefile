@@ -6,10 +6,6 @@ all: \
 	../website/advice_concurrent.html \
 	../website/advice_notes.html \
 	../website/advice_testing.html \
-	../website/concept.html \
-	../website/function.html \
-	../website/type.html \
-	../website/library.html \
 	../website/requirements.html \
 	../website/requirements_build.html \
 	../website/requirements_deployment.html \
@@ -41,11 +37,7 @@ all: \
 ../website/advice_concurrent.html : website.xsl advice_concurrent.xml
 ../website/advice_notes.html : website.xsl advice_notes.xml
 ../website/advice_testing.html : website.xsl advice_testing.xml
-../website/type.html : website.xsl type.xml
-../website/concept.html : website.xsl concept.xml
-../website/function.html : website.xsl function.xml
 ../website/introduction.html : website.xsl introduction.xml
-../website/library.html : website.xsl library.xml
 ../website/requirements.html : website.xsl requirements.xml
 ../website/requirements_build.html : website.xsl requirements_build.xml
 ../website/requirements_deployment.html : website.xsl requirements_deployment.xml

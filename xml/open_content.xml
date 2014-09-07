@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="introduction">
+  <title>Boost Library Writers Workshop</title>
+
+  <para>Boost library Incubator is proud announce the Library Writers Workshop
+  to be hosted as an <ulink url="http://cppcon.org/">Open Content session at
+  CPP Con 2014</ulink> Monday, September 8 at 8:30 PM. The goal of this
+  workshop is to help potential library authors acquire the tools, skills and
+  motivation to develop a boost library candidate and submit it to the <ulink
+  url="www.blincubator.com">Boost Library Incubator</ulink>. This is an
+  opportunity for library authors to get feedback on their progress and
+  encouragement for their efforts<emphasis>.</emphasis><note>
+      <para><emphasis>One of the great things about this workshop is that you
+      don't have to be registered for CPP Con to participate !!!</emphasis>
+      You can just drop in and participate if you're in the area !!!. I'm
+      hoping to see some interesting efforts. (Hmmm - what about remote
+      participation?).</para>
+    </note></para>
+
+  <section>
+    <title>Requirements</title>
+
+    <para>There two types of attendees: Library Authors and Observers. The
+    method used will be peer critique. In order to participate as an Observer,
+    all one has to do is show up. In order to participate as an author, one
+    must:</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>Have a library in progress.</para>
+        </listitem>
+
+        <listitem>
+          <para>Have documentation and perhaps code which is accessible
+          online.</para>
+        </listitem>
+
+        <listitem>
+          <para>Create a comment entry below which includes</para>
+
+          <para><itemizedlist>
+              <listitem>
+                <para>Name of the library</para>
+              </listitem>
+
+              <listitem>
+                <para>Short description of what the library does</para>
+              </listitem>
+
+              <listitem>
+                <para>Links to documentation and perhaps code</para>
+              </listitem>
+            </itemizedlist></para>
+
+          <para>Create your entry as soon as you know you'll be attending the
+          workshop as an author. This way we'll be able to save you a
+          space.</para>
+        </listitem>
+      </itemizedlist></para>
+  </section>
+
+  <section>
+    <title>Program</title>
+
+    <para>The workshop will operate on the following schedule:</para>
+
+    <para><itemizedlist>
+        <listitem>
+          <para>8:30 PM - 8:35 PM I will introduce the workshop with a short
+          summary of these rules and answer any questions.</para>
+        </listitem>
+
+        <listitem>
+          <para>8:35 PM - 9:00 PM Each library author will make a very short
+          presentation (~3 min) of what his library attempts to
+          accomplish.</para>
+        </listitem>
+
+        <listitem>
+          <para>9:00 PM Authors draw lots to select a library other than their
+          own. Observers are also permitted to draw lots or just select a
+          library they might be interested in. Observers might choose to leave
+          at this point.</para>
+        </listitem>
+
+        <listitem>
+          <para>9:00 PM - 10:00 PM Each selected library is “critiqued” by
+          reading through the documentation and perhaps code while building a
+          contemporaneous log on the experience. This log will be posted as a
+          comment below.</para>
+        </listitem>
+
+        <listitem>
+          <para>10:00 PM - Pencils down - wrap up. Authors may read and
+          optionally reply to critiques at their leisure.</para>
+        </listitem>
+      </itemizedlist></para>
+
+    <para>I will be available to answer questions and provide encouragement.
+    Hopefully I can convince another boost library author to attend</para>
+  </section>
+</section>

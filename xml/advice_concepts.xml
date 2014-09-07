@@ -41,7 +41,7 @@
     may require that each argument fullfill more or more conditions in order
     for the template to compile without error. These requirements are called
     <emphasis>Type Constraints</emphasis> or <emphasis>Type
-    Requirements</emphasis>. </para>
+    Requirements</emphasis>.</para>
 
     <para>C++ literature and documentation use the word
     <emphasis>Concept</emphasis> for this purpose. In fact, this usage of the
@@ -160,19 +160,12 @@ void main(){
 
           <tbody>
             <row>
-              <entry><programlisting>template&lt;typename T&gt;
-void bubble_sort(T begin, T end)
-
-Type T must be an instance of a Forward
-Iterator type.
-
-For variables t1 and t2 of type T:
-
-*t1 &lt; *t2 must be valid and return value
-convertible to bool
-
-swap(*t1, *t2) must be valid.
-</programlisting></entry>
+              <entry><para>template&lt;typename T&gt; </para><para>void
+              bubble_sort(T begin, T end) </para><para>Type T must model
+              Forward Iterator type constraints. </para><para>For variables t1
+              and t2 of type T:</para><para> *t1 &lt; *t2 must be valid and
+              return value convertible to bool </para><para> swap(*t1, *t2)
+              must be valid. </para></entry>
 
               <entry><programlisting>#include "boost/concept/requires.hpp"
 #include "boost/concept_check.hpp"
@@ -428,6 +421,19 @@ BOOST_CONCEPT_ASSERT(
 
     <para>More good information regarding practical aspects of C++ concepts
     and be found by checking the following links<itemizedlist>
+        <listitem>
+          <para><ulink
+          url="http://www.sgi.com/tech/stl/stl_introduction.html?">Introduction
+          to the Standard Template Library - Concepts and
+          Modeling</ulink></para>
+        </listitem>
+
+        <listitem>
+          <para><ulink
+          url="http://www.sgi.com/tech/stl/doc_introduction.html">How to use
+          the STL documentation</ulink></para>
+        </listitem>
+
         <listitem>
           <para><ulink
           url="https://isocpp.org/files/papers/N3797.pdf">N3797</ulink> C++14

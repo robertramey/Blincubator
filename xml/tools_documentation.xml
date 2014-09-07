@@ -683,6 +683,21 @@
           </itemizedlist>
         </listitem>
       </itemizedlist></para>
+
+    <section>
+      <title>More information on XMLMind</title>
+
+      <para><ulink
+      url="http://chimera.labs.oreilly.com/books/1234000001577/index.html">XML
+      Mind Tutorial from O'Reilly</ulink></para>
+
+      <para><ulink
+      url="http://chimera.labs.oreilly.com/books/1234000000058/index.html">DocBook
+      Authoring Guidelines (Atlas)</ulink></para>
+
+      <para><ulink url="http://www.xml.com/lpt/a/1706">Getting Productive with
+      XMLMind</ulink></para>
+    </section>
   </section>
 
   <section>
