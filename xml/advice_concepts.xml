@@ -68,7 +68,7 @@
     void *base, 
     size_t nitems, 
     size_t size, 
-    int (*compar)(const void *, const void*)
+    int (*compare)(const void *, const void*)
 );</programlisting></para>
 
     <para>The prototype lists the specific types of the function arguments. In
@@ -79,7 +79,7 @@
     is helpful to the user.</para>
 
     <para>But for a general use library function this declaration has some
-    problems. It's defined in terms of void * which require passing data
+    problems. It's defined in terms of void * which requires passing data
     without the type information. Then we need to add a "size" parameter. Then
     we need to start type casting the arguments. All this introduces it's own
     set off possibilities for errors which are a pain to track down. This is
@@ -89,11 +89,19 @@
     instantiated for any type.</para>
 
     <para><programlisting>template&lt;typename T&gt;
-void bubble_sort(T begin, T end);</programlisting>That is, we're saying that
-    bubble_sort can be invoked with ANY type of arguments. The compiler won't
-    detect any error where the function is invoked regardless of which
-    arguments we pass to the function! So the following will compile without
-    errors:</para>
+void bubble_sort(T begin, T end);</programlisting></para>
+
+    <para>This declares an implementation the function
+    <code>bubble_sort</code> in terms of some type T. So there is no runtime
+    casting required and the compiler can optimize implentations in terms of
+    type T. But this declaration leaves as wondering which types we can use
+    for T. Surely we can't pass any type to bubble sort. We can guess from the
+    function signature that T must be some iterator type. But which one?
+    RandomAccess, ForwardAccess, InputIterator? And what types is the iterator
+    allowed to point to? And what other requirements might T have to
+    fulfill.</para>
+
+    <para>It turns out that this example will fail to compile.</para>
 
     <para><programlisting>#include &lt;vector&gt;
 #include &lt;complex&gt;
@@ -106,8 +114,11 @@ void main(){
     bubble_sort(v.begin(), v.end());
 }</programlisting></para>
 
-    <para>Hmmm, surely we can't pass any type to bubble sort. Indeed, when we
-    include the implementation:</para>
+    <para>But the point of failure will be several levels deep in the call
+    chain. The error message will only be found at a very deep level in the
+    template instantiation stack. It will be extremely difficult to relate the
+    error to any specific attibute of type T. In order to do this, we'll have
+    to look at the implementation.</para>
 
     <para><programlisting>#include &lt;vector&gt;
 #include &lt;complex&gt;
@@ -125,9 +136,10 @@ void main(){
     std::vector&lt;std::complex&lt;float&gt; &gt; v;
     bubble_sort(v.begin(), v.end());
 }
-</programlisting>We get an error message on the line including the comparison.
-    Looking the implementation, considering that in this case T is defined as
-    type <code>std::vector&lt;std::complex&lt;float&gt;::iterator</code>, the
+</programlisting>We get an error message on the line which invokes the
+    comparison. Looking the implementation, considering that in this case T is
+    defined as type
+    <code>std::vector&lt;std::complex&lt;float&gt;::iterator</code>, the
     dereferencing operator * will yield an instance of
     <code>std::complex&lt;float&gt;</code> and <code>std::complex</code> is
     not a type which supports comparison. We can now see the source of our
@@ -140,10 +152,25 @@ void main(){
     procedure to understand how to invoke it defeats the whole purpose of
     using the library in the first place!</para>
 
-    <para>So we need some way to add information about what types are
+    <para>Note that with C++11 the problem is even worse! Consider</para>
+
+    <para><programlisting>#include &lt;vector&gt;
+#include &lt;complex&gt;
+
+template&lt;typename T&gt;
+void bubble_sort(T begin, T end);
+
+void main(){
+    auto r = some_function();
+    bubble_sort(r.begin(), r.end());
+}</programlisting>In this case the actual type of r will be hidden behind the
+    <code>auto</code> keyword. So tracing into the implementation will be even
+    more difficult!</para>
+
+    <para>So we need some way to add information about which types are
     permitted (type requirements or constraints) and a mechanism to
-    automatically trap instances where these requirements are not satisfied.
-    As I write this, I recommend usage of the <ulink
+    automatically trap instances where these constraints are violated. As I
+    write this, I recommend usage of the <ulink
     url="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm">Boost
     Concept Checking Library</ulink> for this purpose. Here is how to use it
     for our example function.</para>
@@ -235,8 +262,8 @@ void main(){
 }
 </programlisting>
 
-    <para>Attempting to compile this program will result in an error listing
-    which refers to the source line were
+    <para>Attempting to compile this program will result in a compile time
+    error listing which refers to the source line were
     <code>boost::LessThanComparable</code> is instantiated with a type
     <code>std::complex</code>. Hopefully, this should remind the user to the
     fact that the &lt; operator cannot be applied to the complex data type.

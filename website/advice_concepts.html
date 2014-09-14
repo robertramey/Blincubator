@@ -1,10 +1,10 @@
-<div class="section" title="Use Type Constraints (Concepts) for Template Parameters"><div class="titlepage"><div><div><h2 class="title"><a name="idm515417114464"></a>Use Type Constraints (Concepts) for Template Parameters</h2></div></div><hr></div><p>Use Type Constraints (Concepts) for Template Parameters. This will
-  make your library </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>easier to use.</p></li><li class="listitem"><p>easier to learn to use.</p></li><li class="listitem"><p>harder to misuse.</p></li><li class="listitem"><p>more logically coherent.</p></li><li class="listitem"><p>faster to develop.</p></li><li class="listitem"><p>easier and faster to write correct documentation.</p></li></ul></div><div class="section" title="What is a Type Constraint?"><div class="titlepage"><div><div><h3 class="title"><a name="idm515417030720"></a>What is a Type Constraint?</h3></div></div></div><p>For our purposes, we will define "C++ Type Constraint" in the
+<div class="section" title="Use Type Constraints (Concepts) for Template Parameters"><div class="titlepage"><div><div><h2 class="title"><a name="idm291942971136"></a>Use Type Constraints (Concepts) for Template Parameters</h2></div></div><hr></div><p>Use Type Constraints (Concepts) for Template Parameters. This will
+  make your library </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>easier to use.</p></li><li class="listitem"><p>easier to learn to use.</p></li><li class="listitem"><p>harder to misuse.</p></li><li class="listitem"><p>more logically coherent.</p></li><li class="listitem"><p>faster to develop.</p></li><li class="listitem"><p>easier and faster to write correct documentation.</p></li></ul></div><div class="section" title="What is a Type Constraint?"><div class="titlepage"><div><div><h3 class="title"><a name="idm291942963280"></a>What is a Type Constraint?</h3></div></div></div><p>For our purposes, we will define "C++ Type Constraint" in the
     following way:</p><p>A C++ Template will have one or more type arguments. The template
     may require that each argument fullfill more or more conditions in order
     for the template to compile without error. These requirements are called
     <span class="emphasis"><em>Type Constraints</em></span> or <span class="emphasis"><em>Type
-    Requirements</em></span>. </p><p>C++ literature and documentation use the word
+    Requirements</em></span>.</p><p>C++ literature and documentation use the word
     <span class="emphasis"><em>Concept</em></span> for this purpose. In fact, this usage of the
     word <span class="emphasis"><em>Concept</em></span> is one of the reasons that the subject
     has been so confusing. Another reason is that it is really only necessary
@@ -13,31 +13,35 @@
     people actually use this idea and hence are unfamilar with it. Our term
     <span class="emphasis"><em>Type Constraint</em></span> is exactly equivalent to the C++ term
     <span class="emphasis"><em>Concept</em></span>. Either one can be substituted for the other
-    without loss of meaning.</p></div><div class="section" title="Type Constraints for Function Templates"><div class="titlepage"><div><div><h3 class="title"><a name="idm515417025536"></a>Type Constraints for Function Templates</h3></div></div></div><p>Our discussion below is largely based on and example from the
+    without loss of meaning.</p></div><div class="section" title="Type Constraints for Function Templates"><div class="titlepage"><div><div><h3 class="title"><a name="idm291942958096"></a>Type Constraints for Function Templates</h3></div></div></div><p>Our discussion below is largely based on and example from the
     documentation of <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
     Concept Checking Library</a> As an illustration consider the standard
     C library function qsort. The prototype for this function is</p><pre><code>void qsort(
     void *base, 
     size_t nitems, 
     size_t size, 
-    int (*compar)(const void *, const void*)
+    int (*compare)(const void *, const void*)
 );</code></pre><p>The prototype lists the specific types of the function arguments. In
     other words, the function arguments are <span class="emphasis"><em>constrained</em></span>
     to specific types. Any attempt to compile a call of this function with
     arguments which don't fit this <span class="emphasis"><em>type signature</em></span> will
     result in a compile time error message. This generally works very well and
     is helpful to the user.</p><p>But for a general use library function this declaration has some
-    problems. It's defined in terms of void * which require passing data
+    problems. It's defined in terms of void * which requires passing data
     without the type information. Then we need to add a "size" parameter. Then
     we need to start type casting the arguments. All this introduces it's own
     set off possibilities for errors which are a pain to track down. This is
     one of the main motivations for the invention of templates.</p><p>This function is defined in terms of any type T to permit it to be
     instantiated for any type.</p><pre><code>template&lt;typename T&gt;
-void bubble_sort(T begin, T end);</code></pre><p>That is, we're saying that
-    bubble_sort can be invoked with ANY type of arguments. The compiler won't
-    detect any error where the function is invoked regardless of which
-    arguments we pass to the function! So the following will compile without
-    errors:</p><pre><code>#include &lt;vector&gt;
+void bubble_sort(T begin, T end);</code></pre><p>This declares an implementation the function
+    <code class="code">bubble_sort</code> in terms of some type T. So there is no runtime
+    casting required and the compiler can optimize implentations in terms of
+    type T. But this declaration leaves as wondering which types we can use
+    for T. Surely we can't pass any type to bubble sort. We can guess from the
+    function signature that T must be some iterator type. But which one?
+    RandomAccess, ForwardAccess, InputIterator? And what types is the iterator
+    allowed to point to? And what other requirements might T have to
+    fulfill.</p><p>It turns out that this example will fail to compile.</p><pre><code>#include &lt;vector&gt;
 #include &lt;complex&gt;
 
 template&lt;typename T&gt;
@@ -46,8 +50,11 @@ void bubble_sort(T begin, T end);
 void main(){
     std::vector&lt;std::complex&lt;float&gt; &gt; v;
     bubble_sort(v.begin(), v.end());
-}</code></pre><p>Hmmm, surely we can't pass any type to bubble sort. Indeed, when we
-    include the implementation:</p><pre><code>#include &lt;vector&gt;
+}</code></pre><p>But the point of failure will be several levels deep in the call
+    chain. The error message will only be found at a very deep level in the
+    template instantiation stack. It will be extremely difficult to relate the
+    error to any specific attibute of type T. In order to do this, we'll have
+    to look at the implementation.</p><pre><code>#include &lt;vector&gt;
 #include &lt;complex&gt;
 #include &lt;utility&gt; // swap
 
@@ -63,9 +70,10 @@ void main(){
     std::vector&lt;std::complex&lt;float&gt; &gt; v;
     bubble_sort(v.begin(), v.end());
 }
-</code></pre><p>We get an error message on the line including the comparison.
-    Looking the implementation, considering that in this case T is defined as
-    type <code class="code">std::vector&lt;std::complex&lt;float&gt;::iterator</code>, the
+</code></pre><p>We get an error message on the line which invokes the
+    comparison. Looking the implementation, considering that in this case T is
+    defined as type
+    <code class="code">std::vector&lt;std::complex&lt;float&gt;::iterator</code>, the
     dereferencing operator * will yield an instance of
     <code class="code">std::complex&lt;float&gt;</code> and <code class="code">std::complex</code> is
     not a type which supports comparison. We can now see the source of our
@@ -76,24 +84,28 @@ void main(){
     complicated procedure behind a simple declaration of what the function
     does. Expecting a user to delve deep into the implementation of the
     procedure to understand how to invoke it defeats the whole purpose of
-    using the library in the first place!</p><p>So we need some way to add information about what types are
+    using the library in the first place!</p><p>Note that with C++11 the problem is even worse! Consider</p><pre><code>#include &lt;vector&gt;
+#include &lt;complex&gt;
+
+template&lt;typename T&gt;
+void bubble_sort(T begin, T end);
+
+void main(){
+    auto r = some_function();
+    bubble_sort(r.begin(), r.end());
+}</code></pre><p>In this case the actual type of r will be hidden behind the
+    <code class="code">auto</code> keyword. So tracing into the implementation will be even
+    more difficult!</p><p>So we need some way to add information about which types are
     permitted (type requirements or constraints) and a mechanism to
-    automatically trap instances where these requirements are not satisfied.
-    As I write this, I recommend usage of the <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
+    automatically trap instances where these constraints are violated. As I
+    write this, I recommend usage of the <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
     Concept Checking Library</a> for this purpose. Here is how to use it
-    for our example function.</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><thead><tr><th align="center">Documentation</th><th align="center">Code</th></tr></thead><tbody><tr><td><pre><code>template&lt;typename T&gt;
-void bubble_sort(T begin, T end)
-
-Type T must be an instance of a Forward
-Iterator type.
-
-For variables t1 and t2 of type T:
-
-*t1 &lt; *t2 must be valid and return value
-convertible to bool
-
-swap(*t1, *t2) must be valid.
-</code></pre></td><td><pre><code>#include "boost/concept/requires.hpp"
+    for our example function.</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><thead><tr><th align="center">Documentation</th><th align="center">Code</th></tr></thead><tbody><tr><td><p>template&lt;typename T&gt; </p><p>void
+              bubble_sort(T begin, T end) </p><p>Type T must model
+              Forward Iterator type constraints. </p><p>For variables t1
+              and t2 of type T:</p><p> *t1 &lt; *t2 must be valid and
+              return value convertible to bool </p><p> swap(*t1, *t2)
+              must be valid. </p></td><td><pre><code>#include "boost/concept/requires.hpp"
 #include "boost/concept_check.hpp"
 #include &lt;iterator&gt; // iterator_traits
 
@@ -136,8 +148,8 @@ void main(){
     std::list&lt;std::complex&lt;float&gt; &gt; l;
     bubble_sort(l.begin(), l.end());
 }
-</code></pre><p>Attempting to compile this program will result in an error listing
-    which refers to the source line were
+</code></pre><p>Attempting to compile this program will result in a compile time
+    error listing which refers to the source line were
     <code class="code">boost::LessThanComparable</code> is instantiated with a type
     <code class="code">std::complex</code>. Hopefully, this should remind the user to the
     fact that the &lt; operator cannot be applied to the complex data type.
@@ -163,7 +175,7 @@ void main(){
     requirements of a ForwardAccessIterator.</p><p>Without explicit type requirements, this will be an extremely
     confusing result which will require browsing the standard library
     implementation of std::sort to sort out. With explicit type requirements,
-    the error message will directly reveal the source of the problem.</p></div><div class="section" title="Creating Type Constraint Checking Classes"><div class="titlepage"><div><div><h3 class="title"><a name="idm515416996128"></a>Creating Type Constraint Checking Classes</h3></div></div></div><p>The meticulous reader who is compiling the above code examples as he
+    the error message will directly reveal the source of the problem.</p></div><div class="section" title="Creating Type Constraint Checking Classes"><div class="titlepage"><div><div><h3 class="title"><a name="idm291942924192"></a>Creating Type Constraint Checking Classes</h3></div></div></div><p>The meticulous reader who is compiling the above code examples as he
     reads will have discovered that one thing is not true. The concept
     checking class Swappable is not currently defined in the Boost Concept
     Checking Library. The following is based on <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/creating_concepts.htm" target="_top">Creating
@@ -191,7 +203,7 @@ public:
     <span class="emphasis"><em>Swappable</em></span> is a refinement of
     <span class="emphasis"><em>Assignable</em></span>. Given that we've chosen to use
     BOOST_CONCEPT_REQUIRES for function template arguments, the most common
-    usage BOOST_CONCEPT_ASSERT would be in class templates.</p></div><div class="section" title="Future Compatibility"><div class="titlepage"><div><div><h3 class="title"><a name="idm515416989920"></a>Future Compatibility</h3></div></div></div><p>Inclusion of <span class="emphasis"><em>Concepts</em></span> in C++ has generated a
+    usage BOOST_CONCEPT_ASSERT would be in class templates.</p></div><div class="section" title="Future Compatibility"><div class="titlepage"><div><div><h3 class="title"><a name="idm291942917984"></a>Future Compatibility</h3></div></div></div><p>Inclusion of <span class="emphasis"><em>Concepts</em></span> in C++ has generated a
     huge amount of discussion, activity, experiments, and effort over the last
     decade. Googling "C++ Concepts" will result in many, many hits. <a class="ulink" href="http://www.osl.iu.edu/publications/prints/2013/lvoufo13:_concepts_terminology.pdf" target="_top">This
     paper</a> is one of those and gives a summary of the current state of
@@ -250,8 +262,11 @@ BOOST_CONCEPT_ASSERT(
     Concept Checking Library</a>. So transition to any future standard
     system when and if that occurs should be almost trivial. Also note that
     users code will not be effected in any way since any required changes are
-    confined to the library code modules.</p></div><div class="section" title="References"><div class="titlepage"><div><div><h3 class="title"><a name="idm515416973888"></a>References</h3></div></div></div><p>More good information regarding practical aspects of C++ concepts
-    and be found by checking the following links</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="https://isocpp.org/files/papers/N3797.pdf" target="_top">N3797</a> C++14
+    confined to the library code modules.</p></div><div class="section" title="References"><div class="titlepage"><div><div><h3 class="title"><a name="idm291942901952"></a>References</h3></div></div></div><p>More good information regarding practical aspects of C++ concepts
+    and be found by checking the following links</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://www.sgi.com/tech/stl/stl_introduction.html?" target="_top">Introduction
+          to the Standard Template Library - Concepts and
+          Modeling</a></p></li><li class="listitem"><p><a class="ulink" href="http://www.sgi.com/tech/stl/doc_introduction.html" target="_top">How to use
+          the STL documentation</a></p></li><li class="listitem"><p><a class="ulink" href="https://isocpp.org/files/papers/N3797.pdf" target="_top">N3797</a> C++14
           standard section 17.5 Method of description (Informative)</p></li><li class="listitem"><p>Documentation on C++11 concepts from <a class="ulink" href="http://en.cppreference.com/w/cpp/concept" target="_top">CPP
           Reference</a></p></li><li class="listitem"><p><a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
           Concept Checking Library</a></p></li><li class="listitem"><p><a class="ulink" href="http://cpp-next.com/archive/2011/12/a-breakthrough-for-concepts/" target="_top">A

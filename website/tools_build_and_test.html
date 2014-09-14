@@ -15,11 +15,11 @@
             downloaded.</p></li><li class="listitem"><p>Log of test results from various users posted in a public
             place which is easily viewable by library developers, users and
             reviewers.</p></li><li class="listitem"><p>Is scalable - doesn't require some centralized testing
-            setup.</p></li><li class="listitem"><p>Tests with a wide variety of platforms and compilers.</p></li></ul></div></li></ul></div><p>I looked at a few specific alternatives.</p><div class="section" title="Make"><div class="titlepage"><div><div><h3 class="title"><a name="idm462239179024"></a>Make</h3></div></div></div><p>In the spirit of keeping things as simple as possible, this was my
+            setup.</p></li><li class="listitem"><p>Tests with a wide variety of platforms and compilers.</p></li></ul></div></li></ul></div><p>I looked at a few specific alternatives.</p><div class="section" title="Make"><div class="titlepage"><div><div><h3 class="title"><a name="idm221581204384"></a>Make</h3></div></div></div><p>In the spirit of keeping things as simple as possible, this was my
     first choice. But starting with a basic make file, one would need to add a
     lot of extras functionality to address the requirements in the above list.
     Basic make doesn't have enough functionality to support all we need so
-    we're forced to specify a build/test system.</p></div><div class="section" title="Autotools"><div class="titlepage"><div><div><h3 class="title"><a name="idm462239177520"></a>Autotools</h3></div></div></div><p>Autotools is the traditional Unix solution to the problem of
+    we're forced to specify a build/test system.</p></div><div class="section" title="Autotools"><div class="titlepage"><div><div><h3 class="title"><a name="idm221581202880"></a>Autotools</h3></div></div></div><p>Autotools is the traditional Unix solution to the problem of
     build/test/deployment. It has a long history and is widely used. There is
     lot's of literature on it as well. It garners a number of complaints about
     how hard it is to use - but then it seems all of these build systems share
@@ -32,7 +32,7 @@
     unix-like CYGWIN installation and things seemed to run well until the last
     step. Again, I had the feeling I could make this work if I was willing to
     put in more time, but I didn't feel like doing it. An interesting
-    experience but not a good solution for us.</p></div><div class="section" title="Summary and Conclusion"><div class="titlepage"><div><div><h3 class="title"><a name="idm462239171264"></a>Summary and Conclusion</h3></div></div></div><p>After trying and/or investigating many of the alternatives, I've
+    experience but not a good solution for us.</p></div><div class="section" title="Summary and Conclusion"><div class="titlepage"><div><div><h3 class="title"><a name="idm221581195872"></a>Summary and Conclusion</h3></div></div></div><p>After trying and/or investigating many of the alternatives, I've
     settled on CMake/CTest/CDash for Safe Numerics. I feel comfortable
     strongly recommending this for those who want to make libraries which they
     hope to submit to Boost. It supports our list of requirements as well as
