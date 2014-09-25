@@ -119,8 +119,14 @@ function review_form_values($post_id){
 		?>
 		<input class="blincubator_button" type="submit" value="Show/Hide Comments" id="comments_button" name="submit">
 		<?php
+        $comments = get_comments(array(
+            'post_id' => $post->ID,
+            'order' => 'ASC',
+            'orderby' => 'date'
+        ));
+        echo "There are " . count($comments) . " comments";
 		comment_form();
-		wp_list_comments();
+        wp_list_comments('', $comments);
 	}
 	?>
 	</div>

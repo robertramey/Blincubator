@@ -49,9 +49,13 @@ get_header();
         ?>
         <input class="blincubator_button" value="Show/Add/Hide Comments" id="comments_button" name="submit">
         <?php
-        comment_form();
-        $comments = get_comments("post_id=$post->ID");
+        $comments = get_comments(array(
+            'post_id' => $post->ID,
+            'order' => 'ASC',
+            'orderby' => 'date'
+        ));
         echo "There are " . count($comments) . " comments";
+		comment_form();
         wp_list_comments('', $comments);
     }
     ?>

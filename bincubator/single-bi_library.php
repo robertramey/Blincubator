@@ -134,7 +134,11 @@ function library_form_values(){
 		<a class="blincubator_button" id="reviews_button" href="reviews?library_post_id=<?php the_ID(); ?>">Reviews</a>
         <input class="blincubator_button" value="Show/Add/Hide Comments" id="comments_button" name="submit">
         <?php
-        $comments = get_comments("post_id=$post->ID");
+        $comments = get_comments(array(
+            'post_id' => $post->ID,
+            'order' => 'ASC',
+            'orderby' => 'date'
+        ));
         echo "There are " . count($comments) . " comments";
 		comment_form();
         wp_list_comments('', $comments);
