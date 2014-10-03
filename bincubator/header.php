@@ -82,7 +82,7 @@
 					$right_image = get_stylesheet_directory_uri() . '/images/headers/logo.jpg' ;
     				?>
             <div id="left_logo" >
-                <a href="index.htm">
+                <a href="http://www.blincubator.com">
                     <img  height="164px" src="<?php echo $left_image  ; ?>" alt="Boost Incubator Homepage" border="none" />
                 </a>
             </div>
