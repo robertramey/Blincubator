@@ -1,5 +1,21 @@
 <?php
 
+// Custom widget area.
+function extra_widgets_init(){
+    register_sidebar(
+        array(
+            'name' => __( 'Tertiary Widget Area'),
+            'id' => 'tertiary-widget-area',
+            'description' => __( 'widget area for sponsor logos', 'twentyten' ),
+            'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
+            'after_widget' => "</li>",
+            'before_title' => '<h3 class="widget-title">',
+            'after_title' => '</h3>',
+        )
+    );
+}
+add_action( 'widgets_init', 'extra_widgets_init' );
+
 /*
  * remove items from admin menu - not currently used
 add_action( 'admin_menu', 'remove_links_menu' );
@@ -93,8 +109,17 @@ function __THEME_PREFIX__wp_head() {
 </script>
 <?php
 }
- */
+*/
 
+function comment_form_shortcode( $content, $atts )
+{
+    ob_start();
+    comment_form();
+    $content = ob_get_contents();
+    ob_end_clean();
+    return $content;
+}
+add_shortcode( 'comment_form', 'comment_form_shortcode', 10, 2 );
 
 /*
  * alter instructions on comment form 
@@ -107,6 +132,18 @@ function change_allowed_fields($defaults)
     return $defaults;
 }
  */
+
+/*
+ * disable form create of email form
+ */
+add_filter("gform_disable_post_creation_8", "disable_email_post_creation", 10, 3);
+function disable_email_post_creation($is_disabled, $form, $entry){
+    print_r($entry);
+    $headers = 'From: My Name <myname@example.com>' . "\r\n";
+    //wp_mail( $to, $subject, $message, $headers, $attachments );
+    wp_mail( 'ramey@rrsd.com', 'wordpress test message', 'message body', $headers);
+    return true;
+}
 
 /*
  * prevent any submissions from unregistered users
@@ -401,7 +438,6 @@ function bi_register_shortcodes() {
 	add_shortcode('libraries_by_category', 'bi_libraries_by_category');
 	add_shortcode('reviews_by_date', 'bi_reviews_by_date');
 }
-
 
 function bi_review_line($post_id){
 	echo get_the_author_link();

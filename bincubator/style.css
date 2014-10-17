@@ -58,23 +58,23 @@ p, dd {
     width: inherit;
 	float: none;
 }
-#primary, #secondary {
-    overflow: visible;
+
+#content .note {
+	margin: 0px 150px 0px 0;
+	padding: 20px;
+	width: inherit;
 }
 
-#primary {
+#primary, #secondary, #tertiary {
     float: right;
-    width: 150px;
+    width: 200px;
 	border: 2px solid black;
 	margin: 8px 0px 0px 8px;
 }
-
-#secondary {
-    float: right;
-    width: 150px;
-	border: 2px solid black;
-	margin: 8px 0px 0px 8px;
+#secondary, #tertiary {
+	clear: right;
 }
+
 
 #header, #footer, #main {
 	display: block;
@@ -167,6 +167,7 @@ h1, h2, h3, h4, h5, h6 {
 .gform_wrapper ul li.library_link input {
 	color: rgb(0,102,204) !important;
 }
+
 .gform_wrapper ul li.gfield {
 	clear: none !important;
 	/* margin: 0px 150px 0px 0;
@@ -175,6 +176,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 .gform_wrapper ul.gfield_radio li input[type="radio"]:checked + label {
 	color: red;
+}
+
+.gfield {
+    visibility:inherit;
+}
+
+#input_1_10, #input_1_2 {
+	width: 47% !important;
 }
 
 /**/

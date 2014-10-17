@@ -26,7 +26,7 @@ function is_editable(){
 	jQuery(document).ready(function($){
 		$('#respond').prop('hidden', true);
 		$('.comment').prop('hidden', true);
-		$('#comments_button').click(function(event) {
+        $('#comments_button').click(function(event) {
 			var hide = ! $('#respond').prop('hidden');
 			$('#respond').prop('hidden',hide);
 			$('.comment').prop('hidden',hide);
@@ -44,6 +44,10 @@ function is_editable(){
             // library name is only editable for new submissions
             $('.gform_wrapper #input_1_1').prop('readonly', <?php echo is_new() ? 'false' : 'true' ; ?>);
             $('.library_link input').css('cursor', mode ? 'auto' : 'pointer');
+
+            // sponsor list is only visible when editing
+            $('.library_visible').css('display', mode ? 'block' : 'none');
+
 			edit_mode = mode;
 		}
 
@@ -73,9 +77,21 @@ function is_editable(){
 function library_form_values(){
 	global $post;
 	$post_id = $post->ID;
-	$tags = wp_get_post_tags( $post_id, array('fields' => 'names'));
+	//$tags = wp_get_post_tags( $post_id, array('fields' => 'names'));
 	//echo "post_tags = " .  print_r($tags) . "<br/>";
 	//echo "[0] = " . $tags[0]  . "<br/>";
+
+    // the following returns one string per sponser in the format
+    // logo_link | web_link | comment
+    $raw_sponsor_list = get_post_meta($post_id, 'sponsor_list', false);
+	//echo print_r($raw_sponsor_list, true) . "<br/>";
+
+    $sponsor_list = "";
+    foreach($raw_sponsor_list as &$s){
+        $sponsor_list = $sponsor_list . $s . ',';
+    }
+    $sponsor_list = trim($sponsor_list, ",");
+
 	return array(
 		'post_id' => $post_id,
 		'post_title' => $post->post_title,
@@ -95,16 +111,29 @@ function library_form_values(){
 		'download_link' => get_post_meta($post_id, 'download_link', true),
 		'repository_link' => get_post_meta($post_id, 'repository_link', true),
 		'test_dashboard_link' => get_post_meta($post_id, 'test_dashboard_link', true),
-		'issues_link' => get_post_meta($post_id, 'issues_link', true)
+		'issues_link' => get_post_meta($post_id, 'issues_link', true),
+        'sponsor_list' => $sponsor_list
 	);
+}
+
+function new_sidebars(){
+	if ( is_active_sidebar( 'tertiary-widget-area' ) ) : ?>
+		<div id="tertiary" class="widget-area" role="complementary">
+			<ul class="xoxo">
+				<?php dynamic_sidebar( 'tertiary-widget-area' ); ?>
+			</ul>
+		</div><!-- #tertiary .widget-area -->
+    <?php
+        endif;
 }
 
 ?>
 
 <div id="container">
 	<div id="content">
-	<?php 
-	get_sidebar();
+	<?php
+	get_sidebar('right');
+    new_sidebars();
 	//while ( have_posts() ) {
 		the_post();
 	//};
@@ -121,6 +150,7 @@ function library_form_values(){
 		$field_values
 	);
 	if(! is_new()){
+        $field_values['post_status'] = 'publish';
         echo apply_filters('the_content', '');
 		?>
 		<a class="blincubator_button" id="statistics_button" href="http://rrsd.com/wordpresstest/wp-admin/admin.php?page=wp-slim-view-3&fs[user]=is_not_equal_to+<?php echo get_userdata($post->post_author)->user_login;?>&fs[type]=is_not_equal_to+1&fs[resource]=contains+<?php echo $post->post_name;?>">Display Statistics</a>
