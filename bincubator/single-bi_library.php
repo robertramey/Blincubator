@@ -133,15 +133,23 @@ function new_sidebars(){
 	<div id="content">
 	<?php
 	get_sidebar('right');
-    new_sidebars();
+    //new_sidebars();
 	//while ( have_posts() ) {
 		the_post();
 	//};
 	$field_values = null;
 	if(is_single()){
-		$field_values = library_form_values();
 		$_GET['gform_post_id'] = $post->ID;
+		$field_values = library_form_values();
+        $sponsor_list = explode(',', $field_values['sponsor_list']);
+        foreach($sponsor_list as $sponsor){
+            $sponsor_array = explode('|', $sponsor, 3);
+            $logo = $sponsor_array[0];
+            $link = $sponsor_array[1];
+            echo '<a href="' . $link . '" class="sponsor-logo"><img src="' . $logo . '"></a>';
+        }
 	}
+
 	gravity_form(
 		1,      // form id
 		true,  // display title
@@ -150,7 +158,6 @@ function new_sidebars(){
 		$field_values
 	);
 	if(! is_new()){
-        $field_values['post_status'] = 'publish';
         echo apply_filters('the_content', '');
 		?>
 		<a class="blincubator_button" id="statistics_button" href="http://rrsd.com/wordpresstest/wp-admin/admin.php?page=wp-slim-view-3&fs[user]=is_not_equal_to+<?php echo get_userdata($post->post_author)->user_login;?>&fs[type]=is_not_equal_to+1&fs[resource]=contains+<?php echo $post->post_name;?>">Display Statistics</a>

@@ -312,7 +312,7 @@ function library_submission_handler($entry, $form)
 	$post = get_post($post_id);
 	$post->post_excerpt = $entry["10"]; 
 	wp_set_post_tags($post_id, $entry["32"], false);
-	//$post->post_status = 'pending';
+	$post->post_status = 'publish';
 	$post->comment_status = 'open';
 	wp_update_post( $post );
 }

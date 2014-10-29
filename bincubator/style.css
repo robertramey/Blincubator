@@ -67,7 +67,7 @@ p, dd {
 
 #primary, #secondary, #tertiary {
     float: right;
-    width: 200px;
+    width: 150px;
 	border: 2px solid black;
 	margin: 8px 0px 0px 8px;
 }
@@ -95,6 +95,12 @@ h1, h2, h3, h4, h5, h6 {
 	clear: none;
 	font-weight: normal;
 }
+
+.sponsor-logo {
+    float: right;
+    clear: right;
+}
+
 /* =Header
 -------------------------------------------------------------- */
 
