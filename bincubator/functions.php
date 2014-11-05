@@ -134,14 +134,64 @@ function change_allowed_fields($defaults)
  */
 
 /*
+ * shortcode to add a link with the 'popup' class with data attributes for height, width and scrollbars
+ */
+
+function intialize_scripts(){
+    wp_register_script( 'popup', content_url() . "/themes/" . basename(dirname(__FILE__)) . '/popup.js', array('jquery'), 0, false );
+    wp_enqueue_script('popup');
+}
+add_action('wp_enqueue_scripts', 'intialize_scripts');
+
+function popup_shortcode( $atts, $content = null ) {
+	extract( shortcode_atts( array(
+		'url' => '#',
+		'width' => '400',
+		'height' => '400',
+		'scrollbars' => 'yes',
+		'alt' => ''
+	), $atts ) );
+	
+	$showscrollbars = esc_attr( $scrollbars );
+	
+	if (strtolower( $showscrollbars ) == 'no') {
+		$showscrollbars = '0'; 
+	}
+	
+	if ($showscrollbars != '0') {
+		$showscrollbars = '1'; 
+	}
+	
+	return '<a href="' . esc_url( $url ) . '" class="popup" data-width="' . absint( $width ) . '" data-height="' . absint( $height ) . '" data-scrollbars="' . $showscrollbars . '" alt="' . esc_attr( $alt ) . '">' . $content . '</a>';
+}
+add_shortcode( 'popup', 'popup_shortcode', 10, 2 );
+
+/*
  * disable form create of email form
  */
 add_filter("gform_disable_post_creation_8", "disable_email_post_creation", 10, 3);
 function disable_email_post_creation($is_disabled, $form, $entry){
     print_r($entry);
-    $headers = 'From: My Name <myname@example.com>' . "\r\n";
+    $current_user = wp_get_current_user();
+
+    echo 'Username: ' . $current_user->user_login . '<br />';
+    echo 'User email: ' . $current_user->user_email . '<br />';
+    echo 'User first name: ' . $current_user->user_firstname . '<br />';
+    echo 'User last name: ' . $current_user->user_lastname . '<br />';
+    echo 'User display name: ' . $current_user->display_name . '<br />';
+    echo 'User ID: ' . $current_user->ID . '<br />';
+
+    $id = $entry['id'];
+    echo 'Post ID: ' . $id;
+
+    $post = get_post($id);
+    print_r($post);
+
+    $headers =
+        'From: ' . $current_user->display_name . '<' . $current_user->user_email . '>' . "\r\n"
+        ;
     //wp_mail( $to, $subject, $message, $headers, $attachments );
-    wp_mail( 'ramey@rrsd.com', 'wordpress test message', 'message body', $headers);
+    wp_mail( 'ramey@rrsd.com', 'sponsorship inquiry', 'message body', $headers);
     return true;
 }
 
