@@ -18,7 +18,6 @@ add_action( 'widgets_init', 'extra_widgets_init' );
 
 /*
  * remove items from admin menu - not currently used
-add_action( 'admin_menu', 'remove_links_menu' );
 function remove_links_menu() {
      remove_menu_page('index.php'); // Dashboard
      remove_menu_page('edit.php'); // Posts
@@ -32,6 +31,7 @@ function remove_links_menu() {
      remove_menu_page('tools.php'); // Tools
      remove_menu_page('options-general.php'); // Settings
 }
+add_action( 'admin_menu', 'remove_links_menu' );
 */
 
 /*
@@ -50,11 +50,10 @@ add_action( 'after_setup_theme', 'hide_admin_bar' );
 function hide_dashboard(){
 	if ( ! current_user_can( 'manage_options' ) ){
 		wp_redirect( home_url() );
-		exit;		
+		exit;
 	}
 }
 add_action( 'admin_init', 'hide_dashboard' );
-
 
 /**
  * enhanced comment editor
@@ -187,11 +186,34 @@ function disable_email_post_creation($is_disabled, $form, $entry){
     $post = get_post($id);
     print_r($post);
 
-    $headers =
-        'From: ' . $current_user->display_name . '<' . $current_user->user_email . '>' . "\r\n"
-        ;
+    $headers = array(
+        'From:' . $current_user->display_name . ' <' . $current_user->user_email . '>',
+        'Return-path: <ramey@rrsd.com>',
+        'Reply-to: <ramey@rrsd.com>'
+    );
+
+    print_r($headers);
+
+    $message = 'Sponsorship Inquiry' . "\r\n\r\n" ;
+    if( $entry['5.1'] ){
+        $message = $message . "We are looking for an Enhancement" . "\r\n";
+    }
+    if( $entry['5.2'] ){
+        $message = $message . "We are looking for Support" . "\r\n";
+    }
+    if( $entry['5.3'] ){
+        $message = $message . "We want to display our logo on your library web page" . "\r\n";
+    }
+    if( $entry['6'] ){
+        $message = $message . "Payment:" . $entry['6'] . "\r\n";
+    }
+    if( $entry['2'] ){
+        $message = $message . "\r\n" . $entry['2'] . "\r\n";
+    }
+
+    echo $message;
     //wp_mail( $to, $subject, $message, $headers, $attachments );
-    wp_mail( 'ramey@rrsd.com', 'sponsorship inquiry', 'message body', $headers);
+    wp_mail( 'ramey@rrsd.com', 'Sponsorship Inquiry', $message, $headers);
     return true;
 }
 
@@ -573,20 +595,24 @@ function bi_review_summary($post_id){
     echo '</div></p>';
 }
 
-function bi_reviews_by_date() {
-	$library_post_id = $_GET['library_post_id'];
-	$library_post = get_post($library_post_id);
-	echo "<h3>" . $library_post->post_title . "</h3><br/>";
+function get_reviews_array($library_post_id) {
 	$args = array(
-		'post_parent'   => $library_post_id ,
+		'post_parent' => $library_post_id ,
 		'post_type'   => 'bi_review',
 		'post_status' => 'publish', 
 		'nopaging'    => 'true',
 		'orderby'     => 'date',
 		'order'       => 'ASC'
 	);
-		
-	$loop = new WP_Query($args);
+	return new WP_Query($args);
+}
+
+function bi_reviews_by_date() {
+	$library_post_id = $_GET['library_post_id'];
+	$library_post = get_post($library_post_id);
+	echo "<h3>" . $library_post->post_title . "</h3><br/>";
+
+	$loop = get_reviews_array($library_post_id);
 	$count = 0;
 	while ( $loop->have_posts() ){
 		$loop->the_post();

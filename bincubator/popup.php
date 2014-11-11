@@ -1,19 +1,16 @@
 <?php
-/**
- * The Header for our theme.
- *
- * Displays all of the <head> section and everything up till <div id="main">
- *
- * @package WordPress
- * @subpackage Twenty_Ten
- * @since Twenty Ten 1.0
+/*
+ * Template Name: popup
  */
 ?>
-<html>
+<!DOCTYPE html>
+<html <?php language_attributes(); ?>>
 <head>
-    <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ) . 'style.css' ; ?>" />
+    <link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo('stylesheet_url') ; ?>" />
+    <link rel="stylesheet" type="text/css" media="all" href="<?php echo plugins_url() . '/gravityforms/css/formsmain.css'; ?>" />
 </head>
 <body>
+<div id="wrapper">
 <div id="branding" role="banner">
     <div>
         <?php $heading_tag = ( is_home() || is_front_page() ) ? 'h1' : 'div'; ?>
@@ -39,11 +36,14 @@
         </div>
     </div>
 </div><!-- #branding -->
+<div id="main">
 <?php
 while ( have_posts() ){
     the_post();
     the_content();
 }
 ?>
+</div><!-- #main -->
+</div><!== #wrapper -->
 </body>
 

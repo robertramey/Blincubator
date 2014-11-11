@@ -161,14 +161,21 @@ function new_sidebars(){
         echo apply_filters('the_content', '');
 		?>
 		<a class="blincubator_button" id="statistics_button" href="http://rrsd.com/wordpresstest/wp-admin/admin.php?page=wp-slim-view-3&fs[user]=is_not_equal_to+<?php echo get_userdata($post->post_author)->user_login;?>&fs[type]=is_not_equal_to+1&fs[resource]=contains+<?php echo $post->post_name;?>">Display Statistics</a>
+        <br>
 		<?php
 		if(is_editable()){
 			?>
 			<input type="submit" value="Edit/View" class="blincubator_button" id="edit_button" name="submit">
+            <br>
 			<?php
 		}
         ?>
 		<a class="blincubator_button" id="reviews_button" href="reviews?library_post_id=<?php the_ID(); ?>">Reviews</a>
+        <?php
+        $reviews = get_reviews_array($post->ID);
+        echo "There are " . count($reviews) . " reviews";
+        ?>
+        <br>
         <input class="blincubator_button" value="Show/Add/Hide Comments" id="comments_button" name="submit">
         <?php
         $comments = get_comments(array(
