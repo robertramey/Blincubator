@@ -172,8 +172,8 @@ function new_sidebars(){
         ?>
 		<a class="blincubator_button" id="reviews_button" href="reviews?library_post_id=<?php the_ID(); ?>">Reviews</a>
         <?php
-        $reviews = get_reviews_array($post->ID);
-        echo "There are " . count($reviews) . " reviews";
+        $reviews = get_reviews_query($post->ID);
+        echo "There are " . $reviews->found_posts . " reviews";
         ?>
         <br>
         <input class="blincubator_button" value="Show/Add/Hide Comments" id="comments_button" name="submit">

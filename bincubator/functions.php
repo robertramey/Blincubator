@@ -595,7 +595,7 @@ function bi_review_summary($post_id){
     echo '</div></p>';
 }
 
-function get_reviews_array($library_post_id) {
+function get_reviews_query($library_post_id) {
 	$args = array(
 		'post_parent' => $library_post_id ,
 		'post_type'   => 'bi_review',
@@ -612,7 +612,7 @@ function bi_reviews_by_date() {
 	$library_post = get_post($library_post_id);
 	echo "<h3>" . $library_post->post_title . "</h3><br/>";
 
-	$loop = get_reviews_array($library_post_id);
+	$loop = get_reviews_query($library_post_id);
 	$count = 0;
 	while ( $loop->have_posts() ){
 		$loop->the_post();
