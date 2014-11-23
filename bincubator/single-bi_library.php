@@ -31,7 +31,6 @@ function is_editable(){
 			$('#respond').prop('hidden',hide);
 			$('.comment').prop('hidden',hide);
 		});
-
 		var edit_mode = false;
 		function set_edit_mode(mode){
 			$('#gform_submit_button_1').prop('hidden', ! mode);
@@ -138,7 +137,7 @@ function new_sidebars(){
 		the_post();
 	//};
 	$field_values = null;
-	if(is_single()){
+	if(! is_new()){
 		$_GET['gform_post_id'] = $post->ID;
 		$field_values = library_form_values();
         $sponsor_list = explode(',', $field_values['sponsor_list']);
@@ -148,6 +147,11 @@ function new_sidebars(){
             $link = $sponsor_array[1];
             echo '<a href="' . $link . '" class="sponsor-logo"><img src="' . $logo . '"></a>';
         }
+        ?>
+        <a class="blincubator_button sponsor-logo popup" id="sponsors_button" href="contact-author?library_id=<?php the_ID(); ?>">
+            You can sponsor this library!
+        </a>
+        <?php
 	}
 
 	gravity_form(
@@ -158,25 +162,23 @@ function new_sidebars(){
 		$field_values
 	);
 	if(! is_new()){
-        echo apply_filters('the_content', '');
-		?>
-		<a class="blincubator_button" id="statistics_button" href="http://rrsd.com/wordpresstest/wp-admin/admin.php?page=wp-slim-view-3&fs[user]=is_not_equal_to+<?php echo get_userdata($post->post_author)->user_login;?>&fs[type]=is_not_equal_to+1&fs[resource]=contains+<?php echo $post->post_name;?>">Display Statistics</a>
-        <br>
-		<?php
 		if(is_editable()){
 			?>
-			<input type="submit" value="Edit/View" class="blincubator_button" id="edit_button" name="submit">
+			<button class="blincubator_button" id="edit_button">Edit/View</button>
             <br>
 			<?php
 		}
-        ?>
-		<a class="blincubator_button" id="reviews_button" href="reviews?library_post_id=<?php the_ID(); ?>">Reviews</a>
+		?>
+		<a class="blincubator_button" id="statistics_button" href="http://rrsd.com/wordpresstest/wp-admin/admin.php?page=wp-slim-view-3&fs[user]=is_not_equal_to+<?php echo get_userdata($post->post_author)->user_login;?>&fs[type]=is_not_equal_to+1&fs[resource]=contains+<?php echo $post->post_name;?>">Display Statistics</a>
+        <br/>
+		<a class="blincubator_button" id="reviews_button" href="reviews?library_id=<?php the_ID(); ?>">Reviews</a>
         <?php
         $reviews = get_reviews_query($post->ID);
         echo "There are " . $reviews->found_posts . " reviews";
         ?>
-        <br>
-        <input class="blincubator_button" value="Show/Add/Hide Comments" id="comments_button" name="submit">
+        <br/>
+        
+        <button class="blincubator_button" id="comments_button">Show/Hide Comments</button>
         <?php
         $comments = get_comments(array(
             'post_id' => $post->ID,
@@ -184,8 +186,15 @@ function new_sidebars(){
             'orderby' => 'date'
         ));
         echo "There are " . count($comments) . " comments";
-		comment_form();
-        wp_list_comments('', $comments);
+        ?>
+        <div class="commentlist">
+            <?php
+                comment_form();
+                wp_list_comments('', $comments);
+            ?>
+        </div>
+        <?php
+        echo apply_filters('the_content', '');
 	}
 	?>
 	</div><!-- #content -->

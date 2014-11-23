@@ -171,6 +171,13 @@ add_shortcode( 'popup', 'popup_shortcode', 10, 2 );
 add_filter("gform_disable_post_creation_8", "disable_email_post_creation", 10, 3);
 function disable_email_post_creation($is_disabled, $form, $entry){
     print_r($entry);
+
+    $id = $entry['id'];
+    echo 'Post ID: ' . $id;
+    $post = get_post($id);
+    print_r($post);
+    echo '<br />';
+
     $current_user = wp_get_current_user();
 
     echo 'Username: ' . $current_user->user_login . '<br />';
@@ -180,11 +187,17 @@ function disable_email_post_creation($is_disabled, $form, $entry){
     echo 'User display name: ' . $current_user->display_name . '<br />';
     echo 'User ID: ' . $current_user->ID . '<br />';
 
-    $id = $entry['id'];
-    echo 'Post ID: ' . $id;
+    $library_id = $_GET['library_id'];
+    echo 'Library id: ' . $library_id . '<br />';
+    $library = get_post($library_id);
+    $author_id = $library->post_author;
+    $author = get_user_by('id', $author_id);
+    Echo 'Author: ' . print_r($author);
 
-    $post = get_post($id);
-    print_r($post);
+    $to_email = get_user_meta('user_email', $author_id);
+    $to_name = get_user_meta('display name', $author_id);
+
+    echo 'To Email: ' . $to_email . '<br />';
 
     $headers = array(
         'From:' . $current_user->display_name . ' <' . $current_user->user_email . '>',
