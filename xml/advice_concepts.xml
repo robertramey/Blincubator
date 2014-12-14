@@ -374,20 +374,20 @@ public:
               <entry><programlisting>#include "boost/concept/assert.hpp"
 #include "boost/concept/usage.hpp"
 
-BOOST_CONCEPT_USAGE(Swappable){
+template&lt;class T&gt;
+struct Swappable{
     BOOST_CONCEPT_ASSERT((boost::Assignable&lt;T&gt;));
-    boost::swap(t1, t2);
-}</programlisting></entry>
+    BOOST_CONCEPT_USAGE(Swappable){
+        T t1, t2;
+        boost::swap(t1, t2);
+    }
+};</programlisting></entry>
 
               <entry><programlisting>template &lt;typename T&gt;
-concept bool Swappable(){
-    return requires(){
-        requires Assignable&lt;T&gt;;
-        requires requires(T t1, T t2){
-            boost::swap(t1, t2);
-        }
-    }
-}</programlisting></entry>
+concept bool Swappable = requires(T t1, T t2){
+    requires Assignable&lt;T&gt;;
+    boost::swap(t1, t2);
+};</programlisting></entry>
             </row>
 
             <row>

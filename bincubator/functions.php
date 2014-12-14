@@ -170,44 +170,23 @@ add_shortcode( 'popup', 'popup_shortcode', 10, 2 );
  */
 add_filter("gform_disable_post_creation_8", "disable_email_post_creation", 10, 3);
 function disable_email_post_creation($is_disabled, $form, $entry){
-    print_r($entry);
-
-    $id = $entry['id'];
-    echo 'Post ID: ' . $id;
-    $post = get_post($id);
-    print_r($post);
-    echo '<br />';
-
-    $current_user = wp_get_current_user();
-
-    echo 'Username: ' . $current_user->user_login . '<br />';
-    echo 'User email: ' . $current_user->user_email . '<br />';
-    echo 'User first name: ' . $current_user->user_firstname . '<br />';
-    echo 'User last name: ' . $current_user->user_lastname . '<br />';
-    echo 'User display name: ' . $current_user->display_name . '<br />';
-    echo 'User ID: ' . $current_user->ID . '<br />';
+    echo '<br/><br/><br/><br/><br/><br/>';
 
     $library_id = $_GET['library_id'];
-    echo 'Library id: ' . $library_id . '<br />';
     $library = get_post($library_id);
     $author_id = $library->post_author;
+    //echo 'Library id: ' . $library_id . '<br />';
+
     $author = get_user_by('id', $author_id);
-    Echo 'Author: ' . print_r($author);
+    $to_email = $author->user_email;
+    $to_name = $author->display_name;
 
-    $to_email = get_user_meta('user_email', $author_id);
-    $to_name = get_user_meta('display name', $author_id);
+    $user = wp_get_current_user();
+    $from_email = $user->user_email;
+    $from_name = $user->display_name;
 
-    echo 'To Email: ' . $to_email . '<br />';
-
-    $headers = array(
-        'From:' . $current_user->display_name . ' <' . $current_user->user_email . '>',
-        'Return-path: <ramey@rrsd.com>',
-        'Reply-to: <ramey@rrsd.com>'
-    );
-
-    print_r($headers);
-
-    $message = 'Sponsorship Inquiry' . "\r\n\r\n" ;
+    $subject = 'Sponsorship Inquiry - ' . $library->post_title;
+    $message =  '' ;
     if( $entry['5.1'] ){
         $message = $message . "We are looking for an Enhancement" . "\r\n";
     }
@@ -223,10 +202,25 @@ function disable_email_post_creation($is_disabled, $form, $entry){
     if( $entry['2'] ){
         $message = $message . "\r\n" . $entry['2'] . "\r\n";
     }
+    //echo $message;
 
-    echo $message;
-    //wp_mail( $to, $subject, $message, $headers, $attachments );
-    wp_mail( 'ramey@rrsd.com', 'Sponsorship Inquiry', $message, $headers);
+    $headers = array(
+        'From:' . $from_name . ' <' . $from_email . '>',
+        'Return-path: <' . $from_email . '>',
+        'Reply-to: <' . $from_email . '>'
+    );
+
+    /*
+    echo 'To email: ' . $to_email . '<br/>';
+    echo 'From email: ' . $from_email . '<br/>';
+    echo 'subject: ' . $subject . '<br/>';
+    echo 'message: ' . $message . '<br/>';
+    echo 'headers:';
+    print_r($headers);
+    */
+
+    wp_mail( $to_email, $subject, $message, $headers);
+    //wp_mail( 'ramey@rrsd.com', 'Sponsorship Inquiry', $message, $headers);
     return true;
 }
 
@@ -389,7 +383,9 @@ add_action(
 function library_submission_handler($entry, $form)
 {
 	$post_id = $entry['post_id'];
-	//echo "entry = " .  print_r($entry) . "<br/>";
+
+    //echo "entry = " .  print_r($entry) . "<br/>";
+
 	if(get_post_type($post_id) != 'bi_library')
 		return;
 	if(! is_user_logged_in())
@@ -399,6 +395,10 @@ function library_submission_handler($entry, $form)
 	wp_set_post_tags($post_id, $entry["32"], false);
 	$post->post_status = 'publish';
 	$post->comment_status = 'open';
+
+    //print_r($post);
+    //return;
+
 	wp_update_post( $post );
 }
 

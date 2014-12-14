@@ -20,27 +20,13 @@
   </note>
 
   <section>
-    <title>Premises</title>
-
-    <para><itemizedlist>
-        <listitem>
-          <para>The Boost review is the essence of boost.</para>
-        </listitem>
-
-        <listitem>
-          <para>Boost libraries need more good reviews</para>
-        </listitem>
-
-        <listitem>
-          <para>More quality library submissions are needed</para>
-        </listitem>
-      </itemizedlist></para>
-  </section>
-
-  <section>
-    <title>Observations</title>
+    <title>Observations and Premises</title>
 
     <itemizedlist>
+      <listitem>
+        <para>The Boost review is the essence of boost.</para>
+      </listitem>
+
       <listitem>
         <para>There aren't really enough reviews for many packages.</para>
       </listitem>
@@ -61,7 +47,11 @@
       </listitem>
     </itemizedlist>
 
-    <para>This web site is intended to address these problems.</para>
+    <para><ulink url="http://www.boost.org">Boost</ulink> has largely
+    fulfilled it's original mission of supplying necessary components to the
+    C++ standard libary. But there is much more to be done! In order to
+    continue to succeed, C++ needs more and better libraries. This web site is
+    intended promote them!</para>
   </section>
 
   <section>
@@ -145,9 +135,10 @@
       </listitem>
     </itemizedlist>
 
-    <para>Users are encouraged to run the libraries tests and upload the
-    results to the library test statistics. Submissions remain available at
-    least until they are a.</para>
+    <para>Library users are encouraged to participate the process by
+    installing, testing, commenting on and reviewing libaries which interest
+    them. Others are encouraged promote library development by sponsoring
+    libraries which they find useful.</para>
   </section>
 
   <section>
@@ -220,6 +211,16 @@
           help authors make their library portable.</para>
         </listitem>
       </itemizedlist>
+    </section>
+
+    <section>
+      <title>More support for library authors</title>
+
+      <para>Interested parties will be ecouraged to provide financial and
+      logistical support to authors of libraries which they find useful to
+      their organizational goals. This will permit more people to participate
+      in library development and hopefully result in a higher number of
+      quality library submissions.</para>
     </section>
   </section>
 </section>

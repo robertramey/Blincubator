@@ -101,6 +101,14 @@ h1, h2, h3, h4, h5, h6 {
     border: 1px solid #ccc;
 }
 
+/* overrides for user profile edit - wordpress user frontend */
+table.wpuf-table th {
+    width: 200px;
+}
+div.wpuf-profile{
+    width: 70%;
+}
+
 /* =Header
 -------------------------------------------------------------- */
 

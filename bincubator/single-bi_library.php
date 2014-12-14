@@ -148,7 +148,10 @@ function new_sidebars(){
             echo '<a href="' . $link . '" class="sponsor-logo"><img src="' . $logo . '"></a>';
         }
         ?>
-        <a class="blincubator_button sponsor-logo popup" id="sponsors_button" href="contact-author?library_id=<?php the_ID(); ?>">
+        <a
+            class="popup blincubator_button sponsor-logo"
+            href="http://rrsd.com/blincubator.com/contact-author?library_id=<?php the_ID(); ?>"
+        >
             You can sponsor this library!
         </a>
         <?php

@@ -14,25 +14,19 @@ get_header("popup");
         </p>
         <?php
         $library_id = $_GET['library_id'];
-        echo 'Library id: ' . $library_id . '<br />';
-        $library = get_post($library_id);
-        $author_id = $library->post_author;
-        $author = get_user_by('id', $author_id);
-        Echo 'Author: ' . print_r($author);
-
-        $to_email = get_user_meta('user_email', $author_id);
-        $to_name = get_user_meta('display name', $author_id);
         gravity_form(
             8,      // form id
             true,  // display title
             true,  // don't display description
             true,  // don't display inactive
-            $field_values
+            array(
+                'library_id=' . $library_id
+            )
         );
-        while ( have_posts() ){
-            the_post();
-            the_content();
-        }
+        //while ( have_posts() ){
+        //    the_post();
+        //    the_content();
+        //}
         ?>
 	</div><!-- #content -->
 </div><!-- #container -->
