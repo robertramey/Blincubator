@@ -272,7 +272,7 @@ function review_handler($entry, $form)
 	$post->post_status = 'pending';
 	$post->post_parent = get_post_meta($post_id, 'post_parent', true);
     //echo "post->parent = " . $post->post_parent . "<br/>";
-	wp_update_post( $post );
+	wp_update_post( get_object_vars($post) );
 }
 
 add_action( 'init', 'library_review_post_type' );
@@ -399,7 +399,7 @@ function library_submission_handler($entry, $form)
     //print_r($post);
     //return;
 
-	wp_update_post( $post );
+	wp_update_post( get_object_vars($post) );
 }
 
 add_filter(
@@ -621,11 +621,11 @@ function get_reviews_query($library_post_id) {
 }
 
 function bi_reviews_by_date() {
-	$library_post_id = $_GET['library_post_id'];
-	$library_post = get_post($library_post_id);
+	$library_id = $_GET['library_id'];
+	$library_post = get_post($library_id);
 	echo "<h3>" . $library_post->post_title . "</h3><br/>";
 
-	$loop = get_reviews_query($library_post_id);
+	$loop = get_reviews_query($library_id);
 	$count = 0;
 	while ( $loop->have_posts() ){
 		$loop->the_post();
@@ -645,7 +645,7 @@ function bi_reviews_by_date() {
     else{
         ?>
         <p>
-        <a class="blincubator_button" href="review?library_post_id=<?php echo $library_post_id; ?>">Add you're own review</a>
+        <a class="blincubator_button" href="review?library_id=<?php echo $library_id; ?>">Add you're own review</a>
         </p>
         <?php
     }
