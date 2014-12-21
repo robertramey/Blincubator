@@ -374,6 +374,20 @@ function get_reviews( $query ) {
  * update data. for library submission
  */
 
+/*
+add_action(
+    "gform_pre_submission_1",
+    "pre_library_submission_handler",
+    10, 2
+);
+
+function pre_library_submission_handler($form){
+    echo "form = "; print_r($form); echo "<br/>";
+    echo "_POST = "; print_r($_POST); echo "<br/>";
+    echo "<br/>";
+}
+*/
+
 add_action(
 	"gform_post_submission_1", 
 	"library_submission_handler",
@@ -382,24 +396,41 @@ add_action(
 
 function library_submission_handler($entry, $form)
 {
-	$post_id = $entry['post_id'];
-
-    //echo "entry = " .  print_r($entry) . "<br/>";
-
-	if(get_post_type($post_id) != 'bi_library')
-		return;
 	if(! is_user_logged_in())
 		return;
-	$post = get_post($post_id);
+    /*
+    $url = parse_url( $entry['source_url']);
+    echo "url = "; print_r($url); echo "<br/>";
+    $query = $url['query'];
+    echo "query = "; print_r($query); echo "<br/>";
+    parse_str($query);
+    $original_post_id = $gform_post_id;
+    echo "original_post_id = "; print_r($original_post_id); echo "<br/>";
+    */
+
+	$new_post_id = $entry['post_id'];
+	if(get_post_type($new_post_id) != 'bi_library')
+		return;
+
+    /*
+    echo "post_id = " . $post_id . "<br/>";
+    echo "entry = "; print_r($entry); echo "<br/>";
+    echo "_POST = "; print_r($_POST); echo "<br/>";
+    */
+
+	$post = get_post($new_post_id);
+
+    $post->ID = $original_post_id;
 	$post->post_excerpt = $entry["10"]; 
 	wp_set_post_tags($post_id, $entry["32"], false);
 	$post->post_status = 'publish';
 	$post->comment_status = 'open';
 
-    //print_r($post);
+    //echo "post = "; print_r($post); echo "<br/>";
     //return;
 
 	wp_update_post( get_object_vars($post) );
+    //do_action('edit_post', $post_id, $post);
 }
 
 add_filter(
@@ -645,7 +676,7 @@ function bi_reviews_by_date() {
     else{
         ?>
         <p>
-        <a class="blincubator_button" href="review?library_id=<?php echo $library_id; ?>">Add you're own review</a>
+        <a class="blincubator_button" href="review?library_id=<?php echo $library_id; ?>">Add your own review</a>
         </p>
         <?php
     }

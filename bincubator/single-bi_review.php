@@ -8,7 +8,7 @@ gravity_form_enqueue_scripts(1, false);
 get_header(); 
 
 function is_new(){
-	if(null != $_GET['library_post_id'])
+	if(null != $_GET['library_id'])
 		return true;
 	else
 		return false;
@@ -80,14 +80,18 @@ function review_form_values($post_id){
 	<div id="content">
 	<?php 
 	get_sidebar();
+    //new_sidebars();
+	//while ( have_posts() ) {
+		the_post();
+	//};
 	//global $post;
 	$field_values = array();
 	//echo "1 field_values = " . print_r($field_values) . "<br/>";
-    $library_post_id;
+    $library_id;
 	if(is_new()){
-		$library_post_id = $_GET['library_post_id'];
-		$field_values = array('post_parent' => $library_post_id);
-		$library_post = get_post($library_post_id);
+		$library_id = $_GET['library_id'];
+		$field_values = array('post_parent' => $library_id);
+		$library_post = get_post($library_id);
 		$library_name = $library_post->post_title;
 		//echo "2 field_values = " . print_r($field_values) . "<br/>";
 	}
@@ -95,8 +99,8 @@ function review_form_values($post_id){
 		$post_id = $_GET['gform_post_id'];
 		$field_values = review_form_values($post_id);
 		$post = get_post($post_id);
-		$library_post_id = $post->post_parent;
-		$library_post = get_post($library_post_id);
+		$library_id = $post->post_parent;
+		$library_post = get_post($library_id);
 		$library_name = $library_post->post_title;
 		//echo "3 field_values = " . print_r($field_values) . "<br/>";
 	}

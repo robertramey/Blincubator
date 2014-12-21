@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section id="introduction">
+  <title>Library Sponsorship</title>
+
+  <para>Software development is expensive. By spreading expense among many
+  users, cost per user is reduced. This is what open source does. Open source
+  software has these advantages</para>
+
+  <para><itemizedlist>
+      <listitem>
+        <para>Inexpensive to acquire - often FREE.</para>
+      </listitem>
+
+      <listitem>
+        <para>Tested/Validated by many other people</para>
+      </listitem>
+
+      <listitem>
+        <para>Better Documented</para>
+      </listitem>
+
+      <listitem>
+        <para>Effectively amounts to free outsourcing.</para>
+      </listitem>
+    </itemizedlist>On the other hand, there are some disadvantages.</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>Quality is uneven. Documentation may be weak, code may not be
+      portable, and code might not be well tested</para>
+    </listitem>
+
+    <listitem>
+      <para>Support is often nil.</para>
+    </listitem>
+
+    <listitem>
+      <para>Less than perfect match for the user's use case.</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>Library sponsorship can help address some of the above disadvantages.
+  Sponsors can arrange for library developers to:</para>
+
+  <itemizedlist>
+    <listitem>
+      <para>improve quality with better documentation, more tests, etc.</para>
+    </listitem>
+
+    <listitem>
+      <para>add features and/or functionality which would otherwise be
+      considered to specific</para>
+    </listitem>
+
+    <listitem>
+      <para>provide support related to the specific usage scenarios</para>
+    </listitem>
+  </itemizedlist>
+
+  <para>So of open source software development amounts to "FREE" outsourcing,
+  Sponsorship will amount to "inexpensive" outsourcing. You get what you pay
+  for.</para>
+
+  <para>In addition to the above, library sponsors can arrange to get their
+  log and link placed on the library page. This might provide them with some
+  other benefits:</para>
+
+  <para>This might be very interesting to a wider audience. Sponsoring
+  organizations might</para>
+
+  <para><itemizedlist>
+      <listitem>
+        <para>Demonstrate their commitment to high quality C++ software
+        development. This is helpful for acquiring the most capable
+        programmers.</para>
+      </listitem>
+
+      <listitem>
+        <para>Be looking for specific skill set. For example, organizations
+        using Software Transactional Memory (STM) might want to display their
+        logo on the library submission page which implements such a library.
+        Programmers interested in the topic would be exposed to this logo
+        which can be clicked through the organizations web page.</para>
+      </listitem>
+
+      <listitem>
+        <para>Be offering proprietary alternatives to the submitted library.
+        </para>
+      </listitem>
+    </itemizedlist>Compensation of library authors is a private arrangement
+  between the author and the sponsor. The Boost Library Incubator has no
+  involvement in this negotiation and/or transaction. Sponsors might
+  offer</para>
+
+  <para><itemizedlist>
+      <listitem>
+        <para>Payment for specific tasks such as library enhancements or
+        support</para>
+      </listitem>
+
+      <listitem>
+        <para>Payment for placing the sponsors logo/link on the library
+        submission page.</para>
+      </listitem>
+
+      <listitem>
+        <para>library authors employed by them to work on their library on
+        company time and resources.</para>
+      </listitem>
+
+      <listitem>
+        <para>reimbursement of expenses to go to C++ conferences</para>
+      </listitem>
+
+      <listitem>
+        <para>anything else.</para>
+      </listitem>
+    </itemizedlist>This concept of library sponsorship is an experimental
+  attempt to address the main conundrum of open source software: The better it
+  is, the less demand for improvement, fixes, enhancements, updates etc. and
+  hence less potential revenue for the creator. Hopefully, this idea will
+  create motivation library users to create incentives for library authors to
+  make more and better C++ libraries.</para>
+</section>
