@@ -701,43 +701,47 @@
   </section>
 
   <section>
-    <title>Rendering Documentation</title>
+    <title>Rendering Documentation with xsltproc</title>
 
-    <para>Once library documentation has been created in BoostBook/DocBook
-    format we can render it in a variety of formats. This is done with the
-    BoostBook toolset. In the official Boost distribution, this is done with
-    BoostBuild. We use a simpler more transparent method. Creating HTML
-    documentation is a two step process using XSLT.</para>
+    <section>
+      <title>Generating HTML Output</title>
 
-    <orderedlist>
-      <listitem>
-        <para>Translate BoostBook XML to DocBook XML XSL style sheets</para>
-      </listitem>
+      <para>Once library documentation has been created in BoostBook/DocBook
+      format we can render it in a variety of formats. This is done with the
+      BoostBook toolset. In the official Boost distribution, this is done with
+      BoostBuild. We use a simpler more transparent method. Creating HTML
+      documentation is a two step process using XSLT.</para>
 
-      <listitem>
-        <para>Translate the resulting DocBook XML to HTML standard DocBook
-        style sheets.</para>
-      </listitem>
-    </orderedlist>
+      <orderedlist>
+        <listitem>
+          <para>Translate BoostBook XML to DocBook XML XSL style sheets</para>
+        </listitem>
 
-    <para>These command accomplish the above<programlisting>xsltproc --nonet --xinclude bb2db.xsl safe_numerics.xml |
-xsltproc --nonet db2html.xsl -</programlisting></para>
+        <listitem>
+          <para>Translate the resulting DocBook XML to HTML DocBook style
+          sheets.</para>
+        </listitem>
+      </orderedlist>
 
-    <para>In addition, we need to copy a few files from the boost
-    installation. The following files should be copied to the HTML directory
-    from the boost root directory.</para>
+      <para>These commands accomplish the above<programlisting>xsltproc --nonet --xinclude $BOOST_ROOT/tools/boostbook/xsl/docbook.xsl safe_numerics.xml | \
+xsltproc --nonet --xinclude $BOOST_ROOT/tools/boostbook/xsl/html.xsl db2html.xsl -</programlisting></para>
 
-    <para><filename>doc/src/boostbook.css </filename>// cascaded style sheet
-    to give boost "look and feel"</para>
+      <para>In addition, we need to copy a few files from the boost
+      installation. The following files should be copied to the HTML directory
+      from the boost root directory.</para>
 
-    <para><filename>doc/html/images</filename> // directory of images for
-    arrows, etc.</para>
+      <para><filename>doc/src/boostbook.css </filename>// cascaded style sheet
+      to give boost "look and feel"</para>
 
-    <para>and finally you should add to the HTML directory a file named
-    <filename>pre-boost.jpg</filename>. After all this, the HTML documentation
-    director structure should look like the following</para>
+      <para><filename>doc/html/images</filename> // directory of images for
+      arrows, etc.</para>
 
-    <programlisting>doc/
+      <para>and finally you should add to the HTML directory a file named
+      <filename>pre-boost.jpg</filename>. After all this, the HTML
+      documentation director structure should look something like the
+      following</para>
+
+      <programlisting>doc/
   html/
     boostbook.css
     index.html
@@ -745,12 +749,171 @@ xsltproc --nonet db2html.xsl -</programlisting></para>
     images/
         png files ...
   boostbook/
+    db2html.xsl
     xml files containing boost book documentation
-    makehtml.bat // batch file which creates html from boost bookxml
-    makehtml.sh  // batch file which creates html from boost book xml</programlisting>
+    makehtml.bat // batch file which creates html from boostbook xml
+    makehtml.sh  // batch file which creates html from boostbook xml</programlisting>
 
-    <para>The logo on your documentation can be changed either by replacing
-    the <filename>pre-boost.jpg</filename> with your own or editing the
-    <filename>dbt2html.xsl</filename> to point to a different logo.</para>
+      <para>The logo on your documentation can be changed either by replacing
+      the <filename>pre-boost.jpg</filename> with your own or editing the
+      <filename>dbt2html.xsl</filename> to point to a different logo.</para>
+    </section>
+
+    <section>
+      <title>Customizing HTML Output</title>
+
+      <para>The above procedure requires the existence of an xml "style sheet"
+      prepare in the <ulink
+      url="http://www.sagehill.net/docbookxsl/index.html">XML style sheet
+      language</ulink>. This language is which will look something like the
+      following: This specifies various parameters which customize the HTML
+      output according to taste.</para>
+
+      <programlisting>&lt;?xml version='1.0'?&gt;
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"&gt;
+
+&lt;!-- ************** HTML ************** --&gt;
+&lt;xsl:import href="http://www.boost.org/tools/boostbook/xsl/html.xsl"/&gt;
+
+&lt;!--
+Make library documentation header using some elements from boostbook stylesheets.
+Override boost book implemenation of header.navigation with our own
+--&gt;
+&lt;xsl:template name = "header.navigation"&gt;
+    &lt;xsl:param name = "prev" select = "/foo"/&gt;
+    &lt;xsl:param name = "next" select = "/foo"/&gt;
+    &lt;xsl:param name = "nav.context"/&gt;
+    &lt;table cellpadding = "2" width = "100%"&gt;&lt;tr&gt;
+        &lt;td valign = "top"&gt;
+            &lt;img href="index.html" height="164px" src="pre-boost.jpg" alt="Library Documentation Index" /&gt;
+        &lt;/td&gt;
+        &lt;td&gt;&lt;h2&gt;Safe Numerics&lt;/h2&gt;&lt;/td&gt;
+    &lt;/tr&gt;&lt;/table&gt;
+    &lt;xsl:call-template name = "navbar.spirit"&gt;
+       &lt;xsl:with-param name = "prev" select = "$prev"/&gt;
+       &lt;xsl:with-param name = "next" select = "$next"/&gt;
+       &lt;xsl:with-param name = "nav.context" select = "$nav.context"/&gt;
+    &lt;/xsl:call-template&gt;
+&lt;/xsl:template&gt;
+
+&lt;!-- remove "Chapter 1" from first page --&gt;
+&lt;xsl:param name="chapter.autolabel" select="0"/&gt;
+&lt;!-- leave the html files in the directory ../html --&gt;
+&lt;xsl:param name="base.dir" select="'../html/'"/&gt;
+
+&lt;!-- ******* Table of Contents ******** --&gt;
+&lt;!-- How far down sections get TOC's --&gt;
+&lt;xsl:param name = "toc.section.depth" select="2" /&gt;
+
+&lt;!-- Max depth in each TOC: --&gt;
+&lt;xsl:param name = "toc.max.depth" select="2" /&gt;
+
+&lt;!-- How far down we go with TOC's --&gt;
+&lt;xsl:param name="generate.section.toc.level" select="1" /&gt;
+
+&lt;!-- ************ Chunking ************ --&gt;
+
+&lt;!--
+BoostBook takes a section node id like safe_numeric.safe_cast
+and renders it as safe_numeric/safe_cast. Presumably they do this
+so they can make a huge "book" with all the libraries in subdirectories.
+But we want something different.  To my mind, this should have been
+done using the library "directory" attribute.  But of course that
+doesn't matter now.  We'll just re-hack the path to eliminate
+the "safe_numeric/" from the above example.
+--&gt;
+
+&lt;xsl:template match="*" mode="recursive-chunk-filename"&gt;
+    &lt;xsl:variable name="their"&gt;
+        &lt;xsl:apply-imports mode="recursive-chunk-filename" select="."/&gt;
+    &lt;/xsl:variable&gt;
+    &lt;xsl:choose&gt;
+    &lt;xsl:when test="contains($their, '/')"&gt;
+        &lt;xsl:value-of select="substring-after($their, '/')" /&gt;
+    &lt;/xsl:when&gt;
+    &lt;xsl:otherwise&gt;
+        &lt;xsl:value-of select="$their"/&gt;
+    &lt;/xsl:otherwise&gt;
+    &lt;/xsl:choose&gt;
+&lt;/xsl:template&gt;
+
+&lt;!-- don't make first sections special - leave TOC in different file --&gt;
+&lt;xsl:param name="chunk.first.sections" select="3" /&gt;
+
+&lt;!-- How far down we chunk nested sections --&gt;
+&lt;!-- 
+Note: each chunk have to start with  a section with an id
+Otherwise the chunk (i.e. file) will be lost.  There is no 
+checking of this
+--&gt;
+&lt;xsl:param name="chunk.section.depth" select="1" /&gt;
+
+&lt;/xsl:stylesheet&gt;</programlisting>
+
+      <para>The key features which we can specify are <itemizedlist>
+          <listitem>
+            <para>HTML Page Header including logo and Title</para>
+
+            <para>We do this overriding the Boost Book default implemenation
+            of the "header.navigation" template with our own.</para>
+          </listitem>
+
+          <listitem>
+            <para>"Chunking" - to specifying HTML output is divided into
+            files.</para>
+
+            <para>DocBook includes parameters to specify how the html output
+            is broken into files. In DocBook parlance, this is refered to as
+            "chunking". The DocBook rules for chunking are a little complex,
+            but are well explained in the DocBook documentation. In practice,
+            the defaults mostly work and you won't have to spend too much
+            time. Make sure that you use the "id" element to assign a name to
+            each section which might start an new file. If you don't do this,
+            the file won't be created and you'll be given no error message
+            explaining why!</para>
+          </listitem>
+
+          <listitem>
+            <para>Table of Contents - specifications</para>
+
+            <para>DocBook includes a number of parameters which can be used to
+            "fine tune" the presentation of the table of contents. DocBook
+            documentation includes <ulink
+            url="http://www.sagehill.net/docbookxsl/TOCcontrol.html#SectionTocs">extensive
+            and complete explanation</ulink> of how to use specify these
+            parameters to create tables of contents according to taste.</para>
+          </listitem>
+        </itemizedlist></para>
+    </section>
+  </section>
+
+  <section id="safe_numerics.references">
+    <title>References</title>
+
+    <orderedlist>
+      <listitem>
+        <para>Bob Slayton, <ulink
+        url="http://www.sagehill.net/docbookxsl/index.html">DocBook XSL: The
+        Complete Guide</ulink></para>
+      </listitem>
+
+      <listitem>
+        <para>Norman Walsh, <ulink
+        url="https://buildsecurityin.us-cert.gov/bsi/articles/knowledge/coding/312-BSI.html">DocBook:
+        The Definitive Guide</ulink></para>
+      </listitem>
+
+      <listitem>
+        <para>John W. Shipman, New Mexico Tech Computer Center, <ulink
+        url="http://infohost.nmt.edu/tcc/help/pubs/docbook/web/index.html">Writing
+        documentation with DocBook-XML 4.3</ulink></para>
+      </listitem>
+
+      <listitem>
+        <para>John W. Shipman, New Mexico Tech Computer Center, <ulink
+        url="http://infohost.nmt.edu/tcc/doc/docbook43/ims/web/index.html">Customization
+        of the 4.3 DocBook-XSL Stylesheets</ulink></para>
+      </listitem>
+    </orderedlist>
   </section>
 </section>
