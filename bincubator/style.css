@@ -196,9 +196,11 @@ div.wpuf-profile{
     resize: both !important;
 }
 
+/*
 .gform_wrapper input {
     color: #333 !important;
 }
+*/
 
 .gfield {
     visibility:inherit;
@@ -210,7 +212,7 @@ div.wpuf-profile{
 
 /**/
 
-.blincubator_button, .gform_button, #commentform input {
+.blincubator_button, .gform_button, .gform_update_post_link, #commentform input {
     background: repeat-x scroll left top #21759B;
     border-color: #298CBA;
     color: #FFFFFF !important;
@@ -219,7 +221,6 @@ div.wpuf-profile{
     font-family: "Helvetica Neue",Arial,Helvetica,"Nimbus Sans L",sans-serif;
     font-weight: bold;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
-    text-color: #FFFFFF;
     /* -moz-box-sizing: content-box; */
     border-radius: 11px 11px 11px 11px;
     border-style: solid;

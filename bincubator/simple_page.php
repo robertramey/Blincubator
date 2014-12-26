@@ -2,8 +2,7 @@
 /*
  * Template Name: simple_page
  */
-wp_enqueue_script("jquery"); 
-get_header(); 
+get_header();
 ?>
 <div id="container">
 	<div id="content" role="main">

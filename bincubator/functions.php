@@ -1,5 +1,7 @@
 <?php
 
+//include_once('gravityforms-update-post/gravityforms-update-post.php');
+
 // Custom widget area.
 function extra_widgets_init(){
     register_sidebar(
@@ -250,6 +252,116 @@ function change_message($message, $form){
 }
 
 /*
+ * custom post type for a library suggestion
+ */
+add_action(
+	"gform_post_submission_9", 
+	"suggestion_handler",
+	10, 2
+);
+
+function suggestion_handler($entry, $form)
+{
+	//if(! is_user_logged_in())
+	//	return;
+	$post_id = $entry['post_id'];
+	$post = get_post($post_id);
+    //echo "post = " .  print_r($post) . "<br/>";
+
+    //$post_type = 'bi_suggestion';
+	$post->comment_status = 'open';
+	//$post->post_title = $entry[13];
+	//$post->post_status = 'published';
+	wp_update_post( get_object_vars($post) );
+}
+
+add_action( 'init', 'library_suggestion_post_type' );
+function library_suggestion_post_type() {
+	$labels = array(
+		'name' => _x('Suggestion', 'post type general name'),
+		'singular_name' => _x('Suggestion', 'post type singular name'),
+		'add_new' => _x('Add New', 'Suggestion'),
+		'add_new_item' => __('Add New Suggestion'),
+		'edit_item' => __('Edit Suggestion'),
+		'new_item' => __('New Suggestion'),
+		'all_items' => __('All Suggestions'),
+		'view_item' => __('View Suggestions'),
+		'search_items' => __('Search Suggestions'),
+		'not_found' =>  __('No suggestions found'),
+		'not_found_in_trash' => __('No suggestions found in Trash'), 
+		'parent_item_colon' => '',
+		'menu_name' => __('Suggestions')
+	  );
+	  $args = array(
+		'labels' => $labels,
+		'public' => true,
+		'publicly_queryable' => true,
+		'show_ui' => true, 
+		'query_var' => true,
+		'rewrite' => true,
+		'capability_type' => 'post',
+		'has_archive' => true, 
+		'hierarchical' => false,
+		'menu_position' => null,
+		'hierarchical' => true,		
+		'supports' => array( 
+			'title',
+			'author', 
+			'comments',
+			'trackbacks',
+			'custom-fields',
+			'page-attributes'		
+		),
+		//'taxonomies' => array(
+		//	'post_tag'
+		//)
+	);
+	register_post_type('bi_suggestion',$args);
+}
+add_filter( 'post_updated_messages', 'codex_suggestions_updated_messages' );
+
+function codex_suggestions_updated_messages( $messages ) {
+	global $post, $post_ID;
+	
+	$messages['suggestion'] = array(
+		0 => '', // Unused. Messages start at index 1.
+		1 => sprintf( __('suggestion updated. <a href="%s">View suggestion</a>'), esc_url( get_permalink($post_ID) ) ),
+		2 => __('Custom field updated.'),
+		3 => __('Custom field deleted.'),
+		4 => __('suggestion updated.'),
+		/* translators: %s: date and time of the revision */
+		5 => isset($_GET['revision']) ? sprintf( __('Library restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		6 => sprintf( __('suggestion published. <a href="%s">View suggestion</a>'), esc_url( get_permalink($post_ID) ) ),
+		7 => __('suggestion saved.'),
+		8 => sprintf( __('suggestion submitted. <a target="_blank" href="%s">Psuggestion suggestion</a>'), esc_url( add_query_arg( 'psuggestion', 'true', get_permalink($post_ID) ) ) ),
+		9 => sprintf( __('suggestion scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Psuggestion suggestion</a>'),
+		// translators: Publish box date format, see http://php.net/date
+		date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+		10 => sprintf( __('suggestion draft updated. <a target="_blank" href="%s">Psuggestion library</a>'), esc_url( add_query_arg( 'psuggestion', 'true', get_permalink($post_ID) ) ) ),
+	);
+	
+	return $messages;
+}
+add_action( 'contextual_help', 'bi_suggestion_help_text', 10, 3 );
+
+function bi_suggestion_help_text( $contextual_help, $screen_id, $screen ) { 
+  //$contextual_help .= var_dump( $screen ); // use this to help determine $screen->id
+  if ( 'library' == $screen->id ) {
+    $contextual_help =
+      '<p>' . __('Things to remember when adding or editing a suggestion:') . '</p>' .
+      '<p>' . __('If you want to schedule the suggestion to be published in the future:') . '</p>' .
+      '<ul>' .
+      '<li>' . __('Under the Publish module, click on the Edit link next to Publish.') . '</li>' .
+      '<li>' . __('Change the date to the date to actual publish this suggestion, then click on Ok.') . '</li>' .
+      '</ul>';
+  } elseif ( 'edit-suggestion' == $screen->id ) {
+    $contextual_help = 
+      '<p>' . __('This is the help screen displaying the table of suggestion blah blah blah.') . '</p>' ;
+  }
+  return $contextual_help;
+}
+
+/*
  * custom post type for a library review
  */
 add_action(
@@ -360,33 +472,6 @@ function bi_review_help_text( $contextual_help, $screen_id, $screen ) {
   }
   return $contextual_help;
 }
-add_filter( 'pre_get_posts', 'get_reviews' );
-
-function get_reviews( $query ) {
-
-	//if ( is_home() && $query->is_main_query() )
-	//if(! is_page() )
-		//$query->set( 'post_type', array( 'bi_library' ) );
-	return $query;
-}
-
-/*
- * update data. for library submission
- */
-
-/*
-add_action(
-    "gform_pre_submission_1",
-    "pre_library_submission_handler",
-    10, 2
-);
-
-function pre_library_submission_handler($form){
-    echo "form = "; print_r($form); echo "<br/>";
-    echo "_POST = "; print_r($_POST); echo "<br/>";
-    echo "<br/>";
-}
-*/
 
 add_action(
 	"gform_post_submission_1", 
@@ -444,7 +529,7 @@ add_filter(
 add_action( 'init', 'library_submission_post_type' );
 function library_submission_post_type() {
 	$labels = array(
-		'name' => _x('Libraries', 'post type general name'),
+		'name' => _x('Library', 'post type general name'),
 		'singular_name' => _x('Library', 'post type singular name'),
 		'add_new' => _x('Add New', 'library'),
 		'add_new_item' => __('Add New Library'),
@@ -456,7 +541,7 @@ function library_submission_post_type() {
 		'not_found' =>  __('No libraries found'),
 		'not_found_in_trash' => __('No libraries found in Trash'), 
 		'parent_item_colon' => '',
-		'menu_name' => __('Libraries')		
+		'menu_name' => __('Libraries')
 	  );
 	  $args = array(
 		'labels' => $labels,
@@ -534,15 +619,6 @@ function bi_add_help_text( $contextual_help, $screen_id, $screen ) {
       '<p>' . __('This is the help screen displaying the table of library blah blah blah.') . '</p>' ;
   }
   return $contextual_help;
-}
-
-add_filter( 'pre_get_posts', 'get_libraries' );
-
-function get_libraries( $query ) {
-	//if ( is_home() && $query->is_main_query() )
-	//if(! is_page() )
-		//$query->set( 'post_type', array( 'bi_library' ) );
-	return $query;
 }
 
 add_action('init', 'bi_register_shortcodes' );

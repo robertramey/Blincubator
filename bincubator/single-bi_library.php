@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Library
+Template Name: bi_library
 */
 
 wp_enqueue_script("jquery"); 
