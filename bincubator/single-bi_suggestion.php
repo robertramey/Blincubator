@@ -12,7 +12,6 @@ function is_editable(){
 	$author = $post->post_author;
 	$user = get_current_user_id();
 	return ($author == $user) &&  (null != $user);
-	//return $author == $user;
 }
 
 ?>

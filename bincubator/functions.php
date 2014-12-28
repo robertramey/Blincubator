@@ -57,6 +57,16 @@ function hide_dashboard(){
 }
 add_action( 'admin_init', 'hide_dashboard' );
 
+/*
+ * install script for autosizing text area
+ */
+
+function intialize_autosize(){
+    wp_register_script( 'autosize', get_stylesheet_directory_uri() . '/jquery.autosize.js', array('jquery'), 0, false );
+    wp_enqueue_script('autosize');
+}
+add_action('wp_enqueue_scripts', 'intialize_autosize');
+
 /**
  * enhanced comment editor
 add_filter( 'comment_form_field_comment', 'comment_editor' );

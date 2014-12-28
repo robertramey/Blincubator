@@ -4,8 +4,20 @@ Template Name: bi_review
 */
 
 wp_enqueue_script("jquery"); 
-gravity_form_enqueue_scripts(1, false);
-get_header(); 
+gravity_form_enqueue_scripts(5, false);
+wp_enqueue_script('autosize');
+
+get_header();
+
+?>
+<script type="text/javascript">
+	jQuery(document).ready(
+        function($){
+            $('textarea').autosize();
+        }
+    );
+</script>
+<?php
 
 function is_new(){
 	if(null != $_GET['library_id'])
