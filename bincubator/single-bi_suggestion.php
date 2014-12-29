@@ -28,7 +28,6 @@ function is_editable(){
 		$('#comments_button').click(function($) {
 			show_comments( ! comments_visible );
 		});
-
 	});
 </script>
 
