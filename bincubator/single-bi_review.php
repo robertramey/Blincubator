@@ -55,14 +55,11 @@ if(!is_editable()){
 <div id="container">
 	<div id="content">
 	<?php 
-	get_sidebar();
-	$field_values = array();
+	get_sidebar('right');
 
     $post_id = $_GET['gform_post_id'];
     if (!empty($post_id)){
-		$post_id = $_GET['gform_post_id'];
-
-		$post = get_post($post_id);
+        $post = get_post($post_id);
 		$library_id = $post->post_parent;
 		$library_post = get_post($library_id);
 		$library_name = $library_post->post_title;

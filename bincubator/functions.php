@@ -1,6 +1,7 @@
 <?php
 
 //include_once('gravityforms-update-post/gravityforms-update-post.php');
+//add_filter('gform_update_post/public_edit', '__return_true');
 
 // Custom widget area.
 function extra_widgets_init(){
@@ -272,8 +273,8 @@ add_action(
 
 function suggestion_handler($entry, $form)
 {
-	//if(! is_user_logged_in())
-	//	return;
+	if(! is_user_logged_in())
+		return;
 	$post_id = $entry['post_id'];
 	$post = get_post($post_id);
     //echo "post = " .  print_r($post) . "<br/>";
@@ -518,14 +519,13 @@ function library_submission_handler($entry, $form)
     $post->ID = $original_post_id;
 	$post->post_excerpt = $entry["10"]; 
 	wp_set_post_tags($post_id, $entry["32"], false);
-	$post->post_status = 'publish';
+	$post->post_status = 'published';
 	$post->comment_status = 'open';
 
     //echo "post = "; print_r($post); echo "<br/>";
     //return;
 
 	wp_update_post( get_object_vars($post) );
-    //do_action('edit_post', $post_id, $post);
 }
 
 add_filter(
@@ -729,7 +729,7 @@ function get_reviews_query($library_post_id) {
 	$args = array(
 		'post_parent' => $library_post_id ,
 		'post_type'   => 'bi_review',
-		'post_status' => 'publish', 
+		'post_status' => 'published',
 		'nopaging'    => 'true',
 		'orderby'     => 'date',
 		'order'       => 'ASC'
