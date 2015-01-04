@@ -96,8 +96,10 @@ add_filter('gform_update_post/public_edit', '__return_true');
         <?php
         do_action('gform_update_post/setup_form', $post_id);
         gravity_form(1);
+        if(is_editable()){
+            echo '<button class="blincubator_button" id="edit_button">Edit</button><br/>';
+        }
         ?>
-        <button class="blincubator_button" id="edit_button">Edit</button><br/>
 		<a class="blincubator_button" id="statistics_button" href="http://rrsd.com/wordpresstest/wp-admin/admin.php?page=wp-slim-view-3&fs[user]=is_not_equal_to+<?php echo get_userdata($post->post_author)->user_login;?>&fs[type]=is_not_equal_to+1&fs[resource]=contains+<?php echo $post->post_name;?>">Display Statistics</a>
         <br/>
 		<a class="blincubator_button" id="reviews_button" href="reviews?library_id=<?php the_ID(); ?>">Reviews</a>
