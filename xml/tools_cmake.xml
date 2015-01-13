@@ -799,10 +799,10 @@ add_custom_target(include SOURCES ${include_files})
     <para>We've seen how CTest supports the automatic creation of test
     scripts. This supports testing of a library by the original developer as
     well as the user who downloads the library. <ulink
-    url="http://www.cdash.org">cash</ulink> supports the submission of the
+    url="http://www.cdash.org">CDash</ulink> supports the submission of the
     test results to a common location. This permits developers, users and
     reviewers to look at test results for all other users of the library. The
-    <ulink url="http://www.cdash.org">cash</ulink> system depends upon the
+    <ulink url="http://www.cdash.org">CDash</ulink> system depends upon the
     installation of a</para>
 
     <para><itemizedlist>
@@ -868,7 +868,7 @@ set(CTEST_DROP_SITE_CDASH TRUE)
 
               <informalfigure>
                 <screenshot>
-                  <screeninfo>Cdash screen shot</screeninfo>
+                  <screeninfo>CDash screen shot</screeninfo>
 
                   <mediaobject>
                     <imageobject>

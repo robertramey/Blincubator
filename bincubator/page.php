@@ -54,7 +54,7 @@ get_header();
             'order' => 'ASC',
             'orderby' => 'date'
         ));
-        echo "There are " . count($comments) . " comments";
+        echo "There are " . count($comments) . " comments and replies";
 		comment_form();
         wp_list_comments('', $comments);
     }

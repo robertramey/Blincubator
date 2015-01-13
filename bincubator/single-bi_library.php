@@ -15,7 +15,11 @@ function is_editable(){
 	return ($author == $user) &&  (null != $user);
 }
 
-add_filter('gform_update_post/public_edit', '__return_true');
+add_filter('gform_update_post/public_edit', 'single_bi_library_return_true');
+function single_bi_library_return_true(){
+    //echo "single_bi_library:gform_update_post/public_edit\r";
+    return true;
+}
 
 ?>
 
@@ -78,24 +82,28 @@ add_filter('gform_update_post/public_edit', '__return_true');
     if (!empty($post_id)){
 		$post = get_post($post_id);
 		echo "<h2>" . $post->post_title . "</h2>";
-
-        $sponsor_list = explode(',', $field_values['sponsor_list']);
+        ?>
+        <a
+            class="blincubator_button sponsor-logo"
+            href="http://rrsd.com/blincubator.com/contact-author?library_id=<?php the_ID(); ?>"
+        >
+            Sponsor this Library!
+        </a>
+        <?php
+        $sponsor_list = get_post_meta($post_id, 'sponsor_list', false);
         foreach($sponsor_list as $sponsor){
             $sponsor_array = explode('|', $sponsor, 3);
             $logo = $sponsor_array[0];
             $link = $sponsor_array[1];
             echo '<a href="' . $link . '" class="sponsor-logo"><img src="' . $logo . '"></a>';
         }
-        ?>
-        <a
-            class="popup blincubator_button sponsor-logo"
-            href="http://rrsd.com/blincubator.com/contact-author?library_id=<?php the_ID(); ?>"
-        >
-            You can sponsor this library!
-        </a>
-        <?php
         do_action('gform_update_post/setup_form', $post_id);
-        gravity_form(1);
+
+        $field_value = array(
+            'post_author' => get_userdata($post->post_author)->display_name
+        );
+        gravity_form(1, true, true, false, $field_value);
+
         if(is_editable()){
             echo '<button class="blincubator_button" id="edit_button">Edit</button><br/>';
         }

@@ -1,7 +1,11 @@
 <?php
 
 //include_once('gravityforms-update-post/gravityforms-update-post.php');
-//add_filter('gform_update_post/public_edit', '__return_true');
+add_filter('gform_update_post/public_edit', 'functions_return_true');
+function functions_return_true(){
+    //echo "functions:gform_update_post/public_edit\r";
+    return true;
+}
 
 // Custom widget area.
 function extra_widgets_init(){
@@ -47,9 +51,8 @@ function hide_admin_bar() {
 }
 add_action( 'after_setup_theme', 'hide_admin_bar' );
  
-/**
+/*
  * only display dashboard for admins
- */
 function hide_dashboard(){
 	if ( ! current_user_can( 'manage_options' ) ){
 		wp_redirect( home_url() );
@@ -57,6 +60,7 @@ function hide_dashboard(){
 	}
 }
 add_action( 'admin_init', 'hide_dashboard' );
+ */
 
 /*
  * install script for autosizing text area
