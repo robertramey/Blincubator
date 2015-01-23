@@ -11,10 +11,18 @@ function is_editable(){
 	global $post;
 	$author = $post->post_author;
 	$user = get_current_user_id();
-	return ($author == $user) &&  (null != $user);
+    return current_user_can('edit_published_post')
+    || $author == $user;
 }
 
 ?>
+<script type="text/javascript">
+	jQuery(document).ready(
+        function($){
+            $('textarea').autosize();
+        }
+    );
+</script>
 <script type="text/javascript">
 	jQuery(document).ready(function($){
 		$('#respond').prop('hidden', true);
