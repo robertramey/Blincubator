@@ -1,5 +1,6 @@
 all: \
 	../website/about.html \
+	../website/about_todo.html \
 	../website/advice.html \
 	../website/advice_components.html \
 	../website/advice_concepts.html \
@@ -38,6 +39,7 @@ all: \
 	xsltproc --nonet -o $@ website.xsl $<
 
 ../website/about.html : website.xsl about.xml
+../website/about_todo.html : website.xsl about_todo.xml
 ../website/advice.html : website.xsl advice.xml
 ../website/advice_components.html : website.xsl advice_components.xml
 ../website/advice_concepts.html : website.xsl advice_concepts.xml

@@ -1,7 +1,7 @@
 <div class="section" title="Documentation"><div class="titlepage"><div><div><h2 class="title"><a name="tools_documentation"></a>Documentation</h2></div></div><hr></div><p>Documentation of software libraries and APIs has a well deserved
   reputation for being incomplete and hard to use. Personally, I had a lot of
   difficulty making documentation for the Boost Serialization Library. The
-  following opinions are the result of this and other experience.</p><div class="section" title="Boost Documentation Tools"><div class="titlepage"><div><div><h3 class="title"><a name="idm70592586624"></a>Boost Documentation Tools</h3></div></div></div><p>Libraries on this web site are required to include documentation in
+  following opinions are the result of this and other experience.</p><div class="section" title="Boost Documentation Tools"><div class="titlepage"><div><div><h3 class="title"><a name="idm358405462800"></a>Boost Documentation Tools</h3></div></div></div><p>Libraries on this web site are required to include documentation in
     the for of HTML pages. This is the common denominator that permits the
     library documentation to be easily consulted on the web as well as
     locally. The <a href="requirements_directory_structure">library
@@ -21,11 +21,11 @@
             modified. Basically I want to include the "template" for Type and
             then use it as a form to fill in the specific information for some
             type.</p></li><li class="listitem"><p>includes a spelling checker</p></li></ul></div></li></ul></div><p>Currently, the most common methods used to generate documentation
-    are:</p><div class="section" title="HTML"><div class="titlepage"><div><div><h4 class="title"><a name="idm70592574016"></a>HTML</h4></div></div></div><p>One can just prepare the HTML pages with a simple text editor. In
+    are:</p><div class="section" title="HTML"><div class="titlepage"><div><div><h4 class="title"><a name="idm358405450400"></a>HTML</h4></div></div></div><p>One can just prepare the HTML pages with a simple text editor. In
       many cases this is the simplest to do and many libraries have been
       documented in this manner. The main disadvantage is that PDF (and maybe
       others) can't be prepared from the HTML pages. Also as the library gets
-      larger, it becomes tedious to keep everything in sync.</p></div><div class="section" title="BoostBook"><div class="titlepage"><div><div><h4 class="title"><a name="idm70592572496"></a>BoostBook</h4></div></div></div><p><a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html" target="_top">BoostBook</a>
+      larger, it becomes tedious to keep everything in sync.</p></div><div class="section" title="BoostBook"><div class="titlepage"><div><div><h4 class="title"><a name="idm358405448880"></a>BoostBook</h4></div></div></div><p><a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html" target="_top">BoostBook</a>
       is an extension of <a class="ulink" href="http://www.docbook.org/" target="_top">DocBook</a>.
       The work flow is:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook/getting/started.html" target="_top">Install
           DocBook</a></p></li><li class="listitem"><p>Edit documentation files in XML format with a text editor. The
@@ -70,7 +70,7 @@
           for those whose task it to deploy Boost as a monolithic software
           package. And it may be OK for those whose documentation is done and
           already checked into the Boost directory, But for the rest of us,
-          its very unwieldy.</p></li></ul></div></div><div class="section" title="Doxygen"><div class="titlepage"><div><div><h4 class="title"><a name="idm70592549040"></a>Doxygen</h4></div></div></div><p><a class="ulink" href="http://www.stack.nl/~dimitri/doxygen/" target="_top">DOxygen</a>
+          its very unwieldy.</p></li></ul></div></div><div class="section" title="Doxygen"><div class="titlepage"><div><div><h4 class="title"><a name="idm358405425872"></a>Doxygen</h4></div></div></div><p><a class="ulink" href="http://www.stack.nl/~dimitri/doxygen/" target="_top">DOxygen</a>
       is a system for generating documentation of class and function types by
       scanning the program code along with from enhanced comments included by
       the author.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Clearly it's been influenced by <a class="ulink" href="http://en.wikipedia.org/wiki/Literate_programming" target="_top">Literate
@@ -89,7 +89,7 @@
           manner that <a class="ulink" href="http://www.stack.nl/~dimitri/doxygen/" target="_top">DOxygen</a> has been
           used. One might be able to generate the documentation I want, but it
           would require a lot of effort in tweaking the configuration and the
-          program comments.</p></li></ul></div></div><div class="section" title="QuickBook"><div class="titlepage"><div><div><h4 class="title"><a name="idm70592537392"></a>QuickBook</h4></div></div></div><p>The principle disadvantage of <a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html" target="_top">BoostBook</a>
+          program comments.</p></li></ul></div></div><div class="section" title="QuickBook"><div class="titlepage"><div><div><h4 class="title"><a name="idm358405414608"></a>QuickBook</h4></div></div></div><p>The principle disadvantage of <a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html" target="_top">BoostBook</a>
       is that editing XML in accordance with <a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html" target="_top">BoostBook</a>
       rules is very tedious. To address this issue, <a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/doc/html/quickbook.html" target="_top">QuickBook</a>
       was created. It has it own, much simpler, set of syntax rules for
@@ -104,7 +104,7 @@
             you want to do something that it doesn't already include. Adding a
             feature means understanding the source, modification and
             recompiling.</p></li><li class="listitem"><p>I didn't see a way to get what I really want - see
-            below.</p></li></ul></div></div></div><div class="section" title="Creating BoostBook Documentation with XMLMind"><div class="titlepage"><div><div><h3 class="title"><a name="idm70592526848"></a>Creating BoostBook Documentation with XMLMind</h3></div></div></div><p><a class="ulink" href="http://www.xmlmind.com/" target="_top">XMLMind</a> includes the
+            below.</p></li></ul></div></div></div><div class="section" title="Creating BoostBook Documentation with XMLMind"><div class="titlepage"><div><div><h3 class="title"><a name="idm358405404160"></a>Creating BoostBook Documentation with XMLMind</h3></div></div></div><p><a class="ulink" href="http://www.xmlmind.com/" target="_top">XMLMind</a> includes the
     following features:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>An easy to use WYSISWYG editor which</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>works in all environments.</p></li><li class="listitem"><p>shows the document structure.</p></li><li class="listitem"><p>gives a good idea what the final presentation will look
             like.</p></li><li class="listitem"><p>guarantees that documents respect structure requirements.
             For example, it should prohibit the creation of a table row
@@ -136,7 +136,7 @@
         documentation system usable without using BoostBuild and without
         having to make a source tree which looks like boost. Finally, the
         generated pages use the same "look and feel" as the <a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html" target="_top">BoostBook</a>
-        generated pages.</p></li></ul></div><div class="figure"><a name="idm70592510288"></a><div class="figure-title">Figure 1. XML Mind Editor Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="XMLMindScreenshot.jpg" alt="XML Mind Editor Screen shot"></div></div></div></div></div><br class="figure-break"><p>Setup one's system to prepare <a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html" target="_top">BoostBook</a>
+        generated pages.</p></li></ul></div><div class="figure"><a name="idm358405387840"></a><div class="figure-title">Figure 1. XML Mind Editor Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="XMLMindScreenshot.jpg" alt="XML Mind Editor Screen shot"></div></div></div></div></div><br class="figure-break"><p>Setup one's system to prepare <a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html" target="_top">BoostBook</a>
     documentation with <a class="ulink" href="http://www.xmlmind.com/" target="_top">XMLMind</a>.</p><p>Setup <a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html" target="_top">BoostBook</a>
     and XSLT.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Make sure the Boost Libraries and Tools are installed.</p></li><li class="listitem"><p>Install xsltproc as described in <span class="emphasis"><em><a class="ulink" href="http://www.boost.org/doc/libs/1_51_0/doc/html/boostbook/getting/started.html#boostbook.getting.started" target="_top">Getting
         Started</a></em></span></p></li><li class="listitem"><p>Follow the procedure in <span class="emphasis"><em><a class="ulink" href="http://www.boost.org/doc/libs/1_51_0/doc/html/boostbook/getting/started.html#boostbook.setup.xsltproc" target="_top">Configuring
@@ -205,22 +205,23 @@
               ready to edit.</p></li><li class="listitem"><p>Edit the contents of each created template and save it
               under it's unique file name.</p></li><li class="listitem"><p>Link each newly created document into the library document
               using the procedure described in the XMLMind help.</p></li><li class="listitem"><p>Delete any unneeded sections and Add any required new ones
-              as appropriate.</p></li></ul></div></li></ul></div><div class="section" title="More information on XMLMind"><div class="titlepage"><div><div><h4 class="title"><a name="idm70592452112"></a>More information on XMLMind</h4></div></div></div><p><a class="ulink" href="http://chimera.labs.oreilly.com/books/1234000001577/index.html" target="_top">XML
+              as appropriate.</p></li></ul></div></li></ul></div><div class="section" title="More information on XMLMind"><div class="titlepage"><div><div><h4 class="title"><a name="idm358405329824"></a>More information on XMLMind</h4></div></div></div><p><a class="ulink" href="http://chimera.labs.oreilly.com/books/1234000001577/index.html" target="_top">XML
       Mind Tutorial from O'Reilly</a></p><p><a class="ulink" href="http://chimera.labs.oreilly.com/books/1234000000058/index.html" target="_top">DocBook
       Authoring Guidelines (Atlas)</a></p><p><a class="ulink" href="http://www.xml.com/lpt/a/1706" target="_top">Getting Productive with
-      XMLMind</a></p></div></div><div class="section" title="Rendering Documentation"><div class="titlepage"><div><div><h3 class="title"><a name="idm70592448736"></a>Rendering Documentation</h3></div></div></div><p>Once library documentation has been created in BoostBook/DocBook
-    format we can render it in a variety of formats. This is done with the
-    BoostBook toolset. In the official Boost distribution, this is done with
-    BoostBuild. We use a simpler more transparent method. Creating HTML
-    documentation is a two step process using XSLT.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Translate BoostBook XML to DocBook XML XSL style sheets</p></li><li class="listitem"><p>Translate the resulting DocBook XML to HTML standard DocBook
-        style sheets.</p></li></ol></div><p>These command accomplish the above</p><pre><code>xsltproc --nonet --xinclude bb2db.xsl safe_numerics.xml |
-xsltproc --nonet db2html.xsl -</code></pre><p>In addition, we need to copy a few files from the boost
-    installation. The following files should be copied to the HTML directory
-    from the boost root directory.</p><p><code class="filename">doc/src/boostbook.css </code>// cascaded style sheet
-    to give boost "look and feel"</p><p><code class="filename">doc/html/images</code> // directory of images for
-    arrows, etc.</p><p>and finally you should add to the HTML directory a file named
-    <code class="filename">pre-boost.jpg</code>. After all this, the HTML documentation
-    director structure should look like the following</p><pre><code>doc/
+      XMLMind</a></p></div></div><div class="section" title="Rendering Documentation with xsltproc"><div class="titlepage"><div><div><h3 class="title"><a name="idm358405326592"></a>Rendering Documentation with xsltproc</h3></div></div></div><div class="section" title="Generating HTML Output"><div class="titlepage"><div><div><h4 class="title"><a name="idm358405325952"></a>Generating HTML Output</h4></div></div></div><p>Once library documentation has been created in BoostBook/DocBook
+      format we can render it in a variety of formats. This is done with the
+      BoostBook toolset. In the official Boost distribution, this is done with
+      BoostBuild. We use a simpler more transparent method. Creating HTML
+      documentation is a two step process using XSLT.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Translate BoostBook XML to DocBook XML XSL style sheets</p></li><li class="listitem"><p>Translate the resulting DocBook XML to HTML DocBook style
+          sheets.</p></li></ol></div><p>These commands accomplish the above</p><pre><code>xsltproc --nonet --xinclude $BOOST_ROOT/tools/boostbook/xsl/docbook.xsl safe_numerics.xml | \
+xsltproc --nonet --xinclude $BOOST_ROOT/tools/boostbook/xsl/html.xsl db2html.xsl -</code></pre><p>In addition, we need to copy a few files from the boost
+      installation. The following files should be copied to the HTML directory
+      from the boost root directory.</p><p><code class="filename">doc/src/boostbook.css </code>// cascaded style sheet
+      to give boost "look and feel"</p><p><code class="filename">doc/html/images</code> // directory of images for
+      arrows, etc.</p><p>and finally you should add to the HTML directory a file named
+      <code class="filename">pre-boost.jpg</code>. After all this, the HTML
+      documentation director structure should look something like the
+      following</p><pre><code>doc/
   html/
     boostbook.css
     index.html
@@ -228,8 +229,110 @@ xsltproc --nonet db2html.xsl -</code></pre><p>In addition, we need to copy a few
     images/
         png files ...
   boostbook/
+    db2html.xsl
     xml files containing boost book documentation
-    makehtml.bat // batch file which creates html from boost bookxml
-    makehtml.sh  // batch file which creates html from boost book xml</code></pre><p>The logo on your documentation can be changed either by replacing
-    the <code class="filename">pre-boost.jpg</code> with your own or editing the
-    <code class="filename">dbt2html.xsl</code> to point to a different logo.</p></div></div>
+    makehtml.bat // batch file which creates html from boostbook xml
+    makehtml.sh  // batch file which creates html from boostbook xml</code></pre><p>The logo on your documentation can be changed either by replacing
+      the <code class="filename">pre-boost.jpg</code> with your own or editing the
+      <code class="filename">dbt2html.xsl</code> to point to a different logo.</p></div><div class="section" title="Customizing HTML Output"><div class="titlepage"><div><div><h4 class="title"><a name="idm358405314880"></a>Customizing HTML Output</h4></div></div></div><p>The above procedure requires the existence of an xml "style sheet"
+      prepare in the <a class="ulink" href="http://www.sagehill.net/docbookxsl/index.html" target="_top">XML style sheet
+      language</a>. This language is which will look something like the
+      following: This specifies various parameters which customize the HTML
+      output according to taste.</p><pre><code>&lt;?xml version='1.0'?&gt;
+&lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"&gt;
+
+&lt;!-- ************** HTML ************** --&gt;
+&lt;xsl:import href="http://www.boost.org/tools/boostbook/xsl/html.xsl"/&gt;
+
+&lt;!--
+Make library documentation header using some elements from boostbook stylesheets.
+Override boost book implemenation of header.navigation with our own
+--&gt;
+&lt;xsl:template name = "header.navigation"&gt;
+    &lt;xsl:param name = "prev" select = "/foo"/&gt;
+    &lt;xsl:param name = "next" select = "/foo"/&gt;
+    &lt;xsl:param name = "nav.context"/&gt;
+    &lt;table cellpadding = "2" width = "100%"&gt;&lt;tr&gt;
+        &lt;td valign = "top"&gt;
+            &lt;img href="index.html" height="164px" src="pre-boost.jpg" alt="Library Documentation Index" /&gt;
+        &lt;/td&gt;
+        &lt;td&gt;&lt;h2&gt;Safe Numerics&lt;/h2&gt;&lt;/td&gt;
+    &lt;/tr&gt;&lt;/table&gt;
+    &lt;xsl:call-template name = "navbar.spirit"&gt;
+       &lt;xsl:with-param name = "prev" select = "$prev"/&gt;
+       &lt;xsl:with-param name = "next" select = "$next"/&gt;
+       &lt;xsl:with-param name = "nav.context" select = "$nav.context"/&gt;
+    &lt;/xsl:call-template&gt;
+&lt;/xsl:template&gt;
+
+&lt;!-- remove "Chapter 1" from first page --&gt;
+&lt;xsl:param name="chapter.autolabel" select="0"/&gt;
+&lt;!-- leave the html files in the directory ../html --&gt;
+&lt;xsl:param name="base.dir" select="'../html/'"/&gt;
+
+&lt;!-- ******* Table of Contents ******** --&gt;
+&lt;!-- How far down sections get TOC's --&gt;
+&lt;xsl:param name = "toc.section.depth" select="2" /&gt;
+
+&lt;!-- Max depth in each TOC: --&gt;
+&lt;xsl:param name = "toc.max.depth" select="2" /&gt;
+
+&lt;!-- How far down we go with TOC's --&gt;
+&lt;xsl:param name="generate.section.toc.level" select="1" /&gt;
+
+&lt;!-- ************ Chunking ************ --&gt;
+
+&lt;!--
+BoostBook takes a section node id like safe_numeric.safe_cast
+and renders it as safe_numeric/safe_cast. Presumably they do this
+so they can make a huge "book" with all the libraries in subdirectories.
+But we want something different.  To my mind, this should have been
+done using the library "directory" attribute.  But of course that
+doesn't matter now.  We'll just re-hack the path to eliminate
+the "safe_numeric/" from the above example.
+--&gt;
+
+&lt;xsl:template match="*" mode="recursive-chunk-filename"&gt;
+    &lt;xsl:variable name="their"&gt;
+        &lt;xsl:apply-imports mode="recursive-chunk-filename" select="."/&gt;
+    &lt;/xsl:variable&gt;
+    &lt;xsl:choose&gt;
+    &lt;xsl:when test="contains($their, '/')"&gt;
+        &lt;xsl:value-of select="substring-after($their, '/')" /&gt;
+    &lt;/xsl:when&gt;
+    &lt;xsl:otherwise&gt;
+        &lt;xsl:value-of select="$their"/&gt;
+    &lt;/xsl:otherwise&gt;
+    &lt;/xsl:choose&gt;
+&lt;/xsl:template&gt;
+
+&lt;!-- don't make first sections special - leave TOC in different file --&gt;
+&lt;xsl:param name="chunk.first.sections" select="3" /&gt;
+
+&lt;!-- How far down we chunk nested sections --&gt;
+&lt;!-- 
+Note: each chunk have to start with  a section with an id
+Otherwise the chunk (i.e. file) will be lost.  There is no 
+checking of this
+--&gt;
+&lt;xsl:param name="chunk.section.depth" select="1" /&gt;
+
+&lt;/xsl:stylesheet&gt;</code></pre><p>The key features which we can specify are </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>HTML Page Header including logo and Title</p><p>We do this overriding the Boost Book default implemenation
+            of the "header.navigation" template with our own.</p></li><li class="listitem"><p>"Chunking" - to specifying HTML output is divided into
+            files.</p><p>DocBook includes parameters to specify how the html output
+            is broken into files. In DocBook parlance, this is refered to as
+            "chunking". The DocBook rules for chunking are a little complex,
+            but are well explained in the DocBook documentation. In practice,
+            the defaults mostly work and you won't have to spend too much
+            time. Make sure that you use the "id" element to assign a name to
+            each section which might start an new file. If you don't do this,
+            the file won't be created and you'll be given no error message
+            explaining why!</p></li><li class="listitem"><p>Table of Contents - specifications</p><p>DocBook includes a number of parameters which can be used to
+            "fine tune" the presentation of the table of contents. DocBook
+            documentation includes <a class="ulink" href="http://www.sagehill.net/docbookxsl/TOCcontrol.html#SectionTocs" target="_top">extensive
+            and complete explanation</a> of how to use specify these
+            parameters to create tables of contents according to taste.</p></li></ul></div></div></div><div class="section" title="References"><div class="titlepage"><div><div><h3 class="title"><a name="safe_numerics.references"></a>References</h3></div></div></div><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Bob Slayton, <a class="ulink" href="http://www.sagehill.net/docbookxsl/index.html" target="_top">DocBook XSL: The
+        Complete Guide</a></p></li><li class="listitem"><p>Norman Walsh, <a class="ulink" href="https://buildsecurityin.us-cert.gov/bsi/articles/knowledge/coding/312-BSI.html" target="_top">DocBook:
+        The Definitive Guide</a></p></li><li class="listitem"><p>John W. Shipman, New Mexico Tech Computer Center, <a class="ulink" href="http://infohost.nmt.edu/tcc/help/pubs/docbook/web/index.html" target="_top">Writing
+        documentation with DocBook-XML 4.3</a></p></li><li class="listitem"><p>John W. Shipman, New Mexico Tech Computer Center, <a class="ulink" href="http://infohost.nmt.edu/tcc/doc/docbook43/ims/web/index.html" target="_top">Customization
+        of the 4.3 DocBook-XSL Stylesheets</a></p></li></ol></div></div></div>
