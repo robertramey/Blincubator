@@ -55,7 +55,7 @@ get_header();
         the_post();
         the_content();
         ?>
-		<?php comment_form(); ?>
+		<?php comment_form(array('comment_notes_after' => '')); ?>
         <button class="blincubator_button" id="comments_button">Show/Hide Comments</button><?php
         $comments = get_comments(array(
             'post_id' => $post->ID,

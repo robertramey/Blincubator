@@ -62,7 +62,7 @@ function is_editable(){
             'orderby' => 'date'
         ));
         echo "There are " . count($comments) . " comments";
-        comment_form();
+        comment_form(array('comment_notes_after' => ''));
         wp_list_comments('', $comments);
     }
     else{

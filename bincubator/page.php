@@ -55,7 +55,7 @@ get_header();
             'orderby' => 'date'
         ));
         echo "There are " . count($comments) . " comments and replies";
-		comment_form();
+		comment_form(array('comment_notes_after' => ''));
         wp_list_comments('', $comments);
     }
     ?>
