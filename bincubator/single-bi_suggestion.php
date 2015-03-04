@@ -47,6 +47,7 @@ function is_editable(){
 
     if (empty($_GET['gform_post_id'])){
         the_title( '<h2>Library Idea<br>', '</h2><br>' );
+        ?><h3>by <?php the_author(); ?></h3><br><?php
         the_content();
         if(is_editable()){
             // Show a link to edit the form

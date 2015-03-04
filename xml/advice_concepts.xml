@@ -371,33 +371,22 @@ public:
 
           <tbody>
             <row>
-              <entry><programlisting>#include "boost/concept/assert.hpp"
-#include "boost/concept/usage.hpp"
-
-template&lt;class T&gt;
-struct Swappable{
-    BOOST_CONCEPT_ASSERT((boost::Assignable&lt;T&gt;));
-    BOOST_CONCEPT_USAGE(Swappable){
-        T t1, t2;
-        boost::swap(t1, t2);
-    }
-};</programlisting></entry>
+              <entry><programlisting/></entry>
 
               <entry><programlisting>template &lt;typename T&gt;
 concept bool Swappable = requires(T t1, T t2){
     requires Assignable&lt;T&gt;;
-    boost::swap(t1, t2);
+    std::swap(t1, t2);
 };</programlisting></entry>
             </row>
 
             <row>
-              <entry><programlisting>#include "boost/concept/requires.hpp"
-#include "boost/concept_check.hpp"
-#include &lt;iterator&gt; // iterator_traits
+              <entry><programlisting>#include &lt;boost/concept/requires.hpp&gt;
+#include &lt;boost/concept_check.hpp&gt;
 
 template &lt;typename T&gt;
 BOOST_CONCEPT_REQUIRES(
-  ((boost::ForwardAccessIterator&lt;T&gt;))
+  ((boost::ForwardIterator&lt;T&gt;))
   ((boost::LessThanComparable&lt;
      typename std::iterator_traits&lt;T&gt;::value_type
    &gt;))
@@ -423,11 +412,11 @@ void bubble_sort(T begin, T end);
             <row>
               <entry><programlisting>#include "boost/concept/assert.hpp"
 
-BOOST_CONCEPT_ASSERT(
+BOOST_CONCEPT_ASSERT((
     boost::ForwardAccessIterator&lt;T&gt;
-)</programlisting></entry>
+))</programlisting></entry>
 
-              <entry><programlisting>static_assert(std::ForwardIterator&lt;T&gt;())</programlisting></entry>
+              <entry><programlisting>static_assert(std::ForwardIterator&lt;T&gt;::value)</programlisting></entry>
             </row>
           </tbody>
         </tgroup>
