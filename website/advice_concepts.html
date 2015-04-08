@@ -1,5 +1,5 @@
-<div class="section" title="Use Type Constraints (Concepts) for Template Parameters"><div class="titlepage"><div><div><h2 class="title"><a name="idm52728945808"></a>Use Type Constraints (Concepts) for Template Parameters</h2></div></div><hr></div><p>Use Type Constraints (Concepts) for Template Parameters. This will
-  make your library </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>easier to use.</p></li><li class="listitem"><p>easier to learn to use.</p></li><li class="listitem"><p>harder to misuse.</p></li><li class="listitem"><p>more logically coherent.</p></li><li class="listitem"><p>faster to develop.</p></li><li class="listitem"><p>easier and faster to write correct documentation.</p></li></ul></div><div class="section" title="What is a Type Constraint?"><div class="titlepage"><div><div><h3 class="title"><a name="idm52728909392"></a>What is a Type Constraint?</h3></div></div></div><p>For our purposes, we will define "C++ Type Constraint" in the
+<div class="section" title="Use Type Constraints (Concepts) for Template Parameters"><div class="titlepage"><div><div><h2 class="title"><a name="idm437987493472"></a>Use Type Constraints (Concepts) for Template Parameters</h2></div></div><hr></div><p>Use Type Constraints (Concepts) for Template Parameters. This will
+  make your library </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>easier to use.</p></li><li class="listitem"><p>easier to learn to use.</p></li><li class="listitem"><p>harder to misuse.</p></li><li class="listitem"><p>more logically coherent.</p></li><li class="listitem"><p>faster to develop.</p></li><li class="listitem"><p>easier and faster to write correct documentation.</p></li></ul></div><div class="section" title="What is a Type Constraint?"><div class="titlepage"><div><div><h3 class="title"><a name="idm437987485472"></a>What is a Type Constraint?</h3></div></div></div><p>For our purposes, we will define "C++ Type Constraint" in the
     following way:</p><p>A C++ Template will have one or more type arguments. The template
     may require that each argument fullfill more or more conditions in order
     for the template to compile without error. These requirements are called
@@ -13,7 +13,7 @@
     people actually use this idea and hence are unfamilar with it. Our term
     <span class="emphasis"><em>Type Constraint</em></span> is exactly equivalent to the C++ term
     <span class="emphasis"><em>Concept</em></span>. Either one can be substituted for the other
-    without loss of meaning.</p></div><div class="section" title="Type Constraints for Function Templates"><div class="titlepage"><div><div><h3 class="title"><a name="idm52728904208"></a>Type Constraints for Function Templates</h3></div></div></div><p>Our discussion below is largely based on and example from the
+    without loss of meaning.</p></div><div class="section" title="Type Constraints for Function Templates"><div class="titlepage"><div><div><h3 class="title"><a name="idm437987480288"></a>Type Constraints for Function Templates</h3></div></div></div><p>Our discussion below is largely based on and example from the
     documentation of <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
     Concept Checking Library</a> As an illustration consider the standard
     C library function qsort. The prototype for this function is</p><pre><code>void qsort(
@@ -175,7 +175,7 @@ void main(){
     requirements of a ForwardAccessIterator.</p><p>Without explicit type requirements, this will be an extremely
     confusing result which will require browsing the standard library
     implementation of std::sort to sort out. With explicit type requirements,
-    the error message will directly reveal the source of the problem.</p></div><div class="section" title="Creating Type Constraint Checking Classes"><div class="titlepage"><div><div><h3 class="title"><a name="idm52728867584"></a>Creating Type Constraint Checking Classes</h3></div></div></div><p>The meticulous reader who is compiling the above code examples as he
+    the error message will directly reveal the source of the problem.</p></div><div class="section" title="Creating Type Constraint Checking Classes"><div class="titlepage"><div><div><h3 class="title"><a name="idm437987443648"></a>Creating Type Constraint Checking Classes</h3></div></div></div><p>The meticulous reader who is compiling the above code examples as he
     reads will have discovered that one thing is not true. The concept
     checking class Swappable is not currently defined in the Boost Concept
     Checking Library. The following is based on <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/creating_concepts.htm" target="_top">Creating
@@ -203,7 +203,7 @@ public:
     <span class="emphasis"><em>Swappable</em></span> is a refinement of
     <span class="emphasis"><em>Assignable</em></span>. Given that we've chosen to use
     BOOST_CONCEPT_REQUIRES for function template arguments, the most common
-    usage BOOST_CONCEPT_ASSERT would be in class templates.</p></div><div class="section" title="Future Compatibility"><div class="titlepage"><div><div><h3 class="title"><a name="idm52728860736"></a>Future Compatibility</h3></div></div></div><p>Inclusion of <span class="emphasis"><em>Concepts</em></span> in C++ has generated a
+    usage BOOST_CONCEPT_ASSERT would be in class templates.</p></div><div class="section" title="Future Compatibility"><div class="titlepage"><div><div><h3 class="title"><a name="idm437987436992"></a>Future Compatibility</h3></div></div></div><p>Inclusion of <span class="emphasis"><em>Concepts</em></span> in C++ has generated a
     huge amount of discussion, activity, experiments, and effort over the last
     decade. Googling "C++ Concepts" will result in many, many hits. <a class="ulink" href="http://www.osl.iu.edu/publications/prints/2013/lvoufo13:_concepts_terminology.pdf" target="_top">This
     paper</a> is one of those and gives a summary of the current state of
@@ -214,27 +214,16 @@ public:
     Concept Checking Library</a> on the other hand, can be used today. The
     following table contrasts <a class="ulink" href="???" target="_top"><a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
     Concept Checking Library</a></a> with <a class="ulink" href="https://docs.google.com/a/isocpp.org/viewer?a=v&amp;pid=forums&amp;srcid=MDIyMDc3NjUwMTczOTM0Mjk3NjABMDI2MzM3MjkxNDM4NDQ5MzE4NDcBLWVsS1Y4dFhtdDhKATQBaXNvY3BwLm9yZwF2Mg" target="_top">Concepts
-    Lite</a>:</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><thead><tr><th align="center">Boost Concept Checking Library</th><th align="center">Concepts Lite</th></tr></thead><tbody><tr><td><pre><code>#include "boost/concept/assert.hpp"
-#include "boost/concept/usage.hpp"
-
-template&lt;class T&gt;
-struct Swappable{
-    BOOST_CONCEPT_ASSERT((boost::Assignable&lt;T&gt;));
-    BOOST_CONCEPT_USAGE(Swappable){
-        T t1, t2;
-        boost::swap(t1, t2);
-    }
-};</code></pre></td><td><pre><code>template &lt;typename T&gt;
+    Lite</a>:</p><div class="informaltable"><table border="1"><colgroup><col><col></colgroup><thead><tr><th align="center">Boost Concept Checking Library</th><th align="center">Concepts Lite</th></tr></thead><tbody><tr><td><pre><code></code></pre></td><td><pre><code>template &lt;typename T&gt;
 concept bool Swappable = requires(T t1, T t2){
     requires Assignable&lt;T&gt;;
-    boost::swap(t1, t2);
-};</code></pre></td></tr><tr><td><pre><code>#include "boost/concept/requires.hpp"
-#include "boost/concept_check.hpp"
-#include &lt;iterator&gt; // iterator_traits
+    std::swap(t1, t2);
+};</code></pre></td></tr><tr><td><pre><code>#include &lt;boost/concept/requires.hpp&gt;
+#include &lt;boost/concept_check.hpp&gt;
 
 template &lt;typename T&gt;
 BOOST_CONCEPT_REQUIRES(
-  ((boost::ForwardAccessIterator&lt;T&gt;))
+  ((boost::ForwardIterator&lt;T&gt;))
   ((boost::LessThanComparable&lt;
      typename std::iterator_traits&lt;T&gt;::value_type
    &gt;))
@@ -254,15 +243,15 @@ requires
 void bubble_sort(T begin, T end);
 </code></pre></td></tr><tr><td><pre><code>#include "boost/concept/assert.hpp"
 
-BOOST_CONCEPT_ASSERT(
+BOOST_CONCEPT_ASSERT((
     boost::ForwardAccessIterator&lt;T&gt;
-)</code></pre></td><td><pre><code>static_assert(std::ForwardIterator&lt;T&gt;())</code></pre></td></tr></tbody></table></div><p>It turns out that there is almost a one to one relationship between
+))</code></pre></td><td><pre><code>static_assert(std::ForwardIterator&lt;T&gt;::value)</code></pre></td></tr></tbody></table></div><p>It turns out that there is almost a one to one relationship between
     lines of code used to specify concepts in between the two systems. So if
     one uses <a class="ulink" href="http://www.boost.org/doc/libs/1_54_0/libs/concept_check/concept_check.htm" target="_top">Boost
     Concept Checking Library</a>. So transition to any future standard
     system when and if that occurs should be almost trivial. Also note that
     users code will not be effected in any way since any required changes are
-    confined to the library code modules.</p></div><div class="section" title="References"><div class="titlepage"><div><div><h3 class="title"><a name="idm52728842512"></a>References</h3></div></div></div><p>More good information regarding practical aspects of C++ concepts
+    confined to the library code modules.</p></div><div class="section" title="References"><div class="titlepage"><div><div><h3 class="title"><a name="idm437987419280"></a>References</h3></div></div></div><p>More good information regarding practical aspects of C++ concepts
     and be found by checking the following links</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://www.sgi.com/tech/stl/stl_introduction.html?" target="_top">Introduction
           to the Standard Template Library - Concepts and
           Modeling</a></p></li><li class="listitem"><p><a class="ulink" href="http://www.sgi.com/tech/stl/doc_introduction.html" target="_top">How to use
