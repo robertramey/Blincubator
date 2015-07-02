@@ -72,11 +72,6 @@
       <para><ulink
       url="http://www.boost.org/boost-build2/doc/html/index.html">http://www.boost.org/boost-build2/doc/html/index.html</ulink></para>
     </listitem>
-
-    <listitem>
-      <para><ulink
-      url="http://syrcose.ispras.ru/2009/files/04_paper.pdf">http://syrcose.ispras.ru/2009/files/04_paper.pdf</ulink></para>
-    </listitem>
   </itemizedlist>
 
   <para>To use Boost Build for testing, we'll rely on the following:</para>

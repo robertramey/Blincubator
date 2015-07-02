@@ -774,7 +774,6 @@ function bi_reviews_by_date() {
 }
 
 function callback($matches){
-	# static $baseurl = 'http://www.blincubator.com';
     $baseurl = home_url( $path);
         // if there is no '.' - must be a wordpress permalink
         if('' == $matches[4]){
@@ -784,7 +783,7 @@ function callback($matches){
         // if it's a non-local url
         if('' != $matches[2] ){
                 // return base of url
-                return $matches[1] . "=\"" . "http://www." . $matches[3] . '"';
+                return $matches[1] . "=\"" . $matches[2] . $matches[3] . '"';
         }
         // otherwise it's a local - prefix with local base
         return $matches[1] . "=\"" . $baseurl . '/' . $matches[3] . '"';
@@ -792,7 +791,7 @@ function callback($matches){
 }
 
 function html_include($attributes){
-	static $pattern = '%(href|src)="(http://www\.|http://|www\.|)([^"\.]*(\.)[^"]*)"%';
+	static $pattern = '%(href|src)="(http://www\.|http://|https://|www\.|)([^"\.]*(\.)[^"]*)"%';
     $count = -1;
 	$file = $attributes['file'];
 	$page = file_get_contents($file);
@@ -810,7 +809,7 @@ function html_include($attributes){
 }
 
 function html_include2($attributes){
-	static $pattern = '%(href|src)="(http://www\.|http://|www\.|)([^"\.]*(\.)[^"]*)"%';
+	static $pattern = '%(href|src)="(http://www\.|http://|https://|www\.|)([^"\.]*(\.)[^"]*)"%';
     $count = -1;
 	$file = $attributes['file'];
 
@@ -853,7 +852,7 @@ function bi_library_line(){
 function bi_libraries_by_name() {
 	$args = array(
 		'post_type'   => 'bi_library',
-		//'post_status' => 'publish', 
+		//'post_status' => 'published',
 		'nopaging'    => 'true',
 		'orderby'     => 'title',
 		'order'       => 'ASC'
@@ -872,7 +871,7 @@ function bi_libraries_by_name() {
 function bi_libraries_by_category() {
 	$args = array(
 		'post_type'   => 'bi_library',
-		//'post_status' => 'publish', 
+		//'post_status' => 'published', 
 		'nopaging'    => 'true',
 		'orderby'     => 'title',
 		'order'       => 'ASC'

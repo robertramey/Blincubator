@@ -558,11 +558,11 @@ ENDIF (NOT CMAKE_CROSSCOMPILING)
 
               <entry valign="top"><code>CMakeList.txt</code></entry>
 
-              <entry><programlisting># CMake build control file for Serialization Library tests
+              <entry><programlisting># CMake build control file for safe numerics Library tests
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 
-project("SafeIntegers")
+project("SafeFloat")
 
 #
 # Compiler settings - special settings for known compilers
@@ -572,15 +572,17 @@ message(STATUS "compiler is ${CMAKE_CXX_COMPILER_ID}" )
 
 if( CMAKE_CXX_COMPILER_ID STREQUAL "GNU" )
   add_definitions( -ftemplate-depth=300 )
+  set (CMAKE_CXX_FLAGS "-std=c++11" )
 elseif( CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" )
   add_definitions( /wd4996 )
-elseif( CMAKE_CXX_COMPILER_ID STREQUAL "Clang" )
+elseif( CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang" )
   add_definitions( -ftemplate-depth=300 )
   # include the following if and only if you want to use c++11 features
   set (CMAKE_CXX_FLAGS "-std=c++11" )
   set (CMAKE_CXX_FLAGS_DEBUG "-g -O0" )
   set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g -O3" )
   set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -dead_strip")
+
 endif()
 
 #
@@ -596,7 +598,6 @@ endif()
 # special notes for Xcode.
 
 # these three should result in CMake setting the variables
-# Boost_SERIALIZATION_LIBRARY_DEBUG … to the correct values.  
 
 # But my current version of CMake doesn't automatically set the library names
 # to point to the the libraries to be used.  The variables are created
@@ -611,7 +612,7 @@ endif()
 # So my recommendation is 
 # a) to place the compiled libraries in two different directories
 #    - e.g. stage/lib-static/*.a and stage/lib-shared/*.dylib
-#    and set the CMake variable Boost_LIBRARY_DIR to point to one or the other
+#    and set the CMake variable Boost_LIBRARY_DIRS to point to one or the other
 # b) create two different CMake build directories - build-static and build-shared
 #    and switch between the generated projects as desired.  I like to test both since
 #    there are things like dead code elimination and visibility which vary
@@ -634,7 +635,7 @@ endif()
 # Project settings
 #
 
-find_package(Boost REQUIRED COMPONENTS )
+find_package(Boost REQUIRED COMPONENTS unit_test )
 
 if(Boost_FOUND)
   set(Boost_USE_MULTITHREADED ON)
@@ -665,6 +666,27 @@ include_directories("../include" "${Boost_INCLUDE_DIRS}")
 link_directories("${Boost_LIBRARY_DIRS}")
 
 ###########################
+# testing and submitting test results to the test dashboard
+
+include (CTest)
+
+if(0)
+
+## Create a file named CTestConfig.cmake adjacent to the current file.
+## This new file should contain the following:
+
+set(CTEST_PROJECT_NAME "Safe Numerics")
+set(CTEST_NIGHTLY_START_TIME "01:00:00 UTC")
+
+set(CTEST_DROP_METHOD "http")
+set(CTEST_DROP_SITE "my.cdash.org")
+# set(CTEST_DROP_LOCATION "/cdash/submit.php?project=MyProject")
+set(CTEST_DROP_LOCATION "/index.php?project=Safe+Numerics")
+set(CTEST_DROP_SITE_CDASH TRUE)
+
+endif()
+
+###########################
 # library builds
 
 # header library only - nothing to be built
@@ -675,78 +697,45 @@ link_directories("${Boost_LIBRARY_DIRS}")
 ###########################
 
 ###########################
-# testing
+# test targets
 
+# the "include (CTest)" above includes enable_testing() 
+# so the following line isn't necessary
 # enable_testing()
-# the following includes "enable_testing()" 
-include(CTest)
 
-message(STATUS "test_add")
-  add_executable( test_add 
-  ../test/test_add.cpp 
-  ../test/test_add1.cpp 
-  ../test/test_add2.cpp 
-  ../test/test_add3.cpp
+file(GLOB test_list
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" 
+  "${CMAKE_CURRENT_SOURCE_DIR}/../test/*.cpp"
 )
-target_link_libraries( test_add  ${Boost_LIBRARIES} )
-add_test(NAME test_add COMMAND test_add)
-add_custom_target(test_add_header SOURCES ../test/test_add.hpp)
-
-message(STATUS "test_subtract")
-add_executable( test_subtract 
-  ../test/test_subtract.cpp 
-  ../test/test_subtract1.cpp 
-  ../test/test_subtract2.cpp 
-  ../test/test_subtract3.cpp
-)
-target_link_libraries( test_subtract  ${Boost_LIBRARIES} )
-add_test(NAME test_subtract COMMAND test_subtract)
-add_custom_target(test_subtract_header SOURCES ../test/test_subtract.hpp)
-
-message(STATUS "test_multiply")
-add_executable( test_multiply 
-  ../test/test_multiply.cpp 
-  ../test/test_multiply1.cpp 
-  ../test/test_multiply2.cpp 
-  ../test/test_multiply3.cpp
-)
-target_link_libraries( test_multiply  ${Boost_LIBRARIES} )
-add_test(NAME test_multiply COMMAND test_multiply)
-add_custom_target(test_multiply_header SOURCES ../test/test_multiply.hpp)
-
-message(STATUS "test_divide")
-add_executable( test_divide 
-  ../test/test_divide.cpp 
-  ../test/test_divide1.cpp 
-  ../test/test_divide2.cpp 
-  ../test/test_divide3.cpp
-)
-target_link_libraries( test_divide  ${Boost_LIBRARIES} )
-add_test(NAME test_divide COMMAND test_divide)
-add_custom_target(test_divide_header SOURCES ../test/test_divide.hpp)
-
-message(STATUS "test_modulus")
-add_executable( test_modulus 
-  ../test/test_modulus.cpp 
-  ../test/test_modulus1.cpp 
-  ../test/test_modulus2.cpp 
-  ../test/test_modulus3.cpp
-)
-target_link_libraries( test_modulus ${Boost_LIBRARIES} )
-add_test(NAME test_modulus COMMAND test_modulus)
-add_custom_target(test_modulus_header SOURCES ../test/test_modulus.hpp)
-
-message(STATUS "test_compare")
-add_executable( test_compare ../test/test_compare.cpp)
-target_link_libraries( test_compare  ${Boost_LIBRARIES} )
-add_test(NAME test_compare COMMAND test_compare)
-
-message(STATUS "test_conversion")
-add_executable( test_conversion ../test/test_conversion.cpp)
-target_link_libraries( test_conversion  ${Boost_LIBRARIES} )
-add_test(NAME test_conversion COMMAND test_conversion)
+foreach(file_path ${test_list})
+  string(REPLACE "../test/" "" file_name ${file_path})
+  string(REPLACE ".cpp" "" base_name ${file_name})
+  message(STATUS ${base_name})
+  add_executable(${base_name} ${file_path})
+  target_link_libraries(${base_name}  ${Boost_LIBRARIES} )
+  add_test(NAME ${base_name} COMMAND ${base_name})
+endforeach(file_path)
 
 # end test targets
+####################
+
+###########################
+# examples
+
+file(GLOB example_list
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" 
+  "${CMAKE_CURRENT_SOURCE_DIR}/../example/*.cpp"
+)
+foreach(file_path ${example_list})
+  string(REPLACE "../example/" "" file_name ${file_path})
+  string(REPLACE ".cpp" "" base_name ${file_name})
+  message(STATUS ${base_name})
+  add_executable(${base_name} ${file_path})
+  target_link_libraries(${base_name}  ${Boost_LIBRARIES} )
+  add_test(NAME ${base_name} COMMAND ${base_name})
+endforeach(file_path)
+
+# end examples targets
 ####################
 
 ####################
@@ -754,13 +743,14 @@ add_test(NAME test_conversion COMMAND test_conversion)
 
 file(GLOB include_files 
   RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" 
-  "${CMAKE_CURRENT_SOURCE_DIR}/../include/*.hpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../include/boost/*.hpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../include/boost/safe_float/*.hpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../include/boost/safe_float/policy/*.hpp"
 )
 add_custom_target(include SOURCES ${include_files})
 
 # end headers in IDE
 ####################
-
 </programlisting></entry>
             </row>
 

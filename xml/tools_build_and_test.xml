@@ -98,17 +98,17 @@
 
     <itemizedlist>
       <listitem>
-        <para><ulink
-        url="http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16">http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16</ulink></para>
+        <para>http://os.inf.tu-dresden.de/EZAG/abstracts/talk-20070615_2.pdf#page=16</para>
       </listitem>
 
       <listitem>
-        <para><ulink
-        url="http://mij.oltrelinux.com/devel/autoconf-automake/">http://mij.oltrelinux.com/devel/autoconf-automake/</ulink></para>
+        <para>http://mij.oltrelinux.com/devel/autoconf-automake/</para>
       </listitem>
     </itemizedlist>
 
-    <para>The first one has a graphic on page 16 which helped make it clear
+    <para>Unfortunately, these pages don't seem to exist any longer.</para>
+
+    <para>The first one had a graphic on page 16 which helped make it clear
     how all the pieces of this system fit together. On the other hand, this
     graphic didn't make it look very easy. I went through the process with my
     unix-like CYGWIN installation and things seemed to run well until the last
@@ -133,7 +133,7 @@
     any of the other alternatives considered. AND it's the only alternative
     which supports our specific requierments for logging test results in a
     commonly accessable place. As I write this, I see CMake/CTest/CDash as
-    indispensible for libraries posted on this website. </para>
+    indispensible for libraries posted on this website.</para>
 
     <para>Note the above doesn't preclude support for other build systems as
     well. In particular BJAM might be a candidate if one's library evolves to

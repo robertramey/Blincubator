@@ -1,4 +1,4 @@
-<div class="section" title="CMake/CTest/CDash"><div class="titlepage"><div><div><h2 class="title"><a name="idm294802053392"></a>CMake/CTest/CDash</h2></div></div><hr></div><p>A number of prominent boosters have been advocating moving from BJam
+<div class="section" title="CMake/CTest/CDash"><div class="titlepage"><div><div><h2 class="title"><a name="idm222854462096"></a>CMake/CTest/CDash</h2></div></div><hr></div><p>A number of prominent boosters have been advocating moving from BJam
   to CMake. It has some very attractive features.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>it has strong support from <a class="ulink" href="www.kitware.com" target="_top">Kitware</a> who have been active in it's
       development and maintenance for the last 10 years. They are very
       responsive on the mailing list they maintain for users.</p></li><li class="listitem"><p>It seems to be well documented. There are lot's web pages
@@ -33,7 +33,7 @@
       - CMake Tutorial</p></li><li class="listitem"><p><a class="ulink" href="http://johnlamp.net/cmake-tutorial.html" target="_top">http://johnlamp.net/cmake-tutorial.html</a>
       - a better CMake Tutorial</p></li><li class="listitem"><p><a class="ulink" href="http://www.vtk.org/Wiki/CMake" target="_top">http://www.vtk.org/Wiki/CMake</a>
       - More information about CMake</p></li><li class="listitem"><p><a class="ulink" href="http://www.cmake.org/cmake/help/v2.8.12/cmake.html" target="_top">http://www.cmake.org/cmake/help/v2.8.12/cmake.html</a>
-      - CMake Reference Manual</p></li></ul></div><div class="section" title="CMakeList.txt Cheat Sheet"><div class="titlepage"><div><div><h3 class="title"><a name="idm294801839344"></a>CMakeList.txt Cheat Sheet</h3></div></div></div><p>The typical way of using CMake consists of sprinkling the directory
+      - CMake Reference Manual</p></li></ul></div><div class="section" title="CMakeList.txt Cheat Sheet"><div class="titlepage"><div><div><h3 class="title"><a name="idm222853018128"></a>CMakeList.txt Cheat Sheet</h3></div></div></div><p>The typical way of using CMake consists of sprinkling the directory
     which contains your code with a files named CMakeList.txt. These permit as
     sort of "inheritance" from the top down so that commonality doesn't have
     to be repeated. These files contain CMake commands as described in the
@@ -136,7 +136,7 @@ target_link_libraries (TestLogger logger verror log4cplus )</code></pre></li><li
     understand what's going one isn't found is one place. Also part of that
     information is implicit in the relative position of different
     CMakeList.txt files in the directory hierarchy. It's a two edged
-    sword.</p></div><div class="section" title='CMake for "Boost Like" Libraries'><div class="titlepage"><div><div><h3 class="title"><a name="idm294801820256"></a>CMake for "Boost Like" Libraries</h3></div></div></div><div class="section" title="CMake Library Template"><div class="titlepage"><div><div><h4 class="title"><a name="idm294801819568"></a>CMake Library Template</h4></div></div></div><p>I've found a <a class="ulink" href="https://code.google.com/p/cpp-library-project-template/" target="_top">helpful
+    sword.</p></div><div class="section" title='CMake for "Boost Like" Libraries'><div class="titlepage"><div><div><h3 class="title"><a name="idm222852999312"></a>CMake for "Boost Like" Libraries</h3></div></div></div><div class="section" title="CMake Library Template"><div class="titlepage"><div><div><h4 class="title"><a name="idm222852998672"></a>CMake Library Template</h4></div></div></div><p>I've found a <a class="ulink" href="https://code.google.com/p/cpp-library-project-template/" target="_top">helpful
       template for developing "boost like libraries</a>. This template is
       a whole directory structure for creating a library. As such it's quite
       similar the directory structure recommended here. It's more complete
@@ -298,7 +298,7 @@ ENDIF (NOT CMAKE_CROSSCOMPILING)
 </code></pre></td></tr></tbody></table></div><p>In my opinion, this looks like a good starting point
       for adding CMakeList.txt files to your own project. BUT - I haven't used
       it myself so feel free to post back your experience along with any
-      tips/tricks you would like to share.</p></div><div class="section" title="CMake Library Template - abbreviated version"><div class="titlepage"><div><div><h4 class="title"><a name="idm294801795152"></a>CMake Library Template - abbreviated version</h4></div></div></div><p>The above looks useful - but still a little too "heavyweight" for
+      tips/tricks you would like to share.</p></div><div class="section" title="CMake Library Template - abbreviated version"><div class="titlepage"><div><div><h4 class="title"><a name="idm222852974496"></a>CMake Library Template - abbreviated version</h4></div></div></div><p>The above looks useful - but still a little too "heavyweight" for
       my taste. It also distributes the CMake files around the project which
       conflicts with common practice for Boost libraries. The following
       CMakeList.txt file creates a project for the code IDE to test and edit
@@ -307,11 +307,11 @@ ENDIF (NOT CMAKE_CROSSCOMPILING)
       minimal changes to do so. It's different from the original version in
       that it is entirely contained in one CMakeList.txt file. Files outside
       the CMake directory can be referenced with the <code class="code">../&lt;file
-      name&gt;</code> syntax</p><div class="informaltable"><table border="1"><colgroup><col align="left"><col align="left"><col align="left"></colgroup><tbody><tr><td align="left">File name</td><td align="left"> </td><td align="left">File contents</td></tr><tr><td align="left">CMake</td><td align="left" valign="top"><code class="code">CMakeList.txt</code></td><td align="left"><pre><code># CMake build control file for Serialization Library tests
+      name&gt;</code> syntax</p><div class="informaltable"><table border="1"><colgroup><col align="left"><col align="left"><col align="left"></colgroup><tbody><tr><td align="left">File name</td><td align="left"> </td><td align="left">File contents</td></tr><tr><td align="left">CMake</td><td align="left" valign="top"><code class="code">CMakeList.txt</code></td><td align="left"><pre><code># CMake build control file for safe numerics Library tests
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 
-project("SafeIntegers")
+project("SafeFloat")
 
 #
 # Compiler settings - special settings for known compilers
@@ -321,15 +321,17 @@ message(STATUS "compiler is ${CMAKE_CXX_COMPILER_ID}" )
 
 if( CMAKE_CXX_COMPILER_ID STREQUAL "GNU" )
   add_definitions( -ftemplate-depth=300 )
+  set (CMAKE_CXX_FLAGS "-std=c++11" )
 elseif( CMAKE_CXX_COMPILER_ID STREQUAL "MSVC" )
   add_definitions( /wd4996 )
-elseif( CMAKE_CXX_COMPILER_ID STREQUAL "Clang" )
+elseif( CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang" )
   add_definitions( -ftemplate-depth=300 )
   # include the following if and only if you want to use c++11 features
   set (CMAKE_CXX_FLAGS "-std=c++11" )
   set (CMAKE_CXX_FLAGS_DEBUG "-g -O0" )
   set (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g -O3" )
   set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -dead_strip")
+
 endif()
 
 #
@@ -345,7 +347,6 @@ endif()
 # special notes for Xcode.
 
 # these three should result in CMake setting the variables
-# Boost_SERIALIZATION_LIBRARY_DEBUG &#8230; to the correct values.  
 
 # But my current version of CMake doesn't automatically set the library names
 # to point to the the libraries to be used.  The variables are created
@@ -360,7 +361,7 @@ endif()
 # So my recommendation is 
 # a) to place the compiled libraries in two different directories
 #    - e.g. stage/lib-static/*.a and stage/lib-shared/*.dylib
-#    and set the CMake variable Boost_LIBRARY_DIR to point to one or the other
+#    and set the CMake variable Boost_LIBRARY_DIRS to point to one or the other
 # b) create two different CMake build directories - build-static and build-shared
 #    and switch between the generated projects as desired.  I like to test both since
 #    there are things like dead code elimination and visibility which vary
@@ -383,7 +384,7 @@ endif()
 # Project settings
 #
 
-find_package(Boost REQUIRED COMPONENTS )
+find_package(Boost REQUIRED COMPONENTS unit_test )
 
 if(Boost_FOUND)
   set(Boost_USE_MULTITHREADED ON)
@@ -414,6 +415,27 @@ include_directories("../include" "${Boost_INCLUDE_DIRS}")
 link_directories("${Boost_LIBRARY_DIRS}")
 
 ###########################
+# testing and submitting test results to the test dashboard
+
+include (CTest)
+
+if(0)
+
+## Create a file named CTestConfig.cmake adjacent to the current file.
+## This new file should contain the following:
+
+set(CTEST_PROJECT_NAME "Safe Numerics")
+set(CTEST_NIGHTLY_START_TIME "01:00:00 UTC")
+
+set(CTEST_DROP_METHOD "http")
+set(CTEST_DROP_SITE "my.cdash.org")
+# set(CTEST_DROP_LOCATION "/cdash/submit.php?project=MyProject")
+set(CTEST_DROP_LOCATION "/index.php?project=Safe+Numerics")
+set(CTEST_DROP_SITE_CDASH TRUE)
+
+endif()
+
+###########################
 # library builds
 
 # header library only - nothing to be built
@@ -424,78 +446,45 @@ link_directories("${Boost_LIBRARY_DIRS}")
 ###########################
 
 ###########################
-# testing
+# test targets
 
+# the "include (CTest)" above includes enable_testing() 
+# so the following line isn't necessary
 # enable_testing()
-# the following includes "enable_testing()" 
-include(CTest)
 
-message(STATUS "test_add")
-  add_executable( test_add 
-  ../test/test_add.cpp 
-  ../test/test_add1.cpp 
-  ../test/test_add2.cpp 
-  ../test/test_add3.cpp
+file(GLOB test_list
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" 
+  "${CMAKE_CURRENT_SOURCE_DIR}/../test/*.cpp"
 )
-target_link_libraries( test_add  ${Boost_LIBRARIES} )
-add_test(NAME test_add COMMAND test_add)
-add_custom_target(test_add_header SOURCES ../test/test_add.hpp)
-
-message(STATUS "test_subtract")
-add_executable( test_subtract 
-  ../test/test_subtract.cpp 
-  ../test/test_subtract1.cpp 
-  ../test/test_subtract2.cpp 
-  ../test/test_subtract3.cpp
-)
-target_link_libraries( test_subtract  ${Boost_LIBRARIES} )
-add_test(NAME test_subtract COMMAND test_subtract)
-add_custom_target(test_subtract_header SOURCES ../test/test_subtract.hpp)
-
-message(STATUS "test_multiply")
-add_executable( test_multiply 
-  ../test/test_multiply.cpp 
-  ../test/test_multiply1.cpp 
-  ../test/test_multiply2.cpp 
-  ../test/test_multiply3.cpp
-)
-target_link_libraries( test_multiply  ${Boost_LIBRARIES} )
-add_test(NAME test_multiply COMMAND test_multiply)
-add_custom_target(test_multiply_header SOURCES ../test/test_multiply.hpp)
-
-message(STATUS "test_divide")
-add_executable( test_divide 
-  ../test/test_divide.cpp 
-  ../test/test_divide1.cpp 
-  ../test/test_divide2.cpp 
-  ../test/test_divide3.cpp
-)
-target_link_libraries( test_divide  ${Boost_LIBRARIES} )
-add_test(NAME test_divide COMMAND test_divide)
-add_custom_target(test_divide_header SOURCES ../test/test_divide.hpp)
-
-message(STATUS "test_modulus")
-add_executable( test_modulus 
-  ../test/test_modulus.cpp 
-  ../test/test_modulus1.cpp 
-  ../test/test_modulus2.cpp 
-  ../test/test_modulus3.cpp
-)
-target_link_libraries( test_modulus ${Boost_LIBRARIES} )
-add_test(NAME test_modulus COMMAND test_modulus)
-add_custom_target(test_modulus_header SOURCES ../test/test_modulus.hpp)
-
-message(STATUS "test_compare")
-add_executable( test_compare ../test/test_compare.cpp)
-target_link_libraries( test_compare  ${Boost_LIBRARIES} )
-add_test(NAME test_compare COMMAND test_compare)
-
-message(STATUS "test_conversion")
-add_executable( test_conversion ../test/test_conversion.cpp)
-target_link_libraries( test_conversion  ${Boost_LIBRARIES} )
-add_test(NAME test_conversion COMMAND test_conversion)
+foreach(file_path ${test_list})
+  string(REPLACE "../test/" "" file_name ${file_path})
+  string(REPLACE ".cpp" "" base_name ${file_name})
+  message(STATUS ${base_name})
+  add_executable(${base_name} ${file_path})
+  target_link_libraries(${base_name}  ${Boost_LIBRARIES} )
+  add_test(NAME ${base_name} COMMAND ${base_name})
+endforeach(file_path)
 
 # end test targets
+####################
+
+###########################
+# examples
+
+file(GLOB example_list
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" 
+  "${CMAKE_CURRENT_SOURCE_DIR}/../example/*.cpp"
+)
+foreach(file_path ${example_list})
+  string(REPLACE "../example/" "" file_name ${file_path})
+  string(REPLACE ".cpp" "" base_name ${file_name})
+  message(STATUS ${base_name})
+  add_executable(${base_name} ${file_path})
+  target_link_libraries(${base_name}  ${Boost_LIBRARIES} )
+  add_test(NAME ${base_name} COMMAND ${base_name})
+endforeach(file_path)
+
+# end examples targets
 ####################
 
 ####################
@@ -503,14 +492,15 @@ add_test(NAME test_conversion COMMAND test_conversion)
 
 file(GLOB include_files 
   RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" 
-  "${CMAKE_CURRENT_SOURCE_DIR}/../include/*.hpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../include/boost/*.hpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../include/boost/safe_float/*.hpp"
+  "${CMAKE_CURRENT_SOURCE_DIR}/../include/boost/safe_float/policy/*.hpp"
 )
 add_custom_target(include SOURCES ${include_files})
 
 # end headers in IDE
 ####################
-
-</code></pre></td></tr><tr><td align="left"><code class="code">include</code></td><td align="left"> </td><td align="left"> </td></tr><tr><td align="left"><code class="code">src</code></td><td align="left"> </td><td align="left"> </td></tr><tr><td align="left"><code class="code">test</code></td><td align="left"> </td><td align="left"> </td></tr></tbody></table></div></div></div><div class="section" title="CTest/CDash"><div class="titlepage"><div><div><h3 class="title"><a name="idm294801780512"></a>CTest/CDash</h3></div></div></div><p>We've seen how CTest supports the automatic creation of test
+</code></pre></td></tr><tr><td align="left"><code class="code">include</code></td><td align="left"> </td><td align="left"> </td></tr><tr><td align="left"><code class="code">src</code></td><td align="left"> </td><td align="left"> </td></tr><tr><td align="left"><code class="code">test</code></td><td align="left"> </td><td align="left"> </td></tr></tbody></table></div></div></div><div class="section" title="CTest/CDash"><div class="titlepage"><div><div><h3 class="title"><a name="idm222852959872"></a>CTest/CDash</h3></div></div></div><p>We've seen how CTest supports the automatic creation of test
     scripts. This supports testing of a library by the original developer as
     well as the user who downloads the library. <a class="ulink" href="http://www.cdash.org" target="_top">CDash</a> supports the submission of the
     test results to a common location. This permits developers, users and
@@ -549,7 +539,7 @@ set(CTEST_DROP_SITE_CDASH TRUE)
           not sure where. It's not at all well explained and extremely
           confusing. Never the less, I have tested the above procedure and am
           (almost) totally pleased with the results.</p></li><li class="listitem"><p>Now when you go to <a class="ulink" href="www.my.cdash.org/index.hpp" target="_top">your test dash board</a> you
-          should see your submitted test results:</p><div class="figure"><a name="idm294801768704"></a><div class="figure-title">Figure 1. cdash Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="CDashScreenShot.jpg" alt="cdash Screen shot"></div></div></div></div></div><p><br class="figure-break"></p></li><li class="listitem"><p>There is only one small problem left. The default setup of the
+          should see your submitted test results:</p><div class="figure"><a name="idm222852948352"></a><div class="figure-title">Figure 1. cdash Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="CDashScreenShot.jpg" alt="cdash Screen shot"></div></div></div></div></div><p><br class="figure-break"></p></li><li class="listitem"><p>There is only one small problem left. The default setup of the
           dashboard only shows the current days results. Since we want a
           cumulative record of results for different platforms we need to make
           some changes. Our example here shows what you see after invoking
@@ -558,7 +548,7 @@ set(CTEST_DROP_SITE_CDASH TRUE)
           link can be used to bring up this view anytime necessary.</p></li><li class="listitem"><p>To complete the process, go back to your library submission
           page and paste this Hyper link into the "Test Results Dashboard"
           field. Now anyone can review the test history for this particular
-          library.</p><div class="figure"><a name="idm294801761680"></a><div class="figure-title">Figure 2. Library Page Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="LibraryPage.jpg" alt="Library Page Screen shot"></div></div></div></div></div><p><br class="figure-break"></p></li></ul></div><p>This procedure produces everything I want. It
+          library.</p><div class="figure"><a name="idm222852941552"></a><div class="figure-title">Figure 2. Library Page Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="LibraryPage.jpg" alt="Library Page Screen shot"></div></div></div></div></div><p><br class="figure-break"></p></li></ul></div><p>This procedure produces everything I want. It
     should:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Distribute the testing load among all those (and only those)
           users interested in the library.</p></li><li class="listitem"><p>Display of testing results all those (and only those)
           platforms and compilers which actually use the library.</p></li><li class="listitem"><p>Be easy and painless to maintain.</p></li></ul></div></div></div>
