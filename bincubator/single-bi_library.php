@@ -45,6 +45,7 @@ function single_bi_library_return_true(){
             $('.gform_body').prop('readonly', ! mode);
             $('.gform_body textarea').prop('readonly', ! mode);
             $('.gform_body input').prop('readonly', ! mode);
+            $('.gform_body .gfield_select').prop('readonly', ! mode);
 
             // only show edit button when we actually edit
             $('#gform_submit_button_1').prop('hidden', ! mode);
@@ -108,7 +109,7 @@ function single_bi_library_return_true(){
             echo '<button class="blincubator_button" id="edit_button">Edit</button><br/>';
         }
         ?>
-		<a class="blincubator_button" id="statistics_button" href="http://rrsd.com/wordpresstest/wp-admin/admin.php?page=wp-slim-view-3&fs[user]=is_not_equal_to+<?php echo get_userdata($post->post_author)->user_login;?>&fs[type]=is_not_equal_to+1&fs[resource]=contains+<?php echo $post->post_name;?>">Display Statistics</a>
+		<a class="blincubator_button" id="statistics_button" href="http://rrsd.com/wordpresstest/wp-admin/admin.php?page=slimview2&fs[user]=is_not_equal_to+<?php echo get_userdata($post->post_author)->user_login;?>&fs[resource]=contains+<?php echo $post->post_name;?>">Display Statistics</a>
         <br/>
 		<a class="blincubator_button" id="reviews_button" href="reviews?library_id=<?php the_ID(); ?>">Reviews</a>
         <?php

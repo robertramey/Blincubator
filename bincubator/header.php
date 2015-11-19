@@ -12,6 +12,7 @@
 <html <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
+<link rel="shortcut icon" href="favicon.ico">
 <title><?php
 	/*
 	 * Print the <title> tag based on what is being viewed.
