@@ -1,4 +1,4 @@
-<div class="section" title="Boost Build"><div class="titlepage"><div><div><h2 class="title"><a name="idm100748991248"></a>Boost Build</h2></div></div><hr></div><p>This is a natural choice for a boost library. And any library
+<div class="section" title="Boost Build"><div class="titlepage"><div><div><h2 class="title"><a name="idm330076873040"></a>Boost Build</h2></div></div><hr></div><p>This is a natural choice for a boost library. And any library
   currently accepted into Boost must include Bjam script files. It's got some
   good features:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>It's very powerful - basically can be scripted to do just about
       anything related to build and test.</p></li><li class="listitem"><p>Once it's properly set up, it works well.</p></li><li class="listitem"><p>It includes support for most all C++ environments.</p></li><li class="listitem"><p>Bjam developers are always available to help users set this
@@ -12,7 +12,8 @@
       but it frustrated me when I was experimenting with this.</p></li><li class="listitem"><p>The standard testing of boost libraries is supported via a Python
       script which tests ALL the boost libraries and uploads test results to a
       central web page. Reworking this to accommodate our "decoupled" library
-      model would seem to be a non-trivial and fragile exercise.</p></li></ul></div><p>These disadvantages discouraged me from requiring Boost Build. Any
+      model would seem to be a non-trivial and fragile exercise.</p></li><li class="listitem"><p>It's not widely used. Requiring potential users to use boost build
+      diminish the number of users willing to test a library.</p></li></ul></div><p>These disadvantages discouraged me from requiring Boost Build. Any
   library which is accepted by Boost will have to include support for Bjam or
   whatever boost requires at the time. But having to sort this out up front
   was considered too large a burden on library authors. Never the less, it IS

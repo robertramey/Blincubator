@@ -1,4 +1,4 @@
-<div class="section" title="CMake/CTest/CDash"><div class="titlepage"><div><div><h2 class="title"><a name="idm222854462096"></a>CMake/CTest/CDash</h2></div></div><hr></div><p>A number of prominent boosters have been advocating moving from BJam
+<div class="section" title="CMake/CTest/CDash"><div class="titlepage"><div><div><h2 class="title"><a name="idm234163615264"></a>CMake/CTest/CDash</h2></div></div><hr></div><p>A number of prominent boosters have been advocating moving from BJam
   to CMake. It has some very attractive features.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>it has strong support from <a class="ulink" href="www.kitware.com" target="_top">Kitware</a> who have been active in it's
       development and maintenance for the last 10 years. They are very
       responsive on the mailing list they maintain for users.</p></li><li class="listitem"><p>It seems to be well documented. There are lot's web pages
@@ -33,22 +33,23 @@
       - CMake Tutorial</p></li><li class="listitem"><p><a class="ulink" href="http://johnlamp.net/cmake-tutorial.html" target="_top">http://johnlamp.net/cmake-tutorial.html</a>
       - a better CMake Tutorial</p></li><li class="listitem"><p><a class="ulink" href="http://www.vtk.org/Wiki/CMake" target="_top">http://www.vtk.org/Wiki/CMake</a>
       - More information about CMake</p></li><li class="listitem"><p><a class="ulink" href="http://www.cmake.org/cmake/help/v2.8.12/cmake.html" target="_top">http://www.cmake.org/cmake/help/v2.8.12/cmake.html</a>
-      - CMake Reference Manual</p></li></ul></div><div class="section" title="CMakeList.txt Cheat Sheet"><div class="titlepage"><div><div><h3 class="title"><a name="idm222853018128"></a>CMakeList.txt Cheat Sheet</h3></div></div></div><p>The typical way of using CMake consists of sprinkling the directory
+      - CMake Reference Manual</p></li></ul></div><div class="section" title="CMakeList.txt Cheat Sheet"><div class="titlepage"><div><div><h3 class="title"><a name="idm234163019712"></a>CMakeList.txt Cheat Sheet</h3></div></div></div><p>The typical way of using CMake consists of sprinkling the directory
     which contains your code with a files named CMakeList.txt. These permit as
     sort of "inheritance" from the top down so that commonality doesn't have
     to be repeated. These files contain CMake commands as described in the
     <a class="ulink" href="http://www.cmake.org/cmake/help/v2.8.12/cmake.html" target="_top">CMake
     Reference Manual</a>. The reference manual is a little hard to figure
     out so I've take the liberty of making my own "cheat sheet" distilling my
-    experience with this tool.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>For top level directories</p><pre><code>cmake_minimum_required(VERSION 2.8.4)
+    experience with this tool.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>general command</p><pre><code># display a message when project is being created/generated
+message(STATUS "compiler is ${CMAKE_CXX_COMPILER_ID}" )</code></pre></li><li class="listitem"><p>For top level directories</p><pre><code># specify cmake version required
+cmake_minimum_required(VERSION 2.8.4)
 
+# set project name
 project( LoggerLibrary ) # unique project name
 
-# optional boilerplat code to be inherited by all lower level CMakeList.txt files
+# boilerplate code to be inherited by all lower level CMakeList.txt files
 
-message(STATUS "compiler is ${CMAKE_CXX_COMPILER_ID}" )
-
-# specify common directory for all products of the build
+# optionally specify common directory for all products of the build
 set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY "bin")
 
 # in this example we use Boost everywhere so include it here
@@ -71,9 +72,11 @@ elseif()
 endif()
 
 #if tests are to be generated, this has to appear at the top of the "tree"
-enable_testing()</code></pre></li><li class="listitem"><p>For directories which contain no code</p><pre><code>add_subdirectory( src )
+include( CTest )</code></pre></li><li class="listitem"><p>For directories which contain sub directories</p><pre><code>add_subdirectory( src )
 add_subdirectory( test )</code></pre></li><li class="listitem"><p>For directories containing source code to build
           <span class="emphasis"><em>shared</em></span> libraries</p><pre><code># This defines a pre-processor macro which is used inside the source code.
+# The source code will use this correctly set "visibility" attributes
+# Note that this is specific to the source code - NOT a CMake keyword
 add_definitions( -DLIBRARY_EXPORTS )
 
 # build a SHARED library named "logger" from the indicated source files
@@ -118,7 +121,26 @@ endif()</code></pre></li><li class="listitem"><p>For directories containing code
 # indicate what the target must link to.
 # must be after the definition of TestLogger
 target_link_libraries (TestLogger logger verror log4cplus )</code></pre></li><li class="listitem"><p>For directories containing code to build executables
-          </p><pre><code>add_executable ( TestLogger TestLogger.cpp )</code></pre></li><li class="listitem"><p>For directories containing tests </p><pre><code>add_test ( TestLogger "${CMAKE_RUNTIME_OUTPUT_DIRECTORYY}/TestLogger" )</code></pre></li></ul></div><p>Notes</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>A given <code class="code">CMakeList.txt</code> file may well fit in more
+          </p><pre><code># create an executable target
+add_executable ( TestLogger TestLogger.cpp )
+
+# optionally place in the IDE folder labeled "applications"
+set_target_properties(TestLogger PROPERTIES FOLDER "applications")</code></pre></li><li class="listitem"><p>For directories containing tests </p><pre><code># create an test target
+add_test ( TestLogger "TestLogger" COMMAND "TestLogger" )
+
+# optionally place in the IDE folder labeled "tests"
+set_target_properties(TestLogger PROPERTIES FOLDER "tests")</code></pre></li><li class="listitem"><p>For directories containing headers</p><pre><code># optionally place in the IDE folder labeled "includes"
+# this doesn't affect building, but makes header files easily accessible
+# from the IDE.
+add_custom_target(include SOURCES ${include_files})
+set_target_properties(include PROPERTIES FOLDER "includes")</code></pre></li><li class="listitem"><p>create a list of file names in the current
+          directory</p><pre><code># create a CMake variable named "include_files" which 
+# consists of names of the files in the current directory
+# whose name ends in "hpp"
+file(GLOB include_files 
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" 
+  "*.hpp"
+)</code></pre></li></ul></div><p>Notes</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>A given <code class="code">CMakeList.txt</code> file may well fit in more
           than one of the above classifications. In this case it would likely
           contain code from more than one of the above sections</p></li><li class="listitem"><p>CMakeList.txt files inherit all the code from CMakeList.txt
           files in parent directories. Hence, common code such as include and
@@ -136,169 +158,105 @@ target_link_libraries (TestLogger logger verror log4cplus )</code></pre></li><li
     understand what's going one isn't found is one place. Also part of that
     information is implicit in the relative position of different
     CMakeList.txt files in the directory hierarchy. It's a two edged
-    sword.</p></div><div class="section" title='CMake for "Boost Like" Libraries'><div class="titlepage"><div><div><h3 class="title"><a name="idm222852999312"></a>CMake for "Boost Like" Libraries</h3></div></div></div><div class="section" title="CMake Library Template"><div class="titlepage"><div><div><h4 class="title"><a name="idm222852998672"></a>CMake Library Template</h4></div></div></div><p>I've found a <a class="ulink" href="https://code.google.com/p/cpp-library-project-template/" target="_top">helpful
-      template for developing "boost like libraries</a>. This template is
-      a whole directory structure for creating a library. As such it's quite
-      similar the directory structure recommended here. It's more complete
-      though. It follows the typical practice of distributing the
-      CMakeList.txt files throughout the project directory. This isn't as bad
-      as it sounds as there are only 3-5 such required. As a convenience I've
-      excerpted part of the project so you don't have to go the trouble to
-      unzip it.</p><div class="informaltable"><table border="1"><colgroup><col align="left"><col align="left"><col align="left"></colgroup><tbody><tr><td align="left">File name</td><td align="left"> </td><td align="left">File contents</td></tr><tr><td align="left" valign="top"><code class="code">AUTHORS</code></td><td align="left"> </td><td align="left"><pre><code>== AUTHORS ==
+    sword.</p></div><div class="section" title='CMake for "Boost Like" Libraries'><div class="titlepage"><div><div><h3 class="title"><a name="idm234162996160"></a>CMake for "Boost Like" Libraries</h3></div></div></div><div class="figure-float" style="float: left;"><div class="figure"><a name="idm234162995392"></a><div class="figure-title">Figure 1. XCode Screen shot</div><div class="figure-contents"><div class="informalfigure-float" style="float: left;"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="XCodeScreenShot.jpg" alt="XCode Screen shot"></div></div></div></div></div></div><br class="figure-break"></div><p>Now that we've seen the useful CMake commands, we'll use these
+    commands to craft a CMake project which can be used to create a complete
+    project for you preferred IDE. I've used this to create such a project for
+    Apple Xcode project to run/debug tests and examples for the Boost library
+    submission <a class="ulink" href="http://rrsd.com/blincubator.com/bi_library/safe-numerics/?gform_post_id=426" target="_top">Safe
+    Numerics</a>. This is a header only library project which consists
+    of</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>a directory named "test" which contains the source code for an
+          extensive test suite. In addition it contains the following
+          CMakeLists.txt file.</p><pre><code># CMake build control file for safe numerics Library tests
 
- * FirstName LastName
-   ** Email: username@host.com
-   ** Phone: 888-888-8888
+cmake_minimum_required(VERSION 3.0)
+project("SafeIntegersTest")
 
- * FirstName MiddleName LastName
-   ** Email (Home): username@host1.com
-   ** Email (Work): username@host2.com
-   ** Phone (Mobile): 888-888-8888
+include("../CMake/CMakeLists.txt" )
 
-== ACKNOWLEDGEMENTS ==
+include_directories("${Boost_INCLUDE_DIRS}")
+include_directories("../include")
 
-  See "thirdparty/LICENSES.txt" for a list of thirdparty software
-  used by this project and for their respective licenses.</code></pre></td></tr><tr><td align="left" valign="top"><code class="code">CMakeList.txt</code></td><td align="left"> </td><td align="left"><pre><code># &lt;Copyright Holder&gt;. Copyright (C) &lt;Copyright Year(s)&gt;. &lt;License&gt;.
+###########################
+# test targets
 
-#
-# Project Properties
-#
-CMAKE_MINIMUM_REQUIRED (VERSION 2.6.2)
-PROJECT (projectname)
-SET (APPLICATION_NAME "Project Name")
-SET (APPLICATION_CODENAME "${PROJECT_NAME}")
-SET (APPLICATION_COPYRIGHT_YEARS "2009")
-SET (APPLICATION_VERSION_MAJOR 1)
-SET (APPLICATION_VERSION_MINOR 0)
-SET (APPLICATION_VERSION_PATCH 0)
-SET (APPLICATION_VERSION_TYPE SNAPSHOT)
-SET (APPLICATION_VERSION_STRING "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}.${APPLICATION_VERSION_PATCH}-${APPLICATION_VERSION_TYPE}")
-SET (APPLICATION_VENDOR_ID "com.yourcompany")
-SET (APPLICATION_VENDOR_NAME "Your Company")
-SET (APPLICATION_VENDOR_URL "yourcompany.com")
-SET (APPLICATION_ID "${APPLICATION_VENDOR_ID}.${PROJECT_NAME}")
+message( STATUS "Runtimes are stored in ${CMAKE_CURRENT_BINARY_DIR}" )
 
-#
-# Debugging Options
-#
-SET (CMAKE_VERBOSE_MAKEFILE 0) # Use 1 for debugging, 0 for release
+file(GLOB test_list
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" 
+  "*.cpp"
+)
+foreach(file_name ${test_list})
+  string(REPLACE ".cpp" "" base_name ${file_name})
+  message(STATUS ${base_name})
+  add_executable(${base_name} ${file_name})
+  add_test(NAME ${base_name} COMMAND ${base_name})
+  set_target_properties(${base_name} PROPERTIES FOLDER "tests")
+endforeach(file_name)
 
-#
-# Project Output Paths
-#
-SET (MAINFOLDER ${PROJECT_SOURCE_DIR})
-SET (EXECUTABLE_OUTPUT_PATH "${MAINFOLDER}/bin")
-SET (LIBRARY_OUTPUT_PATH "${MAINFOLDER}/lib")
+# end test targets
+####################
 
-#
-# Project Search Paths
-#
-LIST (APPEND CMAKE_PREFIX_PATH "${MAINFOLDER}")
-LIST (APPEND CMAKE_PREFIX_PATH "${MAINFOLDER}/tools")
-LIST (APPEND CMAKE_PREFIX_PATH "${MAINFOLDER}/thirdparty")
-SET (CMAKE_MODULE_PATH "${MAINFOLDER}/tools/share/cmake")
-INCLUDE_DIRECTORIES("${MAINFOLDER}/include")
+###########################
+# add headers to IDE
 
-#
-# Locate Project Prerequisites 
-#
-SET (Boost_ADDITIONAL_VERSIONS "1.39" "1.39.0" "1.40" "1.40.0" "1.41" "1.41.0" "1.42" "1.42.0" "1.43" "1.43.0" "1.44" "1.44.0" "1.45" "1.45.0" "1.46" "1.46.0" "1.47" "1.47.0" "1.48" "1.48.0" "1.49" "1.49.0" "1.50" "1.50.0")
-FIND_PACKAGE (Boost 1.37 COMPONENTS "date_time" "filesystem" "graph" "iostreams" "program_options" "regex" "serialization" "signals" "system" "thread" "wserialization" REQUIRED)
-INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS})
-LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
-FIND_PACKAGE (Log4Cxx REQUIRED)
-INCLUDE_DIRECTORIES(${Log4Cxx_INCLUDE_DIRS})
-LINK_DIRECTORIES(${Log4Cxx_LIBRARY_DIRS})
-FIND_PACKAGE (UnitTestPlusPlus REQUIRED)
-INCLUDE_DIRECTORIES(${UnitTestPlusPlus_INCLUDE_DIRS})
-LINK_DIRECTORIES(${UnitTestPlusPlus_LIBRARY_DIRS})
+file(GLOB include_files 
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" 
+  "${CMAKE_CURRENT_SOURCE_DIR}/*.hpp"
+)
+add_custom_target(include SOURCES ${include_files})
+set_target_properties(include PROPERTIES FOLDER "tests")
 
-#
-# Configure Files
-#
-FILE (GLOB_RECURSE CONFIGINPUTS1 include/*.in.h.cmake)
-FILE (GLOB_RECURSE CONFIGINPUTS2 include/*.h.in.cmake)
-FILE (GLOB_RECURSE CONFIGINPUTS3 src/*.in.h.cmake)
-FILE (GLOB_RECURSE CONFIGINPUTS4 src/*.h.in.cmake)
-FILE (GLOB_RECURSE CONFIGINPUTS5 test/*.in.h.cmake)
-FILE (GLOB_RECURSE CONFIGINPUTS6 test/*.h.in.cmake)
-LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS1}")
-LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS2}")
-LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS3}")
-LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS4}")
-LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS5}")
-LIST (APPEND CONFIGINPUTS "${CONFIGINPUTS6}")
-FOREACH (CONFIGINPUT ${CONFIGINPUTS})
-    STRING (REPLACE ".in.h.cmake" ".h" CONFIGOUTPUT1 "${CONFIGINPUT}")
-    STRING (REPLACE ".h.in.cmake" ".h" CONFIGOUTPUT2 "${CONFIGOUTPUT1}")
-    CONFIGURE_FILE ("${CONFIGINPUT}" "${CONFIGOUTPUT2}")
-ENDFOREACH (CONFIGINPUT ${CONFIGINPUTS})
+# end headers in IDE
+####################
+</code></pre></li><li class="listitem"><p>a directory named "CMake". We use it in this example as a
+          place to hold common code that we've factored out of our other CMake
+          scripts. The directory contains a file named CMakeLists.txt which
+          all the boiler plate script used by all the projects in created by
+          this library. We won't include it here as it's too long but it is
+          available in the source code of the <a class="ulink" href="http://rrsd.com/blincubator.com/bi_library/safe-numerics/?gform_post_id=426" target="_top">Safe
+          Numerics</a> code repository.</p><p>At this point with can use CMake to create a project for Xcode
+          (or any other IDE) which will build and run the <a class="ulink" href="http://rrsd.com/blincubator.com/bi_library/safe-numerics/?gform_post_id=426" target="_top">Safe
+          Numerics</a> test suite.</p></li><li class="listitem"><p>a directory named "example" which contains source code for
+          applications which use the library. These are used in the library
+          documentation to support the text. Since this directory is very
+          similar to that the "test" project above, we won't include the whole
+          file here.</p><p>At this point we can CMake to create another project which
+          will build and test the applications in the "example" directory of
+          the <a class="ulink" href="http://rrsd.com/blincubator.com/bi_library/safe-numerics/?gform_post_id=426" target="_top">Safe
+          Numerics</a> submission. This will be a totally separate project
+          than that for test suite.</p></li><li class="listitem"><p>a project root directory which contains:</p><pre><code># CMake build control file for safe numerics Library Examples
 
-#
-# Add Build Targets
-#
-ADD_SUBDIRECTORY(src)
-ADD_SUBDIRECTORY(test)
+cmake_minimum_required(VERSION 3.0)
+project("SafeIntegers")
 
-#
-# Add Install Targets
-#
-IF (EXISTS "${MAINFOLDER}/include/${PROJECT_NAME}" AND IS_DIRECTORY "${MAINFOLDER}/include/${PROJECT_NAME}")
-    INSTALL(DIRECTORY "${MAINFOLDER}/include/${PROJECT_NAME}" DESTINATION "include")
-ENDIF (EXISTS "${MAINFOLDER}/include/${PROJECT_NAME}" AND IS_DIRECTORY "${MAINFOLDER}/include/${PROJECT_NAME}")
+include("CMake/CMakeLists.txt")
 
-#
-# Add Documentation Targets
-#
-INCLUDE (DocumentationTargets)
-d</code></pre></td></tr><tr><td align="left"><code class="code">doc</code></td><td align="left"> </td><td align="left"> </td></tr><tr><td align="left"><code class="code">include</code></td><td align="left"> </td><td align="left"> </td></tr><tr><td align="left"><code class="code">src</code></td><td align="left"> </td><td align="left"> </td></tr><tr><td align="left"> </td><td align="left" valign="top"><code class="code">CMakeList.txt</code></td><td align="left"><pre><code>FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
-SET (project_LIBS ${Boost_LIBRARIES} ${Log4Cxx_LIBRARIES})
-SET (project_BIN ${PROJECT_NAME})
+include_directories("${Boost_INCLUDE_DIRS}")
+include_directories("include")
 
-IF (NOT DEFINED project_build_shared)
-   IF (CMAKE_CROSSCOMPILING)
-       SET(project_build_shared 0)
-   ELSE (CMAKE_CROSSCOMPILING)
-       SET(project_build_shared 1)
-   ENDIF (CMAKE_CROSSCOMPILING)
-ENDIF (NOT DEFINED project_build_shared)
+add_subdirectory("include")
+add_subdirectory("examples")
+add_subdirectory("test")</code></pre><p>This script creates another project which is the composition
+          of the previous two. In addition it refers to the sub directory
+          "include".</p></li><li class="listitem"><p>a directory named "include" which implements includes all
+          headers use by the library and it's users. In addition, it contains
+          a CMake script file whose only purpose is to add file references to
+          the CMake generated IDE project.</p><pre><code>####################
+# add include headers to IDE
 
-IF (NOT DEFINED project_build_static)
-   SET(project_build_static 1)
-ENDIF (NOT DEFINED project_build_static)
+file(GLOB include_files 
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" 
+  "*.hpp"
+)
+add_custom_target(safe_numerics SOURCES ${include_files})
+set_target_properties(safe_numerics PROPERTIES FOLDER "includes")
 
-IF (project_build_static)
-	ADD_LIBRARY(staticlib STATIC ${project_SRCS})
-	TARGET_LINK_LIBRARIES(staticlib ${project_LIBS})
-	SET_TARGET_PROPERTIES(staticlib PROPERTIES VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}" OUTPUT_NAME ${project_BIN} CLEAN_DIRECT_OUTPUT 1)
-	INSTALL(TARGETS staticlib DESTINATION lib)
-ENDIF(project_build_static)
+# add subdirectory which contains headers for type requirements
+add_subdirectory("concept")
 
-IF (project_build_shared)
-	ADD_LIBRARY(sharedlib SHARED ${project_SRCS})
-	TARGET_LINK_LIBRARIES(sharedlib ${project_LIBS})
-	SET_TARGET_PROPERTIES(sharedlib PROPERTIES VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}" OUTPUT_NAME ${project_BIN} CLEAN_DIRECT_OUTPUT 1)
-	INSTALL(TARGETS sharedlib DESTINATION lib)
-ENDIF(project_build_shared)
-</code></pre></td></tr><tr><td align="left"><code class="code">test</code></td><td align="left"> </td><td align="left"> </td></tr><tr><td align="left"> </td><td align="left" valign="top"><code class="code">CMakeList.txt</code></td><td align="left"><pre><code># ENABLE_TESTING()
-# the following includes "ENABLE_TESTING()" 
-INCLUDE(CTest)
-
-FILE (GLOB_RECURSE test_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
-SET (test_LIBS ${Boost_LIBRARIES} ${Log4Cxx_LIBRARIES} ${UnitTestPlusPlus_LIBRARIES} ${PROJECT_NAME})
-SET (test_BIN ${PROJECT_NAME}-unittests)
-
-IF (NOT CMAKE_CROSSCOMPILING)
-    LINK_DIRECTORIES(${MAINFOLDER}/lib)
-    ADD_EXECUTABLE(${test_BIN} ${test_SRCS})
-    TARGET_LINK_LIBRARIES(${test_BIN} ${test_LIBS})
-    ADD_CUSTOM_TARGET(check ALL "${MAINFOLDER}/bin/${test_BIN}" DEPENDS ${test_BIN} COMMENT "Executing unit tests..." VERBATIM SOURCES ${test_SRCS})
-    ADD_CUSTOM_TARGET(test "${MAINFOLDER}/bin/${test_BIN}" DEPENDS ${test_BIN} COMMENT "Executing unit tests..." VERBATIM SOURCES ${test_SRCS})
-ENDIF (NOT CMAKE_CROSSCOMPILING)
-</code></pre></td></tr></tbody></table></div><p>In my opinion, this looks like a good starting point
-      for adding CMakeList.txt files to your own project. BUT - I haven't used
-      it myself so feel free to post back your experience along with any
-      tips/tricks you would like to share.</p></div><div class="section" title="CMake Library Template - abbreviated version"><div class="titlepage"><div><div><h4 class="title"><a name="idm222852974496"></a>CMake Library Template - abbreviated version</h4></div></div></div><p>The above looks useful - but still a little too "heavyweight" for
+# end headers in IDE
+####################</code></pre></li></ul></div><p>Now we can generate any one of three IDE projects depending on our
+    needs: SafeIntegersTest, SafeIntegersExample, or SafeIntegers.</p><div class="section" title="CMake Library Template - abbreviated version"><div class="titlepage"><div><div><h4 class="title"><a name="idm234162980416"></a>CMake Library Template - abbreviated version</h4></div></div></div><p>The above looks useful - but still a little too "heavyweight" for
       my taste. It also distributes the CMake files around the project which
       conflicts with common practice for Boost libraries. The following
       CMakeList.txt file creates a project for the code IDE to test and edit
@@ -307,7 +265,7 @@ ENDIF (NOT CMAKE_CROSSCOMPILING)
       minimal changes to do so. It's different from the original version in
       that it is entirely contained in one CMakeList.txt file. Files outside
       the CMake directory can be referenced with the <code class="code">../&lt;file
-      name&gt;</code> syntax</p><div class="informaltable"><table border="1"><colgroup><col align="left"><col align="left"><col align="left"></colgroup><tbody><tr><td align="left">File name</td><td align="left"> </td><td align="left">File contents</td></tr><tr><td align="left">CMake</td><td align="left" valign="top"><code class="code">CMakeList.txt</code></td><td align="left"><pre><code># CMake build control file for safe numerics Library tests
+      name&gt;</code> syntax</p><pre><code># CMake build control file for safe numerics Library tests
 
 cmake_minimum_required(VERSION 3.0)
 
@@ -500,7 +458,7 @@ add_custom_target(include SOURCES ${include_files})
 
 # end headers in IDE
 ####################
-</code></pre></td></tr><tr><td align="left"><code class="code">include</code></td><td align="left"> </td><td align="left"> </td></tr><tr><td align="left"><code class="code">src</code></td><td align="left"> </td><td align="left"> </td></tr><tr><td align="left"><code class="code">test</code></td><td align="left"> </td><td align="left"> </td></tr></tbody></table></div></div></div><div class="section" title="CTest/CDash"><div class="titlepage"><div><div><h3 class="title"><a name="idm222852959872"></a>CTest/CDash</h3></div></div></div><p>We've seen how CTest supports the automatic creation of test
+</code></pre></div></div><div class="section" title="CTest/CDash"><div class="titlepage"><div><div><h3 class="title"><a name="idm234162977840"></a>CTest/CDash</h3></div></div></div><p>We've seen how CTest supports the automatic creation of test
     scripts. This supports testing of a library by the original developer as
     well as the user who downloads the library. <a class="ulink" href="http://www.cdash.org" target="_top">CDash</a> supports the submission of the
     test results to a common location. This permits developers, users and
@@ -539,7 +497,7 @@ set(CTEST_DROP_SITE_CDASH TRUE)
           not sure where. It's not at all well explained and extremely
           confusing. Never the less, I have tested the above procedure and am
           (almost) totally pleased with the results.</p></li><li class="listitem"><p>Now when you go to <a class="ulink" href="www.my.cdash.org/index.hpp" target="_top">your test dash board</a> you
-          should see your submitted test results:</p><div class="figure"><a name="idm222852948352"></a><div class="figure-title">Figure 1. cdash Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="CDashScreenShot.jpg" alt="cdash Screen shot"></div></div></div></div></div><p><br class="figure-break"></p></li><li class="listitem"><p>There is only one small problem left. The default setup of the
+          should see your submitted test results:</p><div class="figure"><a name="idm234162967344"></a><div class="figure-title">Figure 2. cdash Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="CDashScreenShot.jpg" alt="cdash Screen shot"></div></div></div></div></div><p><br class="figure-break"></p></li><li class="listitem"><p>There is only one small problem left. The default setup of the
           dashboard only shows the current days results. Since we want a
           cumulative record of results for different platforms we need to make
           some changes. Our example here shows what you see after invoking
@@ -548,7 +506,7 @@ set(CTEST_DROP_SITE_CDASH TRUE)
           link can be used to bring up this view anytime necessary.</p></li><li class="listitem"><p>To complete the process, go back to your library submission
           page and paste this Hyper link into the "Test Results Dashboard"
           field. Now anyone can review the test history for this particular
-          library.</p><div class="figure"><a name="idm222852941552"></a><div class="figure-title">Figure 2. Library Page Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="LibraryPage.jpg" alt="Library Page Screen shot"></div></div></div></div></div><p><br class="figure-break"></p></li></ul></div><p>This procedure produces everything I want. It
+          library.</p><div class="figure"><a name="idm234162961024"></a><div class="figure-title">Figure 3. Library Page Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="LibraryPage.jpg" alt="Library Page Screen shot"></div></div></div></div></div><p><br class="figure-break"></p></li></ul></div><p>This procedure produces everything I want. It
     should:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Distribute the testing load among all those (and only those)
           users interested in the library.</p></li><li class="listitem"><p>Display of testing results all those (and only those)
           platforms and compilers which actually use the library.</p></li><li class="listitem"><p>Be easy and painless to maintain.</p></li></ul></div></div></div>

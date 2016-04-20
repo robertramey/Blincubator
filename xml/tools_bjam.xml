@@ -52,6 +52,11 @@
       central web page. Reworking this to accommodate our "decoupled" library
       model would seem to be a non-trivial and fragile exercise.</para>
     </listitem>
+
+    <listitem>
+      <para>It's not widely used. Requiring potential users to use boost build
+      diminish the number of users willing to test a library.</para>
+    </listitem>
   </itemizedlist>
 
   <para>These disadvantages discouraged me from requiring Boost Build. Any

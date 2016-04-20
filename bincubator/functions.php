@@ -717,7 +717,8 @@ function bi_review_summary($post_id){
 	echo get_the_author_link();
 	echo '</a> - ';
 	echo get_the_title();
-	echo '<a href="review?gform_post_id=' . $post_id . '"> - more ...</a>';
+	#echo '<a href="review?gform_post_id=' . $post_id . '"> - more ...</a>';
+    $output .= '<dt><a href="' . get_permalink() . '?gform_post_id=' . $post_id . '">';
 	echo '<br/>';
     echo '<div class="review-line">';
 	bi_stars_line($post_id, 'knowledge_rating', 'Reviewer Knowledge');
@@ -868,10 +869,10 @@ function bi_libraries_by_name() {
 	return $output;
 }
 
-function bi_libraries_by_category() {
+function bi_libraries_add_rewrite_rules() {
 	$args = array(
 		'post_type'   => 'bi_library',
-		//'post_status' => 'published', 
+		//'post_status' => 'published',
 		'nopaging'    => 'true',
 		'orderby'     => 'title',
 		'order'       => 'ASC'
@@ -881,9 +882,16 @@ function bi_libraries_by_category() {
 	$loop = new WP_Query($args);
 	while ( $loop->have_posts() ){
 		$loop->the_post();
-		$output .= bi_library_line();
+        global $post;
+        $post_id = $post->ID;
+        add_rewrite_rule(
+            'blincubator.com//([^-]+)/',
+            'blincubator.com/'
+        );
 	}
+	wp_reset_postdata();
 	return $output;
 }
+
 
 ?>
