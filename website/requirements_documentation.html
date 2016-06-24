@@ -2,12 +2,12 @@
   reputation for being obtuse, opaque, incomplete, hard to use and not very
   helpful. Boost documentation is better, but still not good enough. One of
   the main motivations of this website is to improve documentation of
-  libraries submitted to Boost.</p><div class="section" title="Structure"><div class="titlepage"><div><div><h3 class="title"><a name="idm214765558128"></a>Structure</h3></div></div></div><p><span class="emphasis"><em>A library MUST contain a doc/html directory with an
+  libraries submitted to Boost.</p><div class="section" title="Structure"><div class="titlepage"><div><div><h3 class="title"><a name="idm231398289248"></a>Structure</h3></div></div></div><p><span class="emphasis"><em>A library MUST contain a doc/html directory with an
     included file index.html. The documentation should be browsable with or
     without being connected to the net.</em></span></p><p>Optionally, it may include Information to build the HTML directory
     from other tools such DocBook, BoostBook or QuickBook or some other
     system. These systems provide the benefit of being able to generate output
-    formats other than HTML such as PDF, ebook and others.</p></div><div class="section" title="Contents"><div class="titlepage"><div><div><h3 class="title"><a name="idm214765556000"></a>Contents</h3></div></div></div><p>What should documentation for a software library contain? The answer
+    formats other than HTML such as PDF, ebook and others.</p></div><div class="section" title="Contents"><div class="titlepage"><div><div><h3 class="title"><a name="idm231398287120"></a>Contents</h3></div></div></div><p>What should documentation for a software library contain? The answer
     turns out to be surprisingly un obvious.</p><p>The obvious thing seems to just write expanded information about
     each class and function. However, it's very difficult to keep this from
     ending up just paraphrasing the code. Documentation which is prepared
@@ -30,22 +30,22 @@
     be <span class="emphasis"><em>type requirements</em></span> but <span class="emphasis"><em>concept</em></span>
     is the historically accepted term so we'll continue to use it here. Here
     is more information helpful for writing documentation using
-    concepts:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://www.sgi.com/tech/stl/doc_introduction.html" target="_top">How to use
+    concepts:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" src="@//www.sgi.com/tech/stl/doc_introduction.html" target="_top">How to use
           the STL documentation</a> This the key document which describes
           how to write documentation for C++ library which might contain
-          templates. The <a class="ulink" href="http://www.sgi.com/tech/stl/" target="_top">STL
+          templates. The <a class="ulink" src="@//www.sgi.com/tech/stl/" target="_top">STL
           website</a> is the original source for the STL library and hence
-          contains of how the above description is used.</p></li><li class="listitem"><p><a class="ulink" href="http://www.boost.org/doc/libs/1_51_0/libs/fusion/doc/html/" target="_top">Fusion</a>
+          contains of how the above description is used.</p></li><li class="listitem"><p><a class="ulink" src="@//www.boost.org/doc/libs/1_51_0/libs/fusion/doc/html/" target="_top">Fusion</a>
           I found this Boost library to be the single most helpful example of
           how to write good documentation.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>It's a real example - not an explanation of how to do
               it</p></li><li class="listitem"><p>It's a very large library with many facets. But the
               documentation is very regular in that the same patterns
               described above are used throughout. Once you get how it works
               for one part of the library the rest of it very familiar. If you
-              use <a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/libs/fusion/doc/html/" target="_top">Fusion</a>
+              use <a class="ulink" src="@//www.boost.org/doc/libs/1_49_0/libs/fusion/doc/html/" target="_top">Fusion</a>
               you'll spend hours (or days) pouring over this documentation.
               But you'll never feel that you're lost - just awed
-              inspired.</p></li></ul></div></li><li class="listitem"><p><a class="ulink" href="kempf.html" target="_top">Writing Documentation for
+              inspired.</p></li></ul></div></li><li class="listitem"><p><a class="ulink" src="http://rrsd.com/website/kempf.html" target="_top">Writing Documentation for
           Boost</a></p><p>This is what the boost website says about documentation. It
           seems well written, and it's not really inconsistent with the above,
           but by itself, it wasn't enough for me to get me on the right
@@ -53,7 +53,7 @@
     the following "templates" which a library author can "fill in". One can
     include these templates in his library documentation, eliminate those
     section which are not applicable, and fill in the information particular
-    to his component.</p><p>Here is an <a href="library">outline</a> of what library
+    to his component.</p><p>Here is an <a src="http://rrsd.com/website/library">outline</a> of what library
     documentation should look like. Not all libraries need all the sections,
     but most should be there. Links point to "mock ups" for the corresponding
     section which can be used as a basis of creating your own
@@ -63,28 +63,28 @@
         first place. Often times, a short motivating example can show what
         "problem" the library solves and how it is used to do it.</p></li><li class="listitem"><p>Tutorial</p><p>Detailed examples of library usage. These examples should
         include code that the user can build and try on his own.</p></li><li class="listitem"><p>Notes</p><p>Include useful formation which doesn't fit anywhere else.
-        Examples would be:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Pointers to other libraries which do a similar thing.</p></li><li class="listitem"><p>Information on testing.</p></li><li class="listitem"><p>compiler/platform quirks and dependencies.</p></li></ul></div></li><li class="listitem"><p><a href="concept">Concepts</a></p><p>List of concepts defined by the library.</p><p>Each concept is a description of a set of operations that a type
+        Examples would be:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Pointers to other libraries which do a similar thing.</p></li><li class="listitem"><p>Information on testing.</p></li><li class="listitem"><p>compiler/platform quirks and dependencies.</p></li></ul></div></li><li class="listitem"><p><a class="ulink" src="http://rrsd.com/website/concept.html" target="_top">Concepts</a></p><p>List of concepts defined by the library.</p><p>Each concept is a description of a set of operations that a type
         must support in order to be considered as meeting the requirements of
         the concept. The concept name is a succinct way of specifying the
         constraints on type parameters passed to C++ templates. Note that you
         need document only the new concepts you create. Those that are
         included from the Boost Concept Check headers are already
-        documented.</p></li><li class="listitem"><p><a href="type">Types</a></p><p>List of C++ types defined by the library.</p><p>A type used by the library. A type may be a C++ template, class
+        documented.</p></li><li class="listitem"><p><a class="ulink" src="http://rrsd.com/website/type.html" target="_top">Types</a></p><p>List of C++ types defined by the library.</p><p>A type used by the library. A type may be a C++ template, class
         or structure. If it is a template, there are no type parameters so
         that section can be dropped. If its a class, member functions will be
         documented in the section "New Valid Expressions". This is somewhat
         different than the traditional way of documenting class member
         functions and types. The advantage is that is more compatible with the
         documentation of template types. In any case, the actual class header
-        is available for reference.</p></li><li class="listitem"><p><a href="function">Functions</a></p><p>List of non-member functions and function templates.</p><p>C++ functions and function templates can be documented the same
+        is available for reference.</p></li><li class="listitem"><p><a class="ulink" src="http://rrsd.com/website/function.html" target="_top">Functions</a></p><p>List of non-member functions and function templates.</p><p>C++ functions and function templates can be documented the same
         way. The only difference is that for functions, the type requirement
         section can be deleted.</p></li><li class="listitem"><p>Rationale</p><p>While working on your library, keep a list of reasons for the
-        design decisions you made. Include that list here.</p></li><li class="listitem"><p>Change Log</p></li><li class="listitem"><p>Acknowledgements</p></li><li class="listitem"><p>References</p></li></ul></div><p>Note the strong similarity in the documentation for <a class="ulink" href="concept.html" target="_top">Concept</a> and <a class="ulink" href="type.html" target="_top">Type</a>.</p><p>The above Outline for a simple library with a smaller number of
+        design decisions you made. Include that list here.</p></li><li class="listitem"><p>Change Log</p></li><li class="listitem"><p>Acknowledgements</p></li><li class="listitem"><p>References</p></li></ul></div><p>Note the strong similarity in the documentation for <a class="ulink" src="http://rrsd.com/website/concept.html" target="_top">Concept</a> and <a class="ulink" src="http://rrsd.com/website/type.html" target="_top">Type</a>.</p><p>The above Outline for a simple library with a smaller number of
     concepts, types and functions. For a example where the number is much
-    larger you can check <a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/libs/fusion/doc/html/" target="_top">Fusion</a>.
+    larger you can check <a class="ulink" src="@//www.boost.org/doc/libs/1_49_0/libs/fusion/doc/html/" target="_top">Fusion</a>.
     This library ls really a group of smaller libraries each with it's own set
-    of concepts, types and functions.</p></div><div class="section" title="References"><div class="titlepage"><div><div><h3 class="title"><a name="idm214765519760"></a>References</h3></div></div></div><p>The information in this section is meant to be consistent with
+    of concepts, types and functions.</p></div><div class="section" title="References"><div class="titlepage"><div><div><h3 class="title"><a name="idm231398250384"></a>References</h3></div></div></div><p>The information in this section is meant to be consistent with
     generally accepted standards and recommendations for C++14. For more
-    information see </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://www.sgi.com/tech/stl/doc_introduction.html" target="_top">How to use
-          the STL documentation</a></p></li><li class="listitem"><p><a class="ulink" href="https://isocpp.org/files/papers/N3797.pdf" target="_top">N3797</a> C++14
+    information see </p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" src="@//www.sgi.com/tech/stl/doc_introduction.html" target="_top">How to use
+          the STL documentation</a></p></li><li class="listitem"><p><a class="ulink" src="http://rrsd.com/website/https://isocpp.org/files/papers/N3797.pdf" target="_top">N3797</a> C++14
           standard section 17.5 Method of description (Informative)</p></li></ul></div></div></div>

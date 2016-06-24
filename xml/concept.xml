@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE section PUBLIC "-//Boost//DTD BoostBook XML V1.1//EN"
 "http://www.boost.org/tools/boostbook/dtd/boostbook.dtd">
-<section>
+<section id="concept">
   <title>[Concept Name]</title>
 
   <section>
@@ -21,7 +21,7 @@
     those concepts.]</para>
 
     <para><ulink
-    url="http://www.sgi.com/tech/stl/Assignable.html">Assignable&lt;</ulink></para>
+    url="http://www.sgi.com/tech/stl/Assignable.html">Assignable</ulink></para>
   </section>
 
   <section>

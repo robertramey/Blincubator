@@ -774,58 +774,20 @@ function bi_reviews_by_date() {
 	wp_reset_postdata();
 }
 
-function callback($matches){
-    $baseurl = home_url( $path);
-        // if there is no '.' - must be a wordpress permalink
-        if('' == $matches[4]){
-                // return unchanged.
-                return $matches[0];
-        }
-        // if it's a non-local url
-        if('' != $matches[2] ){
-                // return base of url
-                return $matches[1] . "=\"" . $matches[2] . $matches[3] . '"';
-        }
-        // otherwise it's a local - prefix with local base
-        return $matches[1] . "=\"" . $baseurl . '/' . $matches[3] . '"';
+function html_include2($attributes){
+	$file = $attributes['file'];
 
+    # echo 'file_url = ' . $file . '<br>';
+
+	$page = file_get_contents("http://rrsd.com/website/" . $file);
+	if(null == $page){
+		echo $file . ' not found\n';
+	}
+	return $page;
 }
 
 function html_include($attributes){
-	static $pattern = '%(href|src)="(http://www\.|http://|https://|www\.|)([^"\.]*(\.)[^"]*)"%';
-    $count = -1;
-	$file = $attributes['file'];
-	$page = file_get_contents($file);
-	if(null == $page){
-		echo $file . ' not found\n';
-	}
-	$page = preg_replace_callback(
-		$pattern,
-		'callback',
-                $page,
-                -1,
-                $count
-	);
-	return $page;
-}
-
-function html_include2($attributes){
-	static $pattern = '%(href|src)="(http://www\.|http://|https://|www\.|)([^"\.]*(\.)[^"]*)"%';
-    $count = -1;
-	$file = $attributes['file'];
-
-	$page = file_get_contents( home_url() . '/' . $file );
-	if(null == $page){
-		echo $file . ' not found\n';
-	}
-	$page = preg_replace_callback(
-		$pattern,
-		'callback',
-                $page,
-                -1,
-                $count
-	);
-	return $page;
+	return html_include2($attributes);
 }
 
 /* didn't work - but leave it here as a reminder

@@ -36,7 +36,7 @@ all: \
 #		--stringparam targets.filename "$*".db website.xsl $<
 
 ../website/%.html : %.xml
-	xsltproc --nonet -o $@ website.xsl $<
+	xsltproc --nonet website.xsl $< | fixlinks.sh >$@
 
 ../website/about.html : website.xsl about.xml
 ../website/about_todo.html : website.xsl about_todo.xml

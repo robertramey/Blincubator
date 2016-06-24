@@ -1,4 +1,4 @@
-<div class="section" title="Boost Build"><div class="titlepage"><div><div><h2 class="title"><a name="idm330076873040"></a>Boost Build</h2></div></div><hr></div><p>This is a natural choice for a boost library. And any library
+<div class="section" title="Boost Build"><div class="titlepage"><div><div><h2 class="title"><a name="idm81185744704"></a>Boost Build</h2></div></div><hr></div><p>This is a natural choice for a boost library. And any library
   currently accepted into Boost must include Bjam script files. It's got some
   good features:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>It's very powerful - basically can be scripted to do just about
       anything related to build and test.</p></li><li class="listitem"><p>Once it's properly set up, it works well.</p></li><li class="listitem"><p>It includes support for most all C++ environments.</p></li><li class="listitem"><p>Bjam developers are always available to help users set this
@@ -17,9 +17,9 @@
   library which is accepted by Boost will have to include support for Bjam or
   whatever boost requires at the time. But having to sort this out up front
   was considered too large a burden on library authors. Never the less, it IS
-  and option.</p><p>Here are some websites with information regarding Boost Build</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://www.boost.org/doc/libs/1_49_0/tools/build/v2/index.html" target="_top">http://www.boost.org/doc/libs/1_49_0/tools/build/v2/index.html</a></p></li><li class="listitem"><p><a class="ulink" href="http://www.boost.org/boost-build2/doc/html/index.html" target="_top">http://www.boost.org/boost-build2/doc/html/index.html</a></p></li></ul></div><p>To use Boost Build for testing, we'll rely on the following:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://www.highscore.de/cpp/boostbuild/" target="_top">http://www.highscore.de/cpp/boostbuild/</a>
-      for explanation of how <code class="filename">bjam</code> works.</p></li><li class="listitem"><p><a class="ulink" href="http://www.boost.org/boost-build2/doc/html/bbv2/builtins/testing.html" target="_top">http://www.boost.org/boost-build2/doc/html/bbv2/builtins/testing.html</a>
-      for an explanation of the Jamfile commands used for testing.</p></li><li class="listitem"><p>The section of <a href="requirements_directory_structure">Directory Structure</a>
+  and option.</p><p>Here are some websites with information regarding Boost Build</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" src="@//www.boost.org/doc/libs/1_49_0/tools/build/v2/index.html" target="_top">http://www.boost.org/doc/libs/1_49_0/tools/build/v2/index.html</a></p></li><li class="listitem"><p><a class="ulink" src="@//www.boost.org/boost-build2/doc/html/index.html" target="_top">http://www.boost.org/boost-build2/doc/html/index.html</a></p></li></ul></div><p>To use Boost Build for testing, we'll rely on the following:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" src="@//www.highscore.de/cpp/boostbuild/" target="_top">http://www.highscore.de/cpp/boostbuild/</a>
+      for explanation of how <code class="filename">bjam</code> works.</p></li><li class="listitem"><p><a class="ulink" src="@//www.boost.org/boost-build2/doc/html/bbv2/builtins/testing.html" target="_top">http://www.boost.org/boost-build2/doc/html/bbv2/builtins/testing.html</a>
+      for an explanation of the Jamfile commands used for testing.</p></li><li class="listitem"><p>The section of <a src="http://rrsd.com/website/requirements_directory_structure">Directory Structure</a>
       shows location of the files <code class="filename">Jamroot.jam</code> and
       <code class="filename"><code class="code">Jamfile.jam</code> </code>which the
       <code class="filename">bjam</code> build/test procedure uses to drive the
@@ -53,8 +53,8 @@ project safe_numerics
     # : default-build   - default none
     # : build-dir - default = ./bin
 ;</code></pre></li><li class="listitem"><p>We will use an abbreviated version of the procedure document for
-      <a class="ulink" href="http://www.boost.org/doc/libs/1_51_0/tools/regression/doc/library_status.html" target="_top">Library
-      Status</a> on the <a class="ulink" href="http://www.boost.org" target="_top">Boost
+      <a class="ulink" src="@//www.boost.org/doc/libs/1_51_0/tools/regression/doc/library_status.html" target="_top">Library
+      Status</a> on the <a class="ulink" src="@//www.boost.org" target="_top">Boost
       website</a>. This entails the following steps.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>set the current directory to <code class="code">&lt;library&gt;/test</code>
           .</p></li><li class="listitem"><p>set the environmental variable <code class="code">BOOST_ROOT=&lt;boost root
           directory&gt;</code></p></li><li class="listitem"><p>invoke <code class="code">bjam --dump-tests &lt;bjam arguments&gt;
@@ -80,8 +80,8 @@ else
     library_status library_status.html links.html
 fi</code></pre></li></ul></div><p>Your boost installation might or might not have <code class="code">b2</code>
   installed and working. If not, you'll have to get them built. There are any
-  number of ways to do this depending on your platform. See <a class="ulink" href="http://www.boost.org/doc/libs/1_52_0/more/getting_started/index.html" target="_top">Getting
-  Started</a> and<a class="ulink" href="http://www.boost.org/boost-build2/doc/html/index.html" target="_top"> <code class="code">B2
+  number of ways to do this depending on your platform. See <a class="ulink" src="@//www.boost.org/doc/libs/1_52_0/more/getting_started/index.html" target="_top">Getting
+  Started</a> and<a class="ulink" src="@//www.boost.org/boost-build2/doc/html/index.html" target="_top"> <code class="code">B2
   Installation</code></a> at the boost website for information on how to
   do this. Unfortunately, the program <code class="code">library_status</code> is not built
   by the default installation. But now that you have b2 installed, the

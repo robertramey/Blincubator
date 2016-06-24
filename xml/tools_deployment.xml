@@ -4,11 +4,11 @@
 <section>
   <title>Deployment</title>
 
-  <para>Filling the form in the <link linkend="submit-my-library">Library
-  Submission Page</link> fulfills the requirements for deployment of a
-  library. When the form is submitted, it is checked by a human to verify that
-  all the information is properly filled in and that the submission fulfils
-  all the requirements of this website.</para>
+  <para>Filling the form in the <ulink url="???">Library Submission
+  Page</ulink> fulfills the requirements for deployment of a library. When the
+  form is submitted, it is checked by a human to verify that all the
+  information is properly filled in and that the submission fulfils all the
+  requirements of this website.</para>
 
   <para>The form contains links to where the required facilities such as
   reviews, documentation, download, code repository, and issue tracking. That

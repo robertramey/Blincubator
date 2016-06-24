@@ -1,4 +1,4 @@
-<div class="section" title="Build and Test"><div class="titlepage"><div><div><h2 class="title"><a name="tools_build_and_test"></a>Build and Test</h2></div></div><hr></div><p>There is a bewildering array of <a class="ulink" href="http://en.wikipedia.org/wiki/List_of_build_automation_software" target="_top">build
+<div class="section" title="Build and Test"><div class="titlepage"><div><div><h2 class="title"><a name="tools_build_and_test"></a>Build and Test</h2></div></div><hr></div><p>There is a bewildering array of <a class="ulink" src="@//en.wikipedia.org/wiki/List_of_build_automation_software" target="_top">build
   systems</a>. None of them are really satisfactory. I had hoped to avoid
   imposing any requirement as to the build/test system and leave the option to
   each library author to choose what he felt was most convenient. Some
@@ -15,11 +15,11 @@
             downloaded.</p></li><li class="listitem"><p>Log of test results from various users posted in a public
             place which is easily viewable by library developers, users and
             reviewers.</p></li><li class="listitem"><p>Is scalable - doesn't require some centralized testing
-            setup.</p></li><li class="listitem"><p>Tests with a wide variety of platforms and compilers.</p></li></ul></div></li></ul></div><p>I looked at a few specific alternatives.</p><div class="section" title="Make"><div class="titlepage"><div><div><h3 class="title"><a name="idm205176153024"></a>Make</h3></div></div></div><p>In the spirit of keeping things as simple as possible, this was my
+            setup.</p></li><li class="listitem"><p>Tests with a wide variety of platforms and compilers.</p></li></ul></div></li></ul></div><p>I looked at a few specific alternatives.</p><div class="section" title="Make"><div class="titlepage"><div><div><h3 class="title"><a name="idm260088414176"></a>Make</h3></div></div></div><p>In the spirit of keeping things as simple as possible, this was my
     first choice. But starting with a basic make file, one would need to add a
     lot of extras functionality to address the requirements in the above list.
     Basic make doesn't have enough functionality to support all we need so
-    we're forced to specify a build/test system.</p></div><div class="section" title="Autotools"><div class="titlepage"><div><div><h3 class="title"><a name="idm205176161600"></a>Autotools</h3></div></div></div><p>Autotools is the traditional Unix solution to the problem of
+    we're forced to specify a build/test system.</p></div><div class="section" title="Autotools"><div class="titlepage"><div><div><h3 class="title"><a name="idm260088412672"></a>Autotools</h3></div></div></div><p>Autotools is the traditional Unix solution to the problem of
     build/test/deployment. It has a long history and is widely used. There is
     lot's of literature on it as well. It garners a number of complaints about
     how hard it is to use - but then it seems all of these build systems share
@@ -32,7 +32,7 @@
     unix-like CYGWIN installation and things seemed to run well until the last
     step. Again, I had the feeling I could make this work if I was willing to
     put in more time, but I didn't feel like doing it. An interesting
-    experience but not a good solution for us.</p></div><div class="section" title="Summary and Conclusion"><div class="titlepage"><div><div><h3 class="title"><a name="idm205176229344"></a>Summary and Conclusion</h3></div></div></div><p>After trying and/or investigating many of the alternatives, I've
+    experience but not a good solution for us.</p></div><div class="section" title="Summary and Conclusion"><div class="titlepage"><div><div><h3 class="title"><a name="idm260088406064"></a>Summary and Conclusion</h3></div></div></div><p>After trying and/or investigating many of the alternatives, I've
     settled on CMake/CTest/CDash for Safe Numerics. I feel comfortable
     strongly recommending this for those who want to make libraries which they
     hope to submit to Boost. It supports our list of requirements as well as
@@ -42,4 +42,4 @@
     indispensible for libraries posted on this website.</p><p>Note the above doesn't preclude support for other build systems as
     well. In particular BJAM might be a candidate if one's library evolves to
     the point of being a serious candidate for inclusion into boost.</p><p>Here is a list of miscellaneous links to sites that I found useful
-    in my investigation of Build systems.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" href="http://en.wikipedia.org/wiki/List_of_build_automation_software" target="_top">http://en.wikipedia.org/wiki/List_of_build_automation_software</a></p></li></ul></div></div></div>
+    in my investigation of Build systems.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p><a class="ulink" src="@//en.wikipedia.org/wiki/List_of_build_automation_software" target="_top">http://en.wikipedia.org/wiki/List_of_build_automation_software</a></p></li></ul></div></div></div>
