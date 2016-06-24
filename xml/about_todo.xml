@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
+"http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<section>
+  <title>Pending Website Feature Enhancements and Bug Fixes </title>
+
+  <para>This needs some more feature enhancement and bug fixes. If you have
+  interested in helping out please contact me. Expecially useful would be
+  persons with experience with <ulink
+  url="www.wordpress.org">Wordpress</ulink>. Here is a list of current issues
+  which need help/improvement.</para>
+
+  <section>
+    <title>Permalinks</title>
+
+    <para>Given a permalink with the name
+    http://www.blincubator.com/bi_library/safe-numerics I expect to be able to
+    jump directly to the library page for the safe-numerics library. I would
+    like to be able to fix this but so far I have been unable to do so.</para>
+  </section>
+
+  <section>
+    <title>Library Statistics</title>
+
+    <para>Right now we you SlimStat to gather and monitor statistics on each
+    library as well as the web site as a whole. It's a great package and has
+    served us very well. Still there a few issues which I would like to see
+    resolved.<itemizedlist>
+        <listitem>
+          <para>users can only see the slimstat statistics pages if they are
+          logged in to the site. I would like to eliminate this requirement
+          but haven't been able to figure out how to do this.</para>
+        </listitem>
+
+        <listitem>
+          <para>On the page for each library I'd like to gather and display
+          the following<itemizedlist>
+              <listitem>
+                <para>number of times the repo link has been invoked</para>
+              </listitem>
+
+              <listitem>
+                <para>number of times the download link has been
+                invoked</para>
+              </listitem>
+
+              <listitem>
+                <para>number of times the documentation link has been
+                invoked</para>
+              </listitem>
+            </itemizedlist></para>
+        </listitem>
+
+        <listitem>
+          <para>I'd like to get a list of all the users who downloaded and/or
+          followed the link to the library repo. I want to do this so I can
+          email them a reminder to review and/or comment on the library after
+          they've had a chance to evaluate it.</para>
+        </listitem>
+      </itemizedlist></para>
+  </section>
+</section>
