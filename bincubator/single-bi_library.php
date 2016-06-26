@@ -86,7 +86,7 @@ function single_bi_library_return_true(){
         ?>
         <a
             class="blincubator_button sponsor-logo"
-            href="http://rrsd.com/blincubator.com/contact-author?library_id=<?php the_ID(); ?>"
+            href="http://www.blincubator.com/contact-author?library_id=<?php the_ID(); ?>"
         >
             Sponsor this Library!
         </a>
@@ -108,8 +108,16 @@ function single_bi_library_return_true(){
         if(is_editable()){
             echo '<button class="blincubator_button" id="edit_button">Edit</button><br/>';
         }
-        ?>
-		<a class="blincubator_button" id="statistics_button" href="http://rrsd.com/wordpresstest/wp-admin/admin.php?page=slimview2&fs[user]=is_not_equal_to+<?php echo get_userdata($post->post_author)->user_login;?>&fs[resource]=contains+<?php echo $post->post_name;?>">Display Statistics</a>
+        // use only the first word for the key
+        $postname = preg_replace('/\s.*/', '', $post->post_title);
+		?>
+		<a
+            class="blincubator_button"
+            id="statistics_button"
+            href="http://blincubator.com/wp-admin/admin.php?page=slimview3&fs[resource]=contains+<?php echo $postname;?>"
+        >
+            Display Statistics
+        </a>
         <br/>
 		<a class="blincubator_button" id="reviews_button" href="reviews?library_id=<?php the_ID(); ?>">Reviews</a>
         <?php
