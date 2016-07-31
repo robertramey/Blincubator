@@ -1,4 +1,4 @@
-<div class="section" title="CMake/CTest/CDash"><div class="titlepage"><div><div><h2 class="title"><a name="idm72066572816"></a>CMake/CTest/CDash</h2></div></div><hr></div><p>A number of prominent boosters have been advocating moving from BJam
+<div class="section" title="CMake/CTest/CDash"><div class="titlepage"><div><div><h2 class="title"><a name="idm396244299696"></a>CMake/CTest/CDash</h2></div></div><hr></div><p>A number of prominent boosters have been advocating moving from BJam
   to CMake. It has some very attractive features.</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>it has strong support from <a class="ulink" src="http://rrsd.com/website/www.kitware.com" target="_top">Kitware</a> who have been active in it's
       development and maintenance for the last 10 years. They are very
       responsive on the mailing list they maintain for users.</p></li><li class="listitem"><p>It seems to be well documented. There are lot's web pages
@@ -33,7 +33,7 @@
       - CMake Tutorial</p></li><li class="listitem"><p><a class="ulink" src="@//johnlamp.net/cmake-tutorial.html" target="_top">http://johnlamp.net/cmake-tutorial.html</a>
       - a better CMake Tutorial</p></li><li class="listitem"><p><a class="ulink" src="@//www.vtk.org/Wiki/CMake" target="_top">http://www.vtk.org/Wiki/CMake</a>
       - More information about CMake</p></li><li class="listitem"><p><a class="ulink" src="@//www.cmake.org/cmake/help/v2.8.12/cmake.html" target="_top">http://www.cmake.org/cmake/help/v2.8.12/cmake.html</a>
-      - CMake Reference Manual</p></li></ul></div><div class="section" title="CMakeList.txt Cheat Sheet"><div class="titlepage"><div><div><h3 class="title"><a name="idm72066553648"></a>CMakeList.txt Cheat Sheet</h3></div></div></div><p>The typical way of using CMake consists of sprinkling the directory
+      - CMake Reference Manual</p></li></ul></div><div class="section" title="CMakeList.txt Cheat Sheet"><div class="titlepage"><div><div><h3 class="title"><a name="idm396244280224"></a>CMakeList.txt Cheat Sheet</h3></div></div></div><p>The typical way of using CMake consists of sprinkling the directory
     which contains your code with a files named CMakeList.txt. These permit as
     sort of "inheritance" from the top down so that commonality doesn't have
     to be repeated. These files contain CMake commands as described in the
@@ -158,7 +158,7 @@ file(GLOB include_files
     understand what's going one isn't found is one place. Also part of that
     information is implicit in the relative position of different
     CMakeList.txt files in the directory hierarchy. It's a two edged
-    sword.</p></div><div class="section" title='CMake for "Boost Like" Libraries'><div class="titlepage"><div><div><h3 class="title"><a name="idm72066529488"></a>CMake for "Boost Like" Libraries</h3></div></div></div><div class="figure-float" style="float: left;"><div class="figure"><a name="idm72066528720"></a><div class="figure-title">Figure 1. XCode Screen shot</div><div class="figure-contents"><div class="informalfigure-float" style="float: left;"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="http://rrsd.com/website/XCodeScreenShot.jpg" alt="XCode Screen shot"></div></div></div></div></div></div><br class="figure-break"></div><p>Now that we've seen the useful CMake commands, we'll use these
+    sword.</p></div><div class="section" title='CMake for "Boost Like" Libraries'><div class="titlepage"><div><div><h3 class="title"><a name="idm396244256064"></a>CMake for "Boost Like" Libraries</h3></div></div></div><div class="figure-float" style="float: left;"><div class="figure"><a name="idm396244255296"></a><div class="figure-title">Figure 1. XCode Screen shot</div><div class="figure-contents"><div class="informalfigure-float" style="float: left;"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="http://rrsd.com/website/XCodeScreenShot.jpg" alt="XCode Screen shot"></div></div></div></div></div></div><br class="figure-break"></div><p>Now that we've seen the useful CMake commands, we'll use these
     commands to craft a CMake project which can be used to create a complete
     project for you preferred IDE. I've used this to create such a project for
     Apple Xcode project to run/debug tests and examples for the Boost library
@@ -256,7 +256,7 @@ add_subdirectory("concept")
 
 # end headers in IDE
 ####################</code></pre></li></ul></div><p>Now we can generate any one of three IDE projects depending on our
-    needs: SafeIntegersTest, SafeIntegersExample, or SafeIntegers.</p><div class="section" title="CMake Library Template - abbreviated version"><div class="titlepage"><div><div><h4 class="title"><a name="idm72066512400"></a>CMake Library Template - abbreviated version</h4></div></div></div><p>The above looks useful - but still a little too "heavyweight" for
+    needs: SafeIntegersTest, SafeIntegersExample, or SafeIntegers.</p><div class="section" title="CMake Library Template - abbreviated version"><div class="titlepage"><div><div><h4 class="title"><a name="idm396243174112"></a>CMake Library Template - abbreviated version</h4></div></div></div><p>The above looks useful - but still a little too "heavyweight" for
       my taste. It also distributes the CMake files around the project which
       conflicts with common practice for Boost libraries. The following
       CMakeList.txt file creates a project for the code IDE to test and edit
@@ -458,7 +458,7 @@ add_custom_target(include SOURCES ${include_files})
 
 # end headers in IDE
 ####################
-</code></pre></div></div><div class="section" title="CTest/CDash"><div class="titlepage"><div><div><h3 class="title"><a name="idm72066509760"></a>CTest/CDash</h3></div></div></div><p>We've seen how CTest supports the automatic creation of test
+</code></pre></div></div><div class="section" title="CTest/CDash"><div class="titlepage"><div><div><h3 class="title"><a name="idm396243171472"></a>CTest/CDash</h3></div></div></div><p>We've seen how CTest supports the automatic creation of test
     scripts. This supports testing of a library by the original developer as
     well as the user who downloads the library. <a class="ulink" src="@//www.cdash.org" target="_top">CDash</a> supports the submission of the
     test results to a common location. This permits developers, users and
@@ -497,7 +497,7 @@ set(CTEST_DROP_SITE_CDASH TRUE)
           not sure where. It's not at all well explained and extremely
           confusing. Never the less, I have tested the above procedure and am
           (almost) totally pleased with the results.</p></li><li class="listitem"><p>Now when you go to <a class="ulink" src="http://rrsd.com/website/www.my.cdash.org/index.hpp" target="_top">your test dash board</a> you
-          should see your submitted test results:</p><div class="figure"><a name="idm72066498720"></a><div class="figure-title">Figure 2. cdash Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="http://rrsd.com/website/CDashScreenShot.jpg" alt="cdash Screen shot"></div></div></div></div></div><p><br class="figure-break"></p></li><li class="listitem"><p>There is only one small problem left. The default setup of the
+          should see your submitted test results:</p><div class="figure"><a name="idm396243160432"></a><div class="figure-title">Figure 2. cdash Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="http://rrsd.com/website/CDashScreenShot.jpg" alt="cdash Screen shot"></div></div></div></div></div><p><br class="figure-break"></p></li><li class="listitem"><p>There is only one small problem left. The default setup of the
           dashboard only shows the current days results. Since we want a
           cumulative record of results for different platforms we need to make
           some changes. Our example here shows what you see after invoking
@@ -506,7 +506,7 @@ set(CTEST_DROP_SITE_CDASH TRUE)
           link can be used to bring up this view anytime necessary.</p></li><li class="listitem"><p>To complete the process, go back to your library submission
           page and paste this Hyper link into the "Test Results Dashboard"
           field. Now anyone can review the test history for this particular
-          library.</p><div class="figure"><a name="idm72066491840"></a><div class="figure-title">Figure 3. Library Page Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="http://rrsd.com/website/LibraryPage.jpg" alt="Library Page Screen shot"></div></div></div></div></div><p><br class="figure-break"></p></li></ul></div><p>This procedure produces everything I want. It
+          library.</p><div class="figure"><a name="idm396243153552"></a><div class="figure-title">Figure 3. Library Page Screen shot</div><div class="figure-contents"><div class="informalfigure"><div class="screenshot"><div class="mediaobject"><img src="http://rrsd.com/website/LibraryPage.jpg" alt="Library Page Screen shot"></div></div></div></div></div><p><br class="figure-break"></p></li></ul></div><p>This procedure produces everything I want. It
     should:</p><div class="itemizedlist"><ul class="itemizedlist"><li class="listitem"><p>Distribute the testing load among all those (and only those)
           users interested in the library.</p></li><li class="listitem"><p>Display of testing results all those (and only those)
           platforms and compilers which actually use the library.</p></li><li class="listitem"><p>Be easy and painless to maintain.</p></li></ul></div></div></div>

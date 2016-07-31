@@ -27,7 +27,6 @@ all: \
 	../website/tools_deployment.html \
 	../website/tools_documentation.html \
 	../website/type.html \
-	../website/website.html \
 
 #../website/%.html : %.html %.db
 #	xsltproc --nonet -o $@ website.xsl $<
@@ -36,6 +35,7 @@ all: \
 #		--stringparam targets.filename "$*".db website.xsl $<
 
 ../website/%.html : %.xml
+	echo XML_CATALOG_FILES is $(XML_CATALOG_FILES)
 	xsltproc --nonet website.xsl $< | fixlinks.sh >$@
 
 ../website/about.html : website.xsl about.xml
@@ -66,4 +66,3 @@ all: \
 ../website/tools_deployment.html : website.xsl tools_deployment.xml
 ../website/tools_documentation.html : website.xsl tools_documentation.xml
 ../website/type.html : website.xsl type.xml
-../website/website.html : website.xsl website.xml
