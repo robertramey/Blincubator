@@ -1,53 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN"
 "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
-  <section>
-    <title>Use the Release Branch for Testing</title>
+<section>
+  <title>Use the Master Branch for Testing</title>
 
-    <para>If you're making a library which you hope to get accepted into
-    Boost, it will very likely depend upon other boost library components. Do
-    not test your code against the Boost Trunk. Consider the
-    following:<itemizedlist>
-        <listitem>
-          <para>You're using Boot Test Library to test your library.</para>
-        </listitem>
+  <para>If you're making a library which you hope to get accepted into Boost,
+  it will very likely depend upon other boost library components. Do not test
+  your code against the Boost Develop branch. Consider the
+  following:<itemizedlist>
+      <listitem>
+        <para>You're using Boot Test Library to test your library.</para>
+      </listitem>
 
-        <listitem>
-          <para>The Boost Test author makes a change and tests it on his own
-          system.</para>
-        </listitem>
+      <listitem>
+        <para>The Boost Test author makes a change and tests it on his own
+        system.</para>
+      </listitem>
 
-        <listitem>
-          <para>He uploads it to the trunk for testing on all other
-          compilers/OS combination which Boost Supports.</para>
-        </listitem>
+      <listitem>
+        <para>He uploads it to the develop for testing on all other
+        compilers/OS combination which Boost Supports.</para>
+      </listitem>
 
-        <listitem>
-          <para>Over the next few days it turns out that the code is broken on
-          some platforms he couldn't test on. So he endeavors to make the code
-          fixes required.</para>
-        </listitem>
+      <listitem>
+        <para>Over the next few days it turns out that the code is broken on
+        some platforms he couldn't test on. So he endeavors to make the code
+        fixes required.</para>
+      </listitem>
 
-        <listitem>
-          <para>Meanwhile, you've updated your local copy and you test your
-          new library. But now you get a number of subtle problems of unknown
-          origin. You have to spend a lot of time tracking down errors which
-          are not in your own code at all! This is a huge waste of
-          time.</para>
-        </listitem>
+      <listitem>
+        <para>Meanwhile, you've updated your local copy and you test your new
+        library. But now you get a number of subtle problems of unknown
+        origin. You have to spend a lot of time tracking down errors which are
+        not in your own code at all! This is a huge waste of time.</para>
+      </listitem>
 
-        <listitem>
-          <para>Eventually, the Boost Test Library author get's all the tests
-          passing and the problem goes away - IF you happen to update your
-          local copy from the trunk in the meantime.</para>
-        </listitem>
+      <listitem>
+        <para>Eventually, the Boost Test Library author gets all the tests
+        passing and the problem goes away - IF you happen to update your local
+        copy from the develop branch in the meantime.</para>
+      </listitem>
 
-        <listitem>
-          <para>This scenario supposes that you've only got one Boot Library
-          dependency in your code. In reality, due to the nested library
-          structure of all software libraries, you'll actually be dependent on
-          dozens of other libraries which your are not even aware of.</para>
-        </listitem>
-      </itemizedlist>Using the Boost Trunk copy of libraries is a huge waste
-    of your time - don't do it!</para>
-  </section>
+      <listitem>
+        <para>This scenario supposes that you've only got one Boot Library
+        dependency in your code. In reality, due to the nested library
+        structure of all software libraries, you'll actually be dependent on
+        dozens of other libraries which your are not even aware of.</para>
+      </listitem>
+    </itemizedlist>Using the Boost Develp branch for testing your own library
+  is a huge waste of your time - don't do it!</para>
+</section>

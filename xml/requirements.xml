@@ -11,9 +11,9 @@
   recent copy of Boost Libraries be installed.</para>
 
   <para>Note that some of these requirements may differ somewhat from the
-  official Boost ones. So if the library moves off this site into the official
-  Boost distribution. Some changes will have to be made. These changes should
-  be easy to make and not require much additional investment of effort.</para>
+  official Boost ones. So if/when the library is added the official Boost
+  distribution. Some changes will have to be made. These changes should be
+  easy to make and not require much additional investment of effort.</para>
 
   <xi:include href="requirements_directory_structure.xml"
               xpointer="element(/1)"

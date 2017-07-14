@@ -717,8 +717,8 @@ function bi_review_summary($post_id){
 	echo get_the_author_link();
 	echo '</a> - ';
 	echo get_the_title();
-	#echo '<a href="review?gform_post_id=' . $post_id . '"> - more ...</a>';
-    $output .= '<dt><a href="' . get_permalink() . '?gform_post_id=' . $post_id . '">';
+	echo '<a href="review?gform_post_id=' . $post_id . '"> - more ...</a>';
+    #$output .= '<dt><a href="' . get_permalink() . '?gform_post_id=' . $post_id . '">';
 	echo '<br/>';
     echo '<div class="review-line">';
 	bi_stars_line($post_id, 'knowledge_rating', 'Reviewer Knowledge');
